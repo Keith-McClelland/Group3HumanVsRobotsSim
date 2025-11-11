@@ -24,6 +24,11 @@ public class MyWorld extends World
             RockSmasher rs = new RockSmasher(150, 1.0, 75, 20);
             addObject(rs, Greenfoot.getRandomNumber(getWidth() / 2) + getWidth()/2, Greenfoot.getRandomNumber(getHeight()));
         }
+        for (int i = 0; i < 3; i++) {
+            TinyRobot tr = new TinyRobot(150, 1.0, 75, 20);
+            addObject(tr, Greenfoot.getRandomNumber(getWidth() / 2), Greenfoot.getRandomNumber(getHeight()));
+        }
+    
     
         Builders men = new Builders();
         addObject(men, getWidth()/2, getHeight()/4);

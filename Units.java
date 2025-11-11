@@ -50,8 +50,6 @@ public abstract class Units extends SuperSmoothMover
             }
         }
     }
-
-    public abstract void attack(); 
     
     public void act(){
         if (isRobot){

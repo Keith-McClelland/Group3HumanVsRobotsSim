@@ -3,9 +3,8 @@ import java.util.ArrayList;
 
 public abstract class Robot extends Units {
     private static int numRobots = 0;
-
-    private int attackCooldown = 0;
-    private static final int attackDelay = 50;
+    private int cooldown;
+    private int DELAY;
 
     protected Robot(int health, double speed, int range, int damage) {
         super(health, speed, range, damage, true);
@@ -14,16 +13,6 @@ public abstract class Robot extends Units {
 
     public void act() {
         super.act(); 
-        if (attackCooldown > 0) attackCooldown--;
-
-        if (attackCooldown == 0) {
-            attack();
-            attackCooldown = attackDelay;
-        }
-
-        if (getHealth() <= 0) {
-            getWorld().removeObject(this);
-        }
     }
     
     protected Human getClosestHuman() {
@@ -40,10 +29,12 @@ public abstract class Robot extends Units {
         return closest;
     }
     
-    public void attack() {
+    public void attackHumans() {
+        if (cooldown > 0) cooldown--;
         ArrayList<Human> targets = new ArrayList<>(getObjectsInRange(range, Human.class));
-        for (Human h : targets) {
-            h.takeDamage(damage);
+        if (!targets.isEmpty() && cooldown == 0) {
+            for (Human h : targets) h.takeDamage(damage);
+            cooldown = DELAY;
         }
     }
 

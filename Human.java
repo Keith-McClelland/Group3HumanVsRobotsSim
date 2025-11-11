@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public abstract class Human extends Units {
     private static int numHumans = 0;
 
-    private int attackCooldown = 0;
-    private static final int attackDelay = 50; 
+    private int cooldown = 0;
+    private int DELAY = 50; 
 
     protected Human(int health, double speed, int range, int damage) {
         super(health, speed, range, damage, false); 
@@ -18,10 +18,12 @@ public abstract class Human extends Units {
     }
 
     //Attacks all Robots within range by dealing damage.
-    public void attack() {
+    public void attackRobots() {
+        if (cooldown > 0) cooldown--;
         ArrayList<Robot> targets = new ArrayList<>(getObjectsInRange(range, Robot.class));
-        for (Robot r : targets) {
-            r.takeDamage(damage);
+        if (!targets.isEmpty() && cooldown == 0) {
+            for (Robot r : targets) r.takeDamage(damage);
+            cooldown = DELAY;
         }
     }
      

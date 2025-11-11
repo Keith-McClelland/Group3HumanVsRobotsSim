@@ -29,11 +29,11 @@ public class ExplodingRobot extends Robot {
             }
         }
 
-        move(getSpeed());
+        super.act();
     }
 
     private void explode() {
-        attack();
+        attackHumans();
         getWorld().removeObject(this);
     }
 }

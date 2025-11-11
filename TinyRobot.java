@@ -1,18 +1,18 @@
 import greenfoot.*;
 import java.util.ArrayList;
 
-public class RockSmasher extends Human {
+public class TinyRobot extends Robot {
     private int cooldown = 0;
     
     private static final int DELAY = 60;
 
-    public RockSmasher(int health, double speed, int range, int damage) {
+    public TinyRobot(int health, double speed, int range, int damage) {
         super(health, speed, range, damage);
     }
 
     public void act() {
         super.act();
-        attackRobots();
+        attackHumans();
         if (getHealth() <= 0) getWorld().removeObject(this);
     }
 }
