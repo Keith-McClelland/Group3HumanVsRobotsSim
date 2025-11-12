@@ -1,15 +1,13 @@
 #BlueJ class context
 comment0.target=Robot
-comment1.params=health\ speed\ range\ damage\ delay
-comment1.target=Robot(int,\ double,\ int,\ int,\ int)
+comment1.params=health\ speed\ range\ damage\ delay\ value
+comment1.target=Robot(int,\ double,\ int,\ int,\ int,\ int)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
-comment3.target=Human\ getClosestHuman()
+comment3.target=void\ attackHumans()
 comment4.params=
-comment4.target=void\ attackHumans()
-comment5.params=
-comment5.target=int\ getNumRobots()
-comment6.params=world
-comment6.target=void\ removedFromWorld(greenfoot.World)
-numComments=7
+comment4.target=int\ getNumRobots()
+comment5.params=world
+comment5.target=void\ removedFromWorld(greenfoot.World)
+numComments=6

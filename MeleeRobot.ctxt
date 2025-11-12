@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=MeleeRobot
-comment1.params=health\ speed\ range\ damage\ delay
-comment1.target=MeleeRobot(int,\ double,\ int,\ int,\ int)
+comment1.params=health\ speed\ range\ damage\ delay\ value
+comment1.target=MeleeRobot(int,\ double,\ int,\ int,\ int,\ int)
 comment2.params=
 comment2.target=void\ act()
 numComments=3

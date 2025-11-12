@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class RangedHuman extends Human {
 
-    public RangedHuman(int health, double speed, int range, int damage, int delay) {
-        super(health, speed, range, damage, delay);
+    public RangedHuman(int health, double speed, int range, int damage, int delay, int value) {
+        super(health, speed, range, damage, delay, value);
     }
 
     public void act() {

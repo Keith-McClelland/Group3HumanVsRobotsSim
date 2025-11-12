@@ -1,37 +1,42 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 import java.util.ArrayList;
 
-public abstract class Units extends SuperSmoothMover
-{
+public abstract class Units extends SuperSmoothMover {
     protected int health;
     protected int maxHealth;
     protected double speed;
-    protected int damage; 
+    protected int damage;
     protected boolean isRobot;
     protected static int numUnits;
     protected int range;
     protected int delay;
     protected double originalSpeed;
     protected int cooldown;
+    protected int value; 
+
+    protected static int humanCash = 0;
+    protected static int robotCash = 0;
 
     protected SuperStatBar healthBar;
-    
-    public Units(int health, double speed, int range, int damage, int delay, boolean isRobot){
+
+    public Units(int health, double speed, int range, int damage, int delay, int value, boolean isRobot) {
         this.health = health;
-        this.maxHealth = health; 
+        this.maxHealth = health;
         this.speed = speed;
         this.range = range;
         this.damage = damage;
-        this.isRobot = isRobot;
         this.delay = delay;
+        this.value = value; 
+        this.isRobot = isRobot;
         numUnits++;
+        this.originalSpeed = speed;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(int hp){
+    public void setHealth(int hp) {
         this.health = hp;
         updateHealthBar();
     }
@@ -39,31 +44,35 @@ public abstract class Units extends SuperSmoothMover
     public boolean isRobot() {
         return isRobot;
     }
-    
-    public double getSpeed(){
+
+    public double getSpeed() {
         return speed;
     }
 
     public void takeDamage(int dmg) {
         health -= dmg;
         updateHealthBar();
-        if (health <= 0) {
-            if (getWorld() != null) {
-                getWorld().removeObject(healthBar);
-                getWorld().removeObject(this);
+        if (health <= 0 && getWorld() != null) {
+            if (isRobot) {
+                humanCash += value;
+            } else {
+                robotCash += value;
             }
+
+            getWorld().removeObject(healthBar);
+            getWorld().removeObject(this);
         }
     }
-    
-    public void act(){
-        if (isRobot){
+
+    public void act() {
+        if (isRobot) {
             move(speed);
         } else {
             move(-speed);
         }
-        updateHealthBar(); 
+        updateHealthBar();
     }
-    
+
     protected Human getClosestHuman() {
         ArrayList<Human> humans = new ArrayList<>(getWorld().getObjects(Human.class));
         Human closest = null;
@@ -77,6 +86,7 @@ public abstract class Units extends SuperSmoothMover
         }
         return closest;
     }
+
     protected Robot getClosestRobot() {
         ArrayList<Robot> robots = new ArrayList<>(getWorld().getObjects(Robot.class));
         Robot closest = null;
@@ -92,10 +102,11 @@ public abstract class Units extends SuperSmoothMover
     }
 
     protected void addedToWorld(World world) {
-        healthBar = new SuperStatBar(maxHealth, health, this, 40, 6, 30, Color.GREEN, Color.RED, true, Color.BLACK, 1);
+        healthBar = new SuperStatBar(maxHealth, health, this, 40, 6, 30,
+                                     Color.GREEN, Color.RED, true, Color.BLACK, 1);
         world.addObject(healthBar, getX(), getY() + 30);
     }
-    
+
     protected double getDistanceTo(Actor a) {
         double dx = getPreciseX() - ((SuperSmoothMover)a).getPreciseX();
         double dy = getPreciseY() - ((SuperSmoothMover)a).getPreciseY();
@@ -107,5 +118,21 @@ public abstract class Units extends SuperSmoothMover
         if (healthBar != null) {
             healthBar.update(health);
         }
+    }
+
+    public static int getHumanCash() {
+        return humanCash;
+    }
+
+    public static int getRobotCash() {
+        return robotCash;
+    }
+
+    public static void addHumanCash(int amount) {
+        humanCash += amount;
+    }
+
+    public static void addRobotCash(int amount) {
+        robotCash += amount;
     }
 }
