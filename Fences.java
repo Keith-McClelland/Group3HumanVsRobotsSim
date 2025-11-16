@@ -7,7 +7,7 @@ public class Fences extends SuperSmoothMover {
     //track if the fence has been created
     private static boolean fencesComplete = false;
     //the amount of damage the fence can withstand 
-    private static int hitpoint = 10000;
+    private static int hitpoint = 15000;
     //creates and holds the image of the fence 
     GreenfootImage fence = new GreenfootImage("images/fence.png");
 

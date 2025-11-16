@@ -24,7 +24,7 @@ public class Turret extends SuperSmoothMover
     
     private void shoot()
     {
-        Projectile b = new Projectile(1);                 // create a Bullet object
-        getWorld().addObject(b, getX()+60, getY()-43);
+        //Projectile b = new Projectile(1);                 // create a Bullet object
+        //getWorld().addObject(b, getX()+60, getY()-43);
     }
 }

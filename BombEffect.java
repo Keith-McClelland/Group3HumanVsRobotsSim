@@ -82,7 +82,7 @@ public class BombEffect extends SuperSmoothMover
             for (Human human : humanInRange) {
                 getWorld().removeObject(human);
             }
-            Fences.damage(500);
+            Fences.damage(3000);
             getWorld().removeObject(this);
         }
     }

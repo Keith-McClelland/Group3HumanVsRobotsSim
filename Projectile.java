@@ -1,80 +1,78 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
+import greenfoot.*;
 
 public class Projectile extends SuperSmoothMover
 {
-    //speed for the projectile 
-    private double speed = 0;
+    private double speed;
+    private double angle;
+    private int damage;
 
-    //working on range(dissapears at certain range)
-    private int timer = 0;
-    private int transparency = 255;
-    
-    //image for the projectile
-    GreenfootImage laser = new GreenfootImage("images/laser.png");
-    public Projectile(double speed)
+    public Projectile(double speed, double angle, int damage)
     {
         this.speed = speed;
+        this.angle = angle;
+        this.damage = damage;
+
+        setRotation((int)angle);
     }
-    
+
     public void act()
     {
+        if (getWorld() == null) return;
+
+        moveProjectile();
+        checkCollision();
         checkEdges();
-        if(getWorld() == null)
-        {
-            return;
-        }
-        timer++;
-        move();
-        
-        checkCollision();  // <-- remove if off-screen
-        //dissapear();
     }
-    
-    private void dissapear()
+
+    private void moveProjectile()
     {
-        if(timer %  2 == 0)
-        {
-            if(transparency < 0) transparency = 0;
-            else if(transparency > 0)
-            {
-                speed += 0.5;
-                transparency -= 7;
-            }
-        }
-        
-        if(transparency <= 0)
-        {
-            getWorld().removeObject(this);
-        }
-        else 
-        {
-            getImage().setTransparency(transparency);
-        }
+        double rad = Math.toRadians(angle);
+        double dx = Math.cos(rad) * speed;
+        double dy = Math.sin(rad) * speed;
+        setLocation(getX() + dx, getY() + dy);
     }
-    
-    private void move()
-    {
-        if(timer %  20 == 0 ) speed += 1.5;
-        setLocation(getX() + speed, getY());
-    }
-    
+
     private void checkCollision()
     {
-        Fences buildingHit = (Fences)getOneIntersectingObject(Fences.class);
-        if(buildingHit != null)
+        if (getWorld() == null) return;
+
+        // Check Fences
+        Fences fenceHit = (Fences)getOneIntersectingObject(Fences.class);
+        if (fenceHit != null)
         {
-            buildingHit.damage(500);
-            getWorld().removeObject(this);
+            fenceHit.damage(damage);
+            removeSelf();
+            return;
+        }
+
+        // Check Robots (any type)
+        Robot robotHit = (Robot)getOneIntersectingObject(Robot.class);
+        if (robotHit != null)
+        {
+            robotHit.takeDamage(damage);
+            removeSelf();
         }
     }
-    
-    // Remove projectile if it goes off-screen
+
     private void checkEdges()
     {
-        if(getX() < 0 || getX() > getWorld().getWidth()-10)
+        if (getWorld() == null) return;
+
+        if (getX() < 0 || getX() > getWorld().getWidth() ||
+            getY() < 0 || getY() > getWorld().getHeight())
+        {
+            removeSelf();
+        }
+    }
+
+    private void removeSelf()
+    {
+        if (getWorld() != null)
         {
             getWorld().removeObject(this);
         }
     }
 }
+
+
+
