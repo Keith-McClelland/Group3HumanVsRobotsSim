@@ -1,18 +1,18 @@
-import greenfoot.*; 
+import greenfoot.*;
 import java.util.List;
 
 public class MeleeHuman extends Human {
 
     private GreenfootImage idleImage;              
-    private GreenfootImage[] walkingFrames = new GreenfootImage[7]; 
-    private GreenfootImage[] attackFrames = new GreenfootImage[3]; // Damage frames
+    private GreenfootImage[] walkingFrames; 
+    private GreenfootImage[] attackFrames;
 
-    private int walkAnimationCounter = 0;
-    private int walkAnimationSpeed = 5; // acts per frame
+    private int walkCounter = 0;
+    private int walkSpeed = 5;
 
+    private int attackCounter = 0;
+    private int attackSpeed = 10;
     private int attackFrameIndex = 0;
-    private int attackFrameCounter = 0;
-    private int attackFrameSpeed = 10; // acts per frame
     private boolean attacking = false;
 
     public MeleeHuman(int health, double speed, int range, int damage, int delay, int value) {
@@ -21,111 +21,74 @@ public class MeleeHuman extends Human {
         // Idle image
         idleImage = new GreenfootImage("meeleHuman000.png");
         idleImage.mirrorHorizontally();
-        idleImage.scale(65,65);
+        idleImage.scale(45, 55);
         setImage(idleImage);
 
-        // Walking frames 1–7
-        for (int i = 1; i <= 7; i++) {
-            walkingFrames[i-1] = new GreenfootImage("meeleHuman00" + i + ".png");
-            walkingFrames[i-1].mirrorHorizontally();
-            walkingFrames[i-1].scale(65,65);
+        // Walking frames
+        walkingFrames = new GreenfootImage[7];
+        for (int i = 0; i < 7; i++) {
+            walkingFrames[i] = new GreenfootImage("meeleHuman00" + i + ".png");
+            walkingFrames[i].mirrorHorizontally();
+            walkingFrames[i].scale(45, 55);
         }
 
-        // Attack frames 0–2
+        // Attack frames
+        attackFrames = new GreenfootImage[3];
         for (int i = 0; i < 3; i++) {
             attackFrames[i] = new GreenfootImage("humanMeeleAttack00" + i + ".png");
             attackFrames[i].mirrorHorizontally();
-            attackFrames[i].scale(65,65);
+            attackFrames[i].scale(60, 65);
         }
     }
 
     @Override
     protected void attackBehavior() {
-        // Not used in act()
-    }
+        if (cooldown > 0) cooldown--;
 
-    @Override
-    public void act() {
-        if (getWorld() == null || getHealth() <= 0) return;
-
-        MeleeRobot target = getClosestMeleeRobot();
-        if (target != null) {
-            double distance = getDistanceTo(target);
-
-            if (distance > range) {
-                // Move toward robot
-                attacking = false;
-                moveToward(target);
-                animateWalking();
-            } else {
-                // Attack when touching
-                attacking = true;
-                animateAttack(target);
-            }
-        } else {
-            // No target → idle
+        Robot target = getClosestRobot();
+        if (target == null) {
+            // No target → move forward
             attacking = false;
             setImage(idleImage);
+            moveForward();
+            animateWalk();
+            return;
+        }
+
+        double distance = getDistanceTo(target);
+
+        if (distance <= range) {
+            // Attack target
+            attacking = true;
+            animateAttack(target);
+        } else {
+            // Move toward target
+            attacking = false;
+            moveTowardRobot(target);
+            animateWalk();
         }
     }
 
-    private void animateAttack(MeleeRobot target) {
+    private void animateWalk() {
+        int frame = (walkCounter / walkSpeed) % walkingFrames.length;
+        setImage(walkingFrames[frame]);
+        walkCounter++;
+    }
+
+    private void animateAttack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
 
-        // Deal damage only when cooldown allows
         if (cooldown == 0) {
             target.takeDamage(damage);
             cooldown = delay;
-        } else {
-            cooldown--;
         }
 
-        // Advance attack frame at controlled speed
-        attackFrameCounter++;
-        if (attackFrameCounter >= attackFrameSpeed) {
-            attackFrameCounter = 0;
+        attackCounter++;
+        if (attackCounter >= attackSpeed) {
+            attackCounter = 0;
             attackFrameIndex = (attackFrameIndex + 1) % attackFrames.length;
         }
     }
-
-    private void animateWalking() {
-        int frame = (walkAnimationCounter / walkAnimationSpeed) % walkingFrames.length;
-        setImage(walkingFrames[frame]);
-        walkAnimationCounter++;
-    }
-
-    private void moveToward(MeleeRobot target) {
-        double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
-        double distance = Math.hypot(dx, dy);
-
-        if (distance > 0) {
-            setLocation(
-                getX() + (int)(dx / distance * getSpeed()),
-                getY() + (int)(dy / distance * getSpeed())
-            );
-        }
-    }
-
-    private MeleeRobot getClosestMeleeRobot() {
-        if (getWorld() == null) return null;
-
-        List<MeleeRobot> robots = getWorld().getObjects(MeleeRobot.class);
-        MeleeRobot closest = null;
-        double minDist = Double.MAX_VALUE;
-
-        for (MeleeRobot r : robots) {
-            if (r.getHealth() <= 0) continue;
-            double dist = getDistanceTo(r);
-            if (dist < minDist) {
-                minDist = dist;
-                closest = r;
-            }
-        }
-        return closest;
-    }
 }
-
-
 
 

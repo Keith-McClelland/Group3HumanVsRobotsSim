@@ -7,7 +7,7 @@ public class Projectile extends SuperSmoothMover
     private int damage;
     private Owner owner; // Who fired the projectile
 
-    public enum Owner { HUMAN, ROBOT }
+    public enum Owner { HUMAN, ROBOT, CANON }
 
     public Projectile(double speed, double angle, int damage, Owner owner)
     {
@@ -17,6 +17,16 @@ public class Projectile extends SuperSmoothMover
         this.owner = owner;
 
         setRotation((int)angle);
+        
+        if (owner == Owner.HUMAN) {
+            setImage("laser.png");
+        } 
+        else if (owner == Owner.ROBOT) {
+            setImage("ray.png");
+        } 
+        else if (owner == Owner.CANON) {
+            setImage("canonBall.png");
+        }
     }
 
     public void act()
@@ -59,7 +69,7 @@ public class Projectile extends SuperSmoothMover
         }
 
         // Robots are hit only by Human projectiles
-        if (owner == Owner.HUMAN) {
+        if (owner == Owner.HUMAN || owner == Owner.CANON) {
             Robot robotHit = (Robot)getOneIntersectingObject(Robot.class);
             if (robotHit != null) {
                 robotHit.takeDamage(damage);
@@ -71,12 +81,19 @@ public class Projectile extends SuperSmoothMover
     private void checkEdges()
     {
         if (getWorld() == null) return;
-
-        if (getX() < 0 || getX() > getWorld().getWidth() ||
-            getY() < 0 || getY() > getWorld().getHeight()) {
+    
+        int x = getX();
+        int y = getY();
+        int width = getWorld().getWidth();
+        int height = getWorld().getHeight();
+    
+        int margin = 5; // buffer in pixels
+    
+        if (x < margin || x > width - margin || y < 175 || y > height - margin) {
             removeSelf();
         }
     }
+
 
     private void removeSelf()
     {

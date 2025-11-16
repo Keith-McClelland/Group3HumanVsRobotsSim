@@ -1,5 +1,4 @@
 import greenfoot.*;
-import java.awt.Color;
 
 public class Builders extends SuperSmoothMover {
     private int fenceSpacing = 40;
@@ -16,8 +15,8 @@ public class Builders extends SuperSmoothMover {
     public Builders() {
         setImage(builder);
         
-        // Builder progress bar
-        //workProgressBar = new SuperStatBar(maxFences, 0, this, 50, 6, -40, Color.RED, Color.YELLOW);
+        //Builder progressbar;
+        workProgressBar = new SuperStatBar(maxFences, 0, this, 50, 6, -40, Color.RED, Color.YELLOW);
     }
 
     public void addedToWorld(World world) {

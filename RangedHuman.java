@@ -3,7 +3,7 @@ import greenfoot.*;
 public class RangedHuman extends Human {
 
     private long lastShotTime = 0;
-    private long cooldownTime = 1200; // ms between shots
+    private long cooldownTime = 600; // ms between shots
     private double projectileSpeed = 6;
 
     private boolean stoppedToShoot = false;
@@ -83,14 +83,11 @@ public class RangedHuman extends Human {
     }
 
     @Override
-    protected void moveTowardRobot() {
-        // Prevent automatic movement from base class
-    }
-
-    @Override
     protected void attackBehavior() {
         // Not used — shooting handled in act()
     }
 }
+
+
 
 

@@ -35,6 +35,15 @@ public class MyWorld extends World {
         Turret turret = new Turret();
         addObject(turret,100,getHeight()/2+50);
         
+        Canon canon = new Canon();
+        addObject(canon,getWidth()-100,getHeight()/2+50);
+        
+        StatBoard humanStatboard = new StatBoard();
+        StatBoard robotStatboard = new StatBoard();
+
+        addObject(humanStatboard,105, 75);
+        addObject(robotStatboard,getWidth()-105, 75);
+
         Units.setHumanCash(0);
         Units.setRobotCash(0);
     }
@@ -53,6 +62,30 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             spawnRobots();
         }
+        /*
+        // Spawn builder ONLY if no fence exists AND no builder exists
+        if (Units.getHumanCash() >= 100 && !fenceExists() && !builderExists()) {
+            spawnBuilder();
+            Units.setHumanCash(Units.getHumanCash() - 100);
+        }*/
+    }
+
+    // ------------------------------
+    // NEW METHODS
+    // ------------------------------
+
+    private boolean fenceExists() {
+        return !getObjects(Fences.class).isEmpty();
+    }
+
+    private boolean builderExists() {
+        return !getObjects(Builders.class).isEmpty();
+    }
+
+    private void spawnBuilder() {
+        int y = 175;
+        Builders builder = new Builders();
+        addObject(builder, getWidth() - 100, y);
     }
 
     private void updateCash() {
@@ -83,7 +116,7 @@ public class MyWorld extends World {
             MeleeHuman human = new MeleeHuman(100, 2, 40, 20, 40, 10);
             addObject(human, getWidth() - 50, y);
         } else {
-            RangedHuman human = new RangedHuman(80, 2, 400, 30, 40, 10);
+            RangedHuman human = new RangedHuman(80, 2, 400, 40, 40, 10);
             addObject(human, getWidth() - 50, y);
         }
     }
@@ -93,16 +126,14 @@ public class MyWorld extends World {
         int maxY = getHeight() - 1;
         int y = minY + Greenfoot.getRandomNumber(maxY - minY + 1);
 
-        int choice = Greenfoot.getRandomNumber(1);
+        int choice = Greenfoot.getRandomNumber(2);
         if (choice == 0) {
-            MeleeRobot robot = new MeleeRobot(150, 2, 40, 10, 40, 10);
+            MeleeRobot robot = new MeleeRobot(250, 2, 40, 10, 40, 10);
             addObject(robot, 50, y);
         }
-        /*
-        } else {
-            ExplodingRobot robot = new ExplodingRobot(60, 2, 40, 15, 40, 10);
+        else {
+            RangedRobot robot = new RangedRobot(100, 2, 400, 15, 40, 10);
             addObject(robot, 50, y);
-        }*/
+        }
     }
 }
-

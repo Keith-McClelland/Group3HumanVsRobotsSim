@@ -5,7 +5,7 @@ public class Turret extends SuperSmoothMover
 {
     private GreenfootImage turretImage;
     private long lastShotTime = 0;
-    private long cooldownTime = 500; // Faster firing (ms)
+    private long cooldownTime = 300; // Faster firing (ms)
     private double projectileSpeed = 10; // Faster projectiles
     private int projectileDamage = 20; // Example damage
     private int range = 500; // Longer range

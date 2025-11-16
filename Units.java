@@ -112,15 +112,22 @@ public abstract class Units extends SuperSmoothMover {
         }
     }
 
-    @Override
-    public void act() {
-        if (isRobot) move(speed);
-        else move(-speed);
+   
+public void act() {
+    if (getWorld() == null) return;
 
-        updateHealthBar();
-        checkEdges();
-        restrictPlayableArea();
+    // Default movement if no target
+    if (isRobot) {
+        move(speed); // move right
+    } else {
+        move(-speed); // move left
     }
+
+    updateHealthBar();
+    checkEdges();
+    restrictPlayableArea();
+}
+
 
     
     protected void checkEdges() {
