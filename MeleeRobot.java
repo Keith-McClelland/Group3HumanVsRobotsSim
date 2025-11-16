@@ -4,17 +4,53 @@ import java.util.List;
 public class MeleeRobot extends Robot {
 
     private GreenfootImage robotImage;
-    private int animationCounter = 0;
-    private int animationSpeed = 5; // in case you add walking frames later
     private int cooldown = 0;
+    private boolean dying = false; // for fade out
 
     public MeleeRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
-        // Load robot image
         robotImage = new GreenfootImage("robot.png");
         robotImage.scale(50, 50);
         setImage(robotImage);
+    }
+
+    @Override
+    public void act() {
+        if (getWorld() == null) return;
+
+        // Update health bar each frame
+        updateHealthBar();
+
+        // Handle death
+        if (getHealth() <= 0 && !dying) {
+            dying = true;
+            removeHpBar(); // remove bar immediately
+        }
+
+        if (dying) {
+            fadeOut();
+            return;
+        }
+
+        attackBehavior();
+    }
+
+    private void fadeOut() {
+        GreenfootImage img = getImage();
+        int alpha = img.getTransparency() - 10; // fade speed
+        if (alpha <= 0) {
+            getWorld().removeObject(this);
+        } else {
+            img.setTransparency(alpha);
+        }
+    }
+
+    private void removeHpBar() {
+        if (healthBar != null && getWorld() != null) {
+            getWorld().removeObject(healthBar);
+            healthBar = null;
+        }
     }
 
     @Override
@@ -27,13 +63,11 @@ public class MeleeRobot extends Robot {
         double distance = getDistanceTo(target);
 
         if (distance <= range) {
-            // Attack human
             if (cooldown == 0) {
                 target.takeDamage(damage);
                 cooldown = delay;
             }
         } else {
-            // Move toward the human
             moveToward(target);
         }
     }
@@ -49,19 +83,6 @@ public class MeleeRobot extends Robot {
                 getY() + (int)(dy / distance * getSpeed())
             );
         }
-    }
-
-    @Override
-    public void act() {
-        if (getWorld() == null) return;
-        if (getHealth() <= 0) {
-            // Remove robot safely
-            if (hpBar != null) getWorld().removeObject(hpBar);
-            getWorld().removeObject(this);
-            return;
-        }
-
-        attackBehavior();
     }
 
     @Override

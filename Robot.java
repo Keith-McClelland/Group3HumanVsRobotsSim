@@ -6,11 +6,13 @@ public abstract class Robot extends Units {
     protected SuperStatBar hpBar;
     private static int numRobots = 0;
     protected boolean pendingRemoval = false; // flag for safe removal
+    private int displayedHealth; // for smooth HP bar
 
     protected Robot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value, true);
         numRobots++;
 
+        displayedHealth = health;
         hpBar = new SuperStatBar(health, this);
     }
 
@@ -23,14 +25,22 @@ public abstract class Robot extends Units {
     public void act() {
         if (getWorld() == null) return;
 
-        if (getHealth() <= 0 && !pendingRemoval) {
-            pendingRemoval = true; // mark for removal
+        // Smoothly update HP bar
+        if (hpBar != null) {
+            if (displayedHealth > getHealth()) {
+                displayedHealth--; // shrink gradually
+            } else if (displayedHealth < getHealth()) {
+                displayedHealth++; // heal gradually if needed
+            }
+            hpBar.update(displayedHealth);
         }
 
-        // Update HP bar
-        if (hpBar != null) hpBar.update(getHealth());
+        // Check death
+        if (getHealth() <= 0 && !pendingRemoval) {
+            pendingRemoval = true;
+        }
 
-        // Only continue actions if not pending removal
+        // Only act if alive
         if (!pendingRemoval) {
             attackBehavior();
             moveTowardHuman();
@@ -78,8 +88,19 @@ public abstract class Robot extends Units {
     public static int getNumRobots() {
         return numRobots;
     }
-}
 
+    @Override
+    public void takeDamage(int dmg) {
+        super.takeDamage(dmg);
+
+        // Ensure HP bar updates instantly as well
+        if (hpBar != null) hpBar.update(getHealth());
+
+        if (getHealth() <= 0 && !pendingRemoval) {
+            pendingRemoval = true;
+        }
+    }
+}
 
 
 

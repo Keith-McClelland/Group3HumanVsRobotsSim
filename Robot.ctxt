@@ -16,4 +16,6 @@ comment7.params=
 comment7.target=void\ die()
 comment8.params=
 comment8.target=int\ getNumRobots()
-numComments=9
+comment9.params=dmg
+comment9.target=void\ takeDamage(int)
+numComments=10

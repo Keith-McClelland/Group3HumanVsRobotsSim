@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; 
 import java.util.List;
 
 public class MeleeHuman extends Human {
@@ -104,6 +104,7 @@ public class MeleeHuman extends Human {
         return closest;
     }
 }
+
 
 
 
