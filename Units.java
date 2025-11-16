@@ -34,10 +34,26 @@ public abstract class Units extends SuperSmoothMover {
         this.originalSpeed = speed;
     }
 
-    public int getHealth() { return health; }
-    public void setHealth(int hp) { health = hp; updateHealthBar(); }
-    public boolean isRobot() { return isRobot; }
-    public double getSpeed() { return speed; }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int hp) {
+        this.health = hp;
+        updateHealthBar();
+    }
+
+    public boolean isRobot() {
+        return isRobot;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+    public int getRange(){
+        return range;
+    }
 
     public void takeDamage(int dmg) {
         health -= dmg;

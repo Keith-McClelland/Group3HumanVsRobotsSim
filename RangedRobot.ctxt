@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=RangedRobot
+comment1.params=health\ speed\ range\ damage\ delay\ value
+comment1.target=RangedRobot(int,\ double,\ int,\ int,\ int,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=target
+comment3.target=void\ spawnProjectile(Human)
+comment4.params=
+comment4.target=void\ moveForward()
+numComments=5

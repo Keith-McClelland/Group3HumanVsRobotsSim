@@ -2,8 +2,11 @@ import greenfoot.*;
 import java.util.List;
 
 public class ExplodingRobot extends Robot {
+
     private int explosionRadius = 50;
-    private int detectionRange = 300;
+    private int detectionRange;
+    private double rushSpeed;
+    private boolean rushing = false;
 
     // Walking animation
     private GreenfootImage[] walkFrames;
@@ -13,6 +16,10 @@ public class ExplodingRobot extends Robot {
 
     public ExplodingRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
+
+        this.detectionRange = range * 2;
+        this.rushSpeed = 2.5 * speed;
+
         loadWalkingFrames();
         setImage(walkFrames[0]);
     }
@@ -21,19 +28,24 @@ public class ExplodingRobot extends Robot {
         walkFrames = new GreenfootImage[8];
         for (int i = 0; i < 8; i++) {
             walkFrames[i] = new GreenfootImage("ExplodingRobotWalking" + (i + 1) + ".png");
-            walkFrames[i].scale(20,50);
+            walkFrames[i].scale(20, 50);
         }
     }
 
     @Override
     public void act() {
         super.act();
-        animateWalking();
+
+        if (!pendingRemoval) {
+            attackBehavior();
+            animateWalking();
+        } else {
+            // safely remove after explosion
+            if (getWorld() != null) getWorld().removeObject(this);
+        }
     }
 
     private void animateWalking() {
-        if (pendingRemoval) return; // do not animate if dying
-
         frameCounter++;
         if (frameCounter >= frameDelay) {
             frameCounter = 0;
@@ -47,31 +59,31 @@ public class ExplodingRobot extends Robot {
         if (cooldown > 0) cooldown--;
 
         Human closest = getClosestHuman();
-        if (closest != null) {
-            double dist = getDistanceTo(closest);
+        if (closest == null) return;
 
-            // Explode if human is within radius
-            if (dist <= explosionRadius) {
-                pendingRemoval = true; // defer removal safely
-                explode();
-                return; // stop further actions
-            }
+        double dist = getDistanceTo(closest);
 
-            // Move diagonally toward human if within detection range
-            if (dist <= detectionRange) {
-                double dx = closest.getX() - getX();
-                double dy = closest.getY() - getY();
-                double distance = Math.hypot(dx, dy);
-                setLocation(getX() + (int)(dx / distance * getSpeed()),
-                            getY() + (int)(dy / distance * getSpeed()));
-            }
+        // Explode if human is within explosion radius
+        if (dist <= explosionRadius) {
+            explode();
+            pendingRemoval = true;
+            return;
+        }
+
+        // Move toward human if within detection range
+        if (dist <= detectionRange) {
+            double dx = closest.getX() - getX();
+            double dy = closest.getY() - getY();
+            double distance = Math.hypot(dx, dy);
+            setLocation(getX() + (int)(dx / distance * getSpeed()),
+                        getY() + (int)(dy / distance * getSpeed()));
         }
     }
 
     private void explode() {
         if (getWorld() == null) return;
 
-        // Create explosion effect
+        // Explosion effect
         BombEffect explosion = new BombEffect();
         getWorld().addObject(explosion, getX(), getY());
 
@@ -82,5 +94,4 @@ public class ExplodingRobot extends Robot {
         }
     }
 }
-
 

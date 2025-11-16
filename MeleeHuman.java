@@ -32,6 +32,11 @@ public class MeleeHuman extends Human {
     }
 
     @Override
+    protected void attackBehavior() {
+        // Not used, attack handled in act()
+    }
+
+    @Override
     public void act() {
         if (getWorld() == null || getHealth() <= 0) return;
 
@@ -40,24 +45,21 @@ public class MeleeHuman extends Human {
             double distance = getDistanceTo(target);
 
             if (distance > range) {
+                // Move toward robot
                 moveToward(target);
                 animateWalking();
             } else {
                 // Attack when touching
                 setImage(attackImage);
-                attackBehavior(target);
+                attackTarget(target);
             }
         } else {
-            setImage(idleImage); // no target
+            // No target → idle
+            setImage(idleImage);
         }
     }
 
-    @Override
-    protected void attackBehavior() {
-        // Not used in act(), must provide abstract implementation
-    }
-
-    private void attackBehavior(MeleeRobot target) {
+    private void attackTarget(MeleeRobot target) {
         if (cooldown > 0) cooldown--;
         else {
             target.takeDamage(damage);
@@ -102,8 +104,6 @@ public class MeleeHuman extends Human {
         return closest;
     }
 }
-
-
 
 
 

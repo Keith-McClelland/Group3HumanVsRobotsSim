@@ -3,8 +3,8 @@ import greenfoot.*;
 public class RangedHuman extends Human {
 
     private long lastShotTime = 0;
-    private long cooldownTime = 1200; // milliseconds between shots
-    private double projectileSpeed = 6; // projectile speed
+    private long cooldownTime = 1200; // ms between shots
+    private double projectileSpeed = 6;
 
     private boolean stoppedToShoot = false;
 
@@ -23,16 +23,13 @@ public class RangedHuman extends Human {
             walkFrames[i].mirrorHorizontally();
             walkFrames[i].scale(55,50);
         }
-        
-        shootFrame = new GreenfootImage("rangedHuman005.png");
-        shootFrame.scale(55,50);
-        shootFrame.mirrorHorizontally();
 
-        // Set initial image
+        shootFrame = new GreenfootImage("rangedHuman005.png");
+        shootFrame.mirrorHorizontally();
+        shootFrame.scale(55,50);
+
         setImage(walkFrames[0]);
     }
-
-
 
     @Override
     public void act() {
@@ -46,7 +43,7 @@ public class RangedHuman extends Human {
         if (target != null && getDistanceTo(target) <= range) {
             // Stop and shoot
             stoppedToShoot = true;
-            setImage(shootFrame); // shooting frame
+            setImage(shootFrame);
             shootIfReady(target);
         } else {
             // Move left with walking animation
@@ -87,14 +84,13 @@ public class RangedHuman extends Human {
 
     @Override
     protected void moveTowardRobot() {
-        // Override to prevent base class movement
+        // Prevent automatic movement from base class
     }
 
     @Override
     protected void attackBehavior() {
-        // Not used — handled in act()
+        // Not used — shooting handled in act()
     }
 }
-
 
 

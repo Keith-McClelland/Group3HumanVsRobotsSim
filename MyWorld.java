@@ -5,6 +5,8 @@ public class MyWorld extends World {
     //se
     GreenfootImage background = new GreenfootImage("images/background.png");
     public static int topEdge = 275;
+    public static double robotSpawnMultiplier = 1;
+    public static double humanSpawnMultiplier = 1;
 
     // Text display images
     private GreenfootImage humanCashImage;
@@ -37,6 +39,7 @@ public class MyWorld extends World {
         Units.setHumanCash(0);
         Units.setRobotCash(0);
 
+
         // Set text positions
         humanCashX = getWidth() - 250;
         humanCashY = getHeight() - 40;
@@ -47,7 +50,7 @@ public class MyWorld extends World {
     }
 
     public void act() {
-        updateCashDisplay();
+        updateCash();
         frameCount++;
         
         // Spawn humans on left
@@ -63,18 +66,31 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             spawnRobots();
         }
+
+        robotSpawnMultiplier = 1;
+        humanSpawnMultiplier = 1;
+
+        // Set text positions (bottom corners)
+        humanCashX = getWidth() - 175;
+        humanCashY = 45;
+        robotCashX = 30;
+        robotCashY = 45;
     }
 
-    private void updateCashDisplay() {
+
+    private void updateCash() {
         GreenfootImage frame = getBackground();
         frame.drawImage(background, 0, 0); // redraw background
-
         humanCashImage = new GreenfootImage("Human Cash: " + Units.getHumanCash(), 24, Color.WHITE, new Color(0, 0, 0, 150));
         robotCashImage = new GreenfootImage("Robot Cash: " + Units.getRobotCash(), 24, Color.WHITE, new Color(0, 0, 0, 150));
 
         frame.drawImage(robotCashImage, robotCashX, robotCashY);
         frame.drawImage(humanCashImage, humanCashX, humanCashY);
+        
+        robotSpawnMultiplier += Units.getRobotCash() * 0.000001;
+        humanSpawnMultiplier += Units.getHumanCash() * 0.000001;
     }
+
     
     private void spawn() {
         // Spawn builder
@@ -103,6 +119,7 @@ public class MyWorld extends World {
 
     MeleeHuman human= new MeleeHuman(health, speed, range, damage, delay, value);
     addObject(human, getWidth() - 50, y); // right side
+
 }
 
 private void spawnRobots() {
