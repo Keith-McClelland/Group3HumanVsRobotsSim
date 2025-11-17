@@ -6,10 +6,12 @@ public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
     public static int topEdge = 275;
+    public static int frameCount = 0;
 
     private int spawnInterval = 200;
     private int humanSpawnTimer = 0;
     private int robotSpawnTimer = 0;
+    
 
     // Keep original positions for statboards if needed
     private StatBoard humanStatboard;
@@ -50,9 +52,17 @@ public class MyWorld extends World {
 
         Units.setHumanCash(0);
         Units.setRobotCash(0);
+        Human.setTotalHumansSpawned(0);
+        Robot.setTotalRobotsSpawned(0);
+        frameCount = 0; 
     }
 
     public void act() {
+    
+        
+        frameCount++;
+        EndSimWorld.totalTimeElapsed = frameCount;
+
         humanSpawnTimer++;
         if (humanSpawnTimer >= spawnInterval) {
             humanSpawnTimer = 0;

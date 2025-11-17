@@ -5,10 +5,13 @@ public abstract class Robot extends Units {
     protected int cooldown = 0;
     protected boolean pendingRemoval = false; // flag for safe removal
     private static int numRobots = 0;
+    public static int totalRobotsSpawned = 0;
+
 
     protected Robot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value, true);
         numRobots++;
+        totalRobotsSpawned++;
     }
 
     @Override
@@ -27,6 +30,8 @@ public abstract class Robot extends Units {
         } else {
             die();
         }
+        checkEdges();
+
     }
 
     protected abstract void attackBehavior();
@@ -81,6 +86,7 @@ public abstract class Robot extends Units {
             pendingRemoval = true;
         }
     }
+    public static void setTotalRobotsSpawned(int amount) { totalRobotsSpawned = amount; }
 }
 
 

@@ -12,4 +12,6 @@ comment5.params=target
 comment5.target=void\ moveTowardRobot(Robot)
 comment6.params=
 comment6.target=void\ moveForward()
-numComments=7
+comment7.params=amount
+comment7.target=void\ setTotalHumansSpawned(int)
+numComments=8

@@ -19,11 +19,13 @@ public abstract class Units extends SuperSmoothMover {
 
     protected int delay;
     protected int cooldown;
-
+    
+    //manages the resource
     protected int value;
-
-    public static int humanCash = 0;
-    public static int robotCash = 0;
+    protected static int humanCash = 0;
+    protected static int robotCash = 0;
+    protected static int numHumans = 0;
+    protected static int numRobots = 0;
 
     public static final int MIN_PLAYABLE_Y = 175;
 
@@ -125,12 +127,29 @@ public abstract class Units extends SuperSmoothMover {
         int x = getX();
         int worldWidth = getWorld().getWidth();
 
-        if (x < 5 || x >= worldWidth - 5) {
-            removeHealthBar();
-            getWorld().removeObject(this);
-        }
+    // Human reaches left edge → Robots win
+    if (!isRobot && x <= 5) {
+        Greenfoot.setWorld(new EndSimWorld("Human"));
+        return;
     }
 
+    // Robot reaches right edge → Humans win
+    if (isRobot && x >= worldWidth - 5) {
+        Greenfoot.setWorld(new EndSimWorld("Robots"));
+        return;
+    }
+
+    // Existing cleanup
+    if (x < 5 || x >= worldWidth - 5) {
+        removeHealthBar();
+        getWorld().removeObject(this);
+    }
+}
+
+
+
+
+    // Restrict humans to playable vertical area
     protected void restrictPlayableArea() {
         if (!isRobot && getWorld() != null) {
             int y = getY();
