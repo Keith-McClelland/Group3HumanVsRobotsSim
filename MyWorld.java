@@ -19,6 +19,7 @@ public class MyWorld extends World {
     private int spawnInterval = 200;
     private int humanSpawnTimer = 0;
     private int robotSpawnTimer = 0;
+    
 
     public MyWorld() {    
         super(1240, 700, 1);
@@ -46,10 +47,16 @@ public class MyWorld extends World {
 
         Units.setHumanCash(0);
         Units.setRobotCash(0);
+        Human.setTotalHumansSpawned(0);
+        Robot.setTotalRobotsSpawned(0);
+        frameCount = 0; 
     }
 
     public void act() {
         updateCash(); 
+        
+        frameCount++;
+        EndSimWorld.totalTimeElapsed = frameCount;
 
         humanSpawnTimer++;
         if (humanSpawnTimer >= spawnInterval) {

@@ -47,7 +47,7 @@ public class MeleeHuman extends Human {
 
         Robot target = getClosestRobot();
         if (target == null) {
-            // No target → move forward
+            // if no target then move forward
             attacking = false;
             setImage(idleImage);
             moveForward();

@@ -30,6 +30,8 @@ public abstract class Units extends SuperSmoothMover {
     protected int value;
     protected static int humanCash = 0;
     protected static int robotCash = 0;
+    protected static int numHumans = 0;
+    protected static int numRobots = 0;
 
     //limits the units where they can be
     public static final int MIN_PLAYABLE_Y = 175; // minimum y position 
@@ -87,8 +89,14 @@ public abstract class Units extends SuperSmoothMover {
         updateHealthBar();
 
         if (health <= 0 && getWorld() != null) {
-            if (isRobot) humanCash += value;
-            else robotCash += value;
+            if (isRobot){
+                humanCash += value;
+                numRobots--;
+            }
+            else{
+                robotCash += value;
+                numHumans--;
+            }
 
             removeHealthBar();
             getWorld().removeObject(this);
@@ -130,19 +138,33 @@ public void act() {
 
 
     
-    protected void checkEdges() {
-        if (getWorld() == null) return;
+protected void checkEdges() {
+    if (getWorld() == null) return;
 
-        int x = getX();
-        int y = getY();
-        int worldWidth = getWorld().getWidth();
-        int worldHeight = getWorld().getHeight();
+    int x = getX();
+    int worldWidth = getWorld().getWidth();
 
-        if (x < 5 || x >= worldWidth - 5) {
-            removeHealthBar();
-            getWorld().removeObject(this);
-        }
+    // Human reaches left edge → Robots win
+    if (!isRobot && x <= 5) {
+        Greenfoot.setWorld(new EndSimWorld("Human"));
+        return;
     }
+
+    // Robot reaches right edge → Humans win
+    if (isRobot && x >= worldWidth - 5) {
+        Greenfoot.setWorld(new EndSimWorld("Robots"));
+        return;
+    }
+
+    // Existing cleanup
+    if (x < 5 || x >= worldWidth - 5) {
+        removeHealthBar();
+        getWorld().removeObject(this);
+    }
+}
+
+
+
 
     // Restrict humans to playable vertical area
     protected void restrictPlayableArea() {
@@ -196,4 +218,5 @@ public void act() {
     public static int getRobotCash() { return robotCash; }
     public static void setHumanCash(int amount) { humanCash = amount; }
     public static void setRobotCash(int amount) { robotCash = amount; }
+
 }
