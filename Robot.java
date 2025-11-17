@@ -81,7 +81,8 @@ public abstract class Robot extends Units {
     @Override
     public void takeDamage(int dmg) {
         super.takeDamage(dmg); // updates health and healthBar from Units
-        if (getHealth() <= 0 && !pendingRemoval) {
+        if (getHealth() <= 0 && !pendingRemoval) 
+        {
             pendingRemoval = true;
         }
     }
