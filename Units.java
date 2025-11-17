@@ -27,11 +27,6 @@ public abstract class Units extends SuperSmoothMover {
     protected static int numHumans = 0;
     protected static int numRobots = 0;
 
-    protected int value;
-
-    public static int humanCash = 0;
-    public static int robotCash = 0;
-
     public static final int MIN_PLAYABLE_Y = 175;
 
     public static int humansAlive = 0;

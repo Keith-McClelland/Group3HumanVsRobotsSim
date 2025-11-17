@@ -6,6 +6,7 @@ public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
     public static int topEdge = 275;
+    public static int frameCount = 0;
 
     private int spawnInterval = 200;
     private int humanSpawnTimer = 0;
@@ -57,7 +58,7 @@ public class MyWorld extends World {
     }
 
     public void act() {
-        updateCash(); 
+    
         
         frameCount++;
         EndSimWorld.totalTimeElapsed = frameCount;
