@@ -1,11 +1,16 @@
 #BlueJ class context
 comment0.target=MeleeHuman
-comment1.params=health\ speed\ range\ damage\ delay\ value
-comment1.target=MeleeHuman(int,\ double,\ int,\ int,\ int,\ int)
+comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
+comment1.target=MeleeHuman(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
 comment2.params=
-comment2.target=void\ attackBehavior()
+comment2.target=void\ loadAnimations()
+comment2.text=Load\ animation\ sets\ based\ on\ animationType
 comment3.params=
-comment3.target=void\ animateWalk()
-comment4.params=target
-comment4.target=void\ animateAttack(Robot)
-numComments=5
+comment3.target=void\ attackBehavior()
+comment4.params=
+comment4.target=void\ animateWalk()
+comment4.text=Walking\ animation\ logic
+comment5.params=target
+comment5.target=void\ animateAttack(Robot)
+comment5.text=Attack\ animation\ logic
+numComments=6

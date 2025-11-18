@@ -3,14 +3,16 @@ import java.util.List;
 
 public abstract class Human extends Units {
     protected int cooldown = 0;
+    protected String animationType;
     
     public static int totalHumansSpawned = 0;
 
-    protected Human(int health, double speed, int range, int damage, int delay, int value) {
+    protected Human(int health, double speed, int range, int damage, int delay, int value, String animType) {
         super(health, speed, range, damage, delay, value, false);
-        numHumans++;
         totalHumansSpawned++;
+        this.animationType = animType;
     }
+
 
     public void act() {
         if (getWorld() == null || getHealth() <= 0) return;

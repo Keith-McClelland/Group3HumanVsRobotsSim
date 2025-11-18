@@ -1,93 +1,130 @@
 import greenfoot.*;
+import java.util.List;
 
 public class RangedHuman extends Human {
 
-    private long lastShotTime = 0;
-    private long cooldownTime = 600; // ms between shots
-    private double projectileSpeed = 6;
+    private GreenfootImage idleImage;
 
-    private boolean stoppedToShoot = false;
+    private GreenfootImage[] walkFrames;
+    private GreenfootImage[] attackFrames;
 
-    private GreenfootImage[] walkFrames = new GreenfootImage[5]; // 0-4 walking
-    private GreenfootImage shootFrame; // 5 = shooting
-    private int currentFrame = 0;
-    private int frameDelay = 5; // ticks per frame
-    private int frameCount = 0;
+    private int walkCounter = 0;
+    private int walkSpeed = 5;
 
-    public RangedHuman(int health, double speed, int range, int damage, int delay, int value) {
-        super(health, speed, range, damage, delay, value);
+    private int attackCounter = 0;
+    private int attackSpeed = 12;
+    private int attackFrameIndex = 0;
 
-        // Load walking frames
-        for (int i = 0; i < 5; i++) {
-            walkFrames[i] = new GreenfootImage("rangedHuman00" + i + ".png");
-            walkFrames[i].mirrorHorizontally();
-            walkFrames[i].scale(55,50);
-        }
+    private boolean attacking = false;
 
-        shootFrame = new GreenfootImage("rangedHuman005.png");
-        shootFrame.mirrorHorizontally();
-        shootFrame.scale(55,50);
+    public RangedHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
+        super(health, speed, range, damage, delay, value, animType);
+        loadAnimations();
 
-        setImage(walkFrames[0]);
+        idleImage = walkFrames[0];
+        setImage(idleImage);
     }
 
+        /** Load animation sets based on animationType */
+    private void loadAnimations() {
+        int targetWidth = 60;  // same for all humans
+        int targetHeight = 60;
+    
+        if (animationType.equalsIgnoreCase("archer")) {
+    
+            walkFrames = new GreenfootImage[4];
+            attackFrames = new GreenfootImage[4];
+    
+            for (int i = 0; i < 4; i++) {
+                GreenfootImage walkImg = new GreenfootImage("ArcherWalk" + (i + 1) + ".png");
+                walkImg.mirrorHorizontally();
+                walkImg.scale(walkImg.getWidth() * 2, walkImg.getHeight() * 2);
+                walkFrames[i] = walkImg;
+    
+                GreenfootImage attackImg = new GreenfootImage("ArcherAttack" + (i + 1) + ".png");
+                attackImg.mirrorHorizontally();
+                attackImg.scale(attackImg.getWidth() * 2, attackImg.getHeight() * 2);
+                attackFrames[i] = attackImg;
+            }
+    
+        } else { // Gunner
+            walkFrames = new GreenfootImage[6];
+            attackFrames = new GreenfootImage[6];
+    
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("Gunner" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(targetWidth, targetHeight);  // Set size to match Archer
+                walkFrames[i] = img;
+                attackFrames[i] = img;
+            }
+        }
+    }
+
+
+
+
+
+
+
     @Override
-    public void act() {
-        if (getHealth() <= 0) {
-            getWorld().removeObject(this);
+    protected void attackBehavior() {
+        if (cooldown > 0) cooldown--;
+
+        Robot target = getClosestRobot();
+        if (target == null) {
+            attacking = false;
+            moveForward();
+            animateWalk();
             return;
         }
 
-        Robot target = getClosestRobot();
+        double dist = getDistanceTo(target);
 
-        if (target != null && getDistanceTo(target) <= range) {
-            // Stop and shoot
-            stoppedToShoot = true;
-            setImage(shootFrame);
-            shootIfReady(target);
+        if (dist <= range) {
+            attacking = true;
+            animateAttack(target);
         } else {
-            // Move left with walking animation
-            stoppedToShoot = false;
-            moveLeft();
+            attacking = false;
+            moveTowardRobot(target);
             animateWalk();
         }
     }
 
-    private void shootIfReady(Robot target) {
-        long now = System.currentTimeMillis();
-        if (now - lastShotTime >= cooldownTime) {
-            shootAt(target);
-            lastShotTime = now;
-        }
-    }
-
-    private void shootAt(Robot target) {
-        int dx = target.getX() - getX();
-        int dy = target.getY() - getY();
-        double angle = Math.toDegrees(Math.atan2(dy, dx));
-
-        Projectile shot = new Projectile(projectileSpeed, angle, damage, Projectile.Owner.HUMAN);
-        getWorld().addObject(shot, getX(), getY());
-    }
-
-    private void moveLeft() {
-        setLocation(getX() - (int)getSpeed(), getY());
-    }
-
+    /** Walking animation */
     private void animateWalk() {
-        frameCount++;
-        if (frameCount % frameDelay == 0) {
-            currentFrame = (currentFrame + 1) % walkFrames.length;
-            setImage(walkFrames[currentFrame]);
-        }
+        int frame = (walkCounter / walkSpeed) % walkFrames.length;
+        setImage(walkFrames[frame]);
+        walkCounter++;
     }
 
-    @Override
-    protected void attackBehavior() {
-        // Not used — shooting handled in act()
+    /** Attack animation */
+    private void animateAttack(Robot target) {
+        setImage(attackFrames[attackFrameIndex]);
+    
+        if (cooldown == 0 && target != null) {
+            double dx = target.getX() - getX();
+            double dy = target.getY() - getY();
+            double angle = Math.toDegrees(Math.atan2(dy, dx));
+        
+            // Spawn projectile
+            Projectile p = new Projectile(10, angle, damage, Projectile.Owner.HUMAN);
+        
+            // If this is an Archer, use arrow image
+            if (animationType.equalsIgnoreCase("archer")) {
+                p.setImage("Arrow.png");
+            }
+        
+            getWorld().addObject(p, getX(), getY());
+        
+            cooldown = delay;
+        }
+
+    
+        attackCounter++;
+        if (attackCounter >= attackSpeed) {
+            attackCounter = 0;
+            attackFrameIndex = (attackFrameIndex + 1) % attackFrames.length;
+        }
     }
 }
-
-
-
-
