@@ -1,45 +1,49 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import greenfoot.*;
 
 public class ScanAnimation extends SuperSmoothMover
 {
-    private GreenfootImage scan;
     private GreenfootImage[] scans;
-    
     private int frameIndex = 0;
-    private int scanFrameSpeed = 5; // acts per frame
+    private int scanFrameSpeed = 10; // slower animation
     private int frameCounter = 0;
-    
+
+    private int cyclesDone = 0;
+    private int totalCycles = 3;
+
     public ScanAnimation()
     {
-        scan = new GreenfootImage("scan01.png"); // start at 1 since you don't have 0
-        scan.scale(45,90);
-        setImage(scan);
-    
-        // Shooting animation frames 002–006
         scans = new GreenfootImage[6];
         for (int i = 0; i < 6; i++) {
-            scans[i] = new GreenfootImage("scan0" + (i+1) + ".png"); // 002,003,004,005,006
-            scans[i].scale(45,90);
+            scans[i] = new GreenfootImage("scan0" + (i+1) + ".png");
+            scans[i].scale(200, 300);
         }
-        
+
+        setImage(scans[0]);
     }
-    
+
     public void act()
     {
-        animateRevolution();
+        animateScan();
     }
-    
-    private void animateRevolution() {
-        setImage(scans[frameIndex]);
+
+    private void animateScan()
+    {
         frameCounter++;
+
         if (frameCounter >= scanFrameSpeed) {
             frameCounter = 0;
             frameIndex++;
+
             if (frameIndex >= scans.length) {
                 frameIndex = 0;
-                setImage(scan);
+                cyclesDone++;
+
+                if (cyclesDone >= totalCycles) {
+                    getWorld().removeObject(this); // destroy after 2 cycles
+                    return;
+                }
             }
+            setImage(scans[frameIndex]);
         }
     }
 }

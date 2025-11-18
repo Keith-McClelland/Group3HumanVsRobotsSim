@@ -5,5 +5,5 @@ comment1.target=ScanAnimation()
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
-comment3.target=void\ animateRevolution()
+comment3.target=void\ animateScan()
 numComments=4

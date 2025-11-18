@@ -8,4 +8,6 @@ comment3.params=crystal
 comment3.target=void\ moveTowardCrystal(Crystal)
 comment4.params=
 comment4.target=void\ getClosestCrystal()
-numComments=5
+comment5.params=
+comment5.target=void\ startScanAnimation()
+numComments=6
