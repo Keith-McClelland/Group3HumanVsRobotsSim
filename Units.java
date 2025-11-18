@@ -2,21 +2,32 @@ import greenfoot.*;
 import java.util.ArrayList;
 
 public abstract class Units extends SuperSmoothMover {
-
-   
+    //keeps track of the units current and starting health 
     protected int health;
     protected int maxHealth;
     protected SuperStatBar healthBar;
 
+    //keeps tracks of the units original and modified speed 
     protected double originalSpeed;
     protected double speed;
 
+    //the range they search for enemies and the amount of damage they do 
     protected int range;
     protected int damage;
 
+    //tracks if the units is robot 
+    //the amount of each unit
     protected boolean isRobot;
     protected static int numUnits;
+    
+    
+    public static int humansAlive = 0;
+    public static int robotsAlive = 0;
 
+    public static int humansDead = 0;
+    public static int robotsDead = 0;
+
+    //works on timing
     protected int delay;
     protected int cooldown;
     
@@ -24,16 +35,10 @@ public abstract class Units extends SuperSmoothMover {
     protected int value;
     protected static int humanCash = 0;
     protected static int robotCash = 0;
-    protected static int numHumans = 0;
-    protected static int numRobots = 0;
+    
 
     public static final int MIN_PLAYABLE_Y = 175;
 
-    public static int humansAlive = 0;
-    public static int robotsAlive = 0;
-
-    public static int humansDead = 0;
-    public static int robotsDead = 0;
 
 
     public Units(int health, double speed, int range, int damage, int delay, int value, boolean isRobot) {
@@ -127,24 +132,24 @@ public abstract class Units extends SuperSmoothMover {
         int x = getX();
         int worldWidth = getWorld().getWidth();
 
-    // Human reaches left edge → Robots win
-    if (!isRobot && x <= 5) {
-        Greenfoot.setWorld(new EndSimWorld("Human"));
-        return;
+        // Human reaches left edge → Robots win
+        if (!isRobot && x <= 5) {
+            Greenfoot.setWorld(new EndSimWorld("Human"));
+            return;
+        }
+    
+        // Robot reaches right edge → Humans win
+        if (isRobot && x >= worldWidth - 5) {
+            Greenfoot.setWorld(new EndSimWorld("Robots"));
+            return;
+        }
+    
+        // Existing cleanup
+        if (x < 5 || x >= worldWidth - 5) {
+            removeHealthBar();
+            getWorld().removeObject(this);
+        }
     }
-
-    // Robot reaches right edge → Humans win
-    if (isRobot && x >= worldWidth - 5) {
-        Greenfoot.setWorld(new EndSimWorld("Robots"));
-        return;
-    }
-
-    // Existing cleanup
-    if (x < 5 || x >= worldWidth - 5) {
-        removeHealthBar();
-        getWorld().removeObject(this);
-    }
-}
 
 
 

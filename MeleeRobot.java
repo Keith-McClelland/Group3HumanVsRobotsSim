@@ -22,14 +22,14 @@ public class MeleeRobot extends Robot {
 
         // --- Idle frame ---
         idleImage = new GreenfootImage("meleeRobot000.png");
-        idleImage.scale(80,100);
+        idleImage.scale(20,50);
         setImage(idleImage);
 
         // --- Walking frames 0–6 ---
         walkingFrames = new GreenfootImage[7];
         for (int i = 0; i < 7; i++) {
             walkingFrames[i] = new GreenfootImage("meleeRobot00" + i + ".png");
-            walkingFrames[i].scale(80,100);
+            walkingFrames[i].scale(20,50);
         }
 
         // --- Attack frames 0–2 ---

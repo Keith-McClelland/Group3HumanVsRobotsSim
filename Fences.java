@@ -17,7 +17,7 @@ public class Fences extends SuperSmoothMover {
     
     public Fences() {
         //rescales fence to desired size
-        hitpoint = 15000;
+        hitpoint = 20000;
         fence.scale(fenceLength, fenceHeight);
         setImage(fence);
     }

@@ -2,10 +2,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class IntroWorld extends World
 {
+    private ContinueButton button;
 
     public IntroWorld()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+    {           
+        super(1240, 700, 1);
+        setBackground(new GreenfootImage("introworld.png"));
+
+        button = new ContinueButton();
+        addObject(button, getWidth()/2, getHeight()/2 - 80);
+    }
+
+    public void act() {
+        // Check if the user clicks the ContinueButton
+        if (Greenfoot.mouseClicked(button)) {
+            setBackground(new GreenfootImage("storyworld.png"));
+        }
     }
 }
+
+

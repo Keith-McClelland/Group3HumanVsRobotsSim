@@ -21,12 +21,12 @@ public class RangedHuman extends Human {
         for (int i = 0; i < 5; i++) {
             walkFrames[i] = new GreenfootImage("rangedHuman00" + i + ".png");
             walkFrames[i].mirrorHorizontally();
-            walkFrames[i].scale(55,50);
+            walkFrames[i].scale(40,50);
         }
 
         shootFrame = new GreenfootImage("rangedHuman005.png");
         shootFrame.mirrorHorizontally();
-        shootFrame.scale(55,50);
+        shootFrame.scale(40,50);
 
         setImage(walkFrames[0]);
     }

@@ -8,7 +8,6 @@ public abstract class Human extends Units {
 
     protected Human(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value, false);
-        numHumans++;
         totalHumansSpawned++;
     }
 

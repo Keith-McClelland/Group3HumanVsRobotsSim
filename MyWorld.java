@@ -53,7 +53,7 @@ public class MyWorld extends World {
         addObject(rightHUD, 1157, 96);
 
         TerritoryBar territoryBar = new TerritoryBar();
-    addObject(territoryBar, getWidth()/2, 30); // safe position
+        addObject(territoryBar, getWidth()/2, 30); // safe position
 
 
         Units.setHumanCash(0);
@@ -78,7 +78,7 @@ public class MyWorld extends World {
         }
 
         robotSpawnTimer++;
-        if (robotSpawnTimer >= spawnInterval) {
+        if (robotSpawnTimer >= spawnInterval-100) {
             robotSpawnTimer = 0;
             spawnRobots();
         }
