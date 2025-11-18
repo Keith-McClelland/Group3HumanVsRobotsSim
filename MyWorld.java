@@ -152,10 +152,10 @@ public class MyWorld extends World {
         if (roll < primitiveProb) {
             // Primitive unit
             if (Greenfoot.getRandomNumber(2) == 0) {
-                MeleeHuman caveman = new MeleeHuman(100, 2, 40, 20, 40, 10, "caveman");
+                MeleeHuman caveman = new MeleeHuman(200, 2, 40, 50, 40, 10, "caveman");
                 addObject(caveman, getWidth() - 50, y);
             } else {
-                RangedHuman archer = new RangedHuman(80, 2, 400, 40, 40, 10, "archer");
+                RangedHuman archer = new RangedHuman(100, 2, 400, 50, 40, 10, "archer");
                 addObject(archer, getWidth() - 50, y);
             }
         } else {

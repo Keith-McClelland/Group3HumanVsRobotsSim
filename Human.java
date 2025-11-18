@@ -59,6 +59,7 @@ public abstract class Human extends Units {
     protected void moveForward() {
         setLocation(getX() + (int)-speed, getY());
     }
+    
     public static void setTotalHumansSpawned(int amount) { totalHumansSpawned = amount; }
 }
 

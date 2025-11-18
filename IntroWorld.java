@@ -17,6 +17,14 @@ public class IntroWorld extends World
         // Check if the user clicks the ContinueButton
         if (Greenfoot.mouseClicked(button)) {
             setBackground(new GreenfootImage("storyworld.png"));
+            removeObject(button);
+            
+            Crystal crystal = new Crystal();
+            addObject(crystal,954,503);
+            
+            
+            Drone drone = new Drone();
+            addObject(drone,0,560);
         }
     }
 }

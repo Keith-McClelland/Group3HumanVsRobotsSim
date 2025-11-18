@@ -22,7 +22,7 @@ public class RangedHuman extends Human {
         super(health, speed, range, damage, delay, value, animType);
         loadAnimations();
 
-        idleImage = walkFrames[0];
+        idleImage = new GreenfootImage("ArcherWalk1.png");
         setImage(idleImage);
     }
 
@@ -48,7 +48,7 @@ public class RangedHuman extends Human {
                 attackFrames[i] = attackImg;
             }
     
-        } else { // Gunner
+        } /*else { // Gunner
             walkFrames = new GreenfootImage[6];
             attackFrames = new GreenfootImage[6];
     
@@ -59,12 +59,8 @@ public class RangedHuman extends Human {
                 walkFrames[i] = img;
                 attackFrames[i] = img;
             }
-        }
+        }*/
     }
-
-
-
-
 
 
 
