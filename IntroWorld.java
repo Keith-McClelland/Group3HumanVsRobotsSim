@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class IntroWorld extends World
 {
     private ContinueButton button;
-
+    public static boolean doneScanning = false;
     public IntroWorld()
     {           
         super(1240, 700, 1);
@@ -22,11 +22,23 @@ public class IntroWorld extends World
             Crystal crystal = new Crystal();
             addObject(crystal,954,503);
             
-            
             Drone drone = new Drone();
             addObject(drone,0,560);
         }
+        
+        if(doneScanning)
+        {
+            spawnHuman();
+            doneScanning = false;
+        }
     }
+    
+    public void spawnHuman() 
+    {
+        StoryWorldHuman human = new StoryWorldHuman();
+        addObject(human, 1200, 540); // right side spawn
+    }
+
 }
 
 

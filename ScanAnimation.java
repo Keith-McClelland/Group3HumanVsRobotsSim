@@ -40,6 +40,7 @@ public class ScanAnimation extends SuperSmoothMover
 
                 if (cyclesDone >= totalCycles) {
                     getWorld().removeObject(this); // destroy after 2 cycles
+                    ((IntroWorld)getWorld()).doneScanning = true;
                     return;
                 }
             }

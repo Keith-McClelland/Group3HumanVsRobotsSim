@@ -51,6 +51,7 @@ public class Drone extends SuperSmoothMover
 
         ScanAnimation scan = new ScanAnimation();
         getWorld().addObject(scan, getX()+ getImage().getWidth()/2 + 10, getY());
+        
     }
 }
 
