@@ -3,8 +3,9 @@ import java.util.List;
 
 public class MeleeHuman extends Human {
 
-    private GreenfootImage idleImage;              
-    private GreenfootImage[] walkingFrames; 
+    private GreenfootImage idleImage;
+
+    private GreenfootImage[] walkFrames;
     private GreenfootImage[] attackFrames;
 
     private int walkCounter = 0;
@@ -13,41 +14,69 @@ public class MeleeHuman extends Human {
     private int attackCounter = 0;
     private int attackSpeed = 10;
     private int attackFrameIndex = 0;
+
     private boolean attacking = false;
 
-    public MeleeHuman(int health, double speed, int range, int damage, int delay, int value) {
-        super(health, speed, range, damage, delay, value);
+    public MeleeHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
+        super(health, speed, range, damage, delay, value, animType);
+        loadAnimations();
 
-        // Idle image
-        idleImage = new GreenfootImage("meeleHuman000.png");
-        idleImage.mirrorHorizontally();
-        idleImage.scale(45, 55);
+        idleImage = walkFrames[0];
         setImage(idleImage);
+    }
 
-        // Walking frames
-        walkingFrames = new GreenfootImage[7];
-        for (int i = 0; i < 7; i++) {
-            walkingFrames[i] = new GreenfootImage("meeleHuman00" + i + ".png");
-            walkingFrames[i].mirrorHorizontally();
-            walkingFrames[i].scale(45, 55);
-        }
-
-        // Attack frames
-        attackFrames = new GreenfootImage[3];
-        for (int i = 0; i < 3; i++) {
-            attackFrames[i] = new GreenfootImage("humanMeeleAttack00" + i + ".png");
-            attackFrames[i].mirrorHorizontally();
-            attackFrames[i].scale(60, 65);
+    /** Load animation sets based on animationType */
+    private void loadAnimations() {
+        if (animationType.equalsIgnoreCase("caveman")) {
+    
+            // Caveman Walking (1–6)
+            walkFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("cavemanwalk" + (i + 1) + ".png");
+                img.mirrorHorizontally();             // Flip horizontally
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);  // Integer scale for crisp pixels
+                walkFrames[i] = img;
+            }
+    
+            // Caveman Attack (1–4)
+            attackFrames = new GreenfootImage[4];
+            for (int i = 0; i < 4; i++) {
+                GreenfootImage img = new GreenfootImage("CavemanAttack" + (i + 1) + ".png");
+                img.mirrorHorizontally();             // Flip attack frames
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);  // Integer scale
+                attackFrames[i] = img;
+            }
+    
+        } else {
+    
+            // ⭐ Swordsman animations (flipped) ⭐
+            walkFrames = new GreenfootImage[8];
+            for (int i = 0; i < 8; i++) {
+                GreenfootImage img = new GreenfootImage("SwordsmanWalk" + (i + 1) + ".png");
+                img.mirrorHorizontally();  // 🔹 Flip Swordsman
+                walkFrames[i] = img;
+            }
+    
+            attackFrames = new GreenfootImage[3];
+            for (int i = 0; i < 3; i++) {
+                GreenfootImage img = new GreenfootImage("SwordsmanAttack" + (i + 1) + ".png");
+                img.mirrorHorizontally();  // 🔹 Flip attack frames
+                attackFrames[i] = img;
+            }
         }
     }
+
+
+
 
     @Override
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;
 
         Robot target = getClosestRobot();
+
         if (target == null) {
-            // if no target then move forward
+            // Move forward if no target
             attacking = false;
             setImage(idleImage);
             moveForward();
@@ -58,23 +87,25 @@ public class MeleeHuman extends Human {
         double distance = getDistanceTo(target);
 
         if (distance <= range) {
-            // Attack target
+            // Attack
             attacking = true;
             animateAttack(target);
         } else {
-            // Move toward target
+            // Walk toward enemy
             attacking = false;
             moveTowardRobot(target);
             animateWalk();
         }
     }
 
+    /** Walking animation logic */
     private void animateWalk() {
-        int frame = (walkCounter / walkSpeed) % walkingFrames.length;
-        setImage(walkingFrames[frame]);
+        int frame = (walkCounter / walkSpeed) % walkFrames.length;
+        setImage(walkFrames[frame]);
         walkCounter++;
     }
 
+    /** Attack animation logic */
     private void animateAttack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
 
@@ -84,11 +115,10 @@ public class MeleeHuman extends Human {
         }
 
         attackCounter++;
+
         if (attackCounter >= attackSpeed) {
             attackCounter = 0;
             attackFrameIndex = (attackFrameIndex + 1) % attackFrames.length;
         }
     }
 }
-
-

@@ -9,8 +9,10 @@ public class EndSimWorld extends World {
     public EndSimWorld(String winner) {
         super(1000, 600, 1);
 
-        // Convert frames → seconds
+        // Convert frames to seconds
         double seconds = totalTimeElapsed / 60.0;
+        String roundedSeconds = String.format("%.2f", seconds);
+
 
         // Get stats from Units class
         int humanCash = Units.getHumanCash();
@@ -25,7 +27,7 @@ public class EndSimWorld extends World {
         showText("⚔ " + winner + " WIN! ⚔", getWidth()/2, 200);
 
         showText("Simulation Statistics:", getWidth()/2, 270);
-        showText("Time Elapsed: " + seconds + " seconds", getWidth()/2, 310);
+        showText("Time Elapsed: " + roundedSeconds + " seconds", getWidth()/2, 310);
 
         showText("Humans Spawned: " + humansSpawned, getWidth()/2, 350);
         showText("Robots Spawned: " + robotsSpawned, getWidth()/2, 380);
