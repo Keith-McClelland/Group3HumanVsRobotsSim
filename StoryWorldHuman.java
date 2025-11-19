@@ -9,6 +9,7 @@ public class StoryWorldHuman extends SuperSmoothMover
     private int animationTimer = 0;
 
     private Crystal target;
+    private HumanSpeech speech;
 
     public StoryWorldHuman() {
         for (int i = 0; i < 4; i++) {
@@ -33,15 +34,23 @@ public class StoryWorldHuman extends SuperSmoothMover
     }
 
     private void moveTowardCrystal() {
-        double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
-        double distance = Math.hypot(dx, dy);
+    double dx = target.getX() - getX();
+    double dy = target.getY() - getY();
+    double distance = Math.hypot(dx, dy);
 
-        if (distance > 100) {
-            setLocation(getX() + dx / distance * 1,getY());
-            animateWalk();
+    if (distance > 100) {
+        setLocation(getX() + dx / distance * 1, getY());
+        animateWalk();
+    } else {
+        // spawn speech only if it hasn't been created yet
+        if (getWorld() != null && speech == null) {
+            
+            speech = new HumanSpeech();
+            getWorld().addObject(speech, getX()-105, getY()-105);
         }
     }
+}
+
 
     private void animateWalk() {
         animationTimer++;
