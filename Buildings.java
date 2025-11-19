@@ -1,0 +1,54 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+public abstract class Buildings extends SuperSmoothMover
+{
+    protected int maxHP;
+    protected int health;
+    protected SuperStatBar healthBar;
+    
+    public Buildings(int maxHP) {
+        this.maxHP = 100;
+        this.health = 100;
+    }
+    
+    @Override
+    protected void addedToWorld(World world) {
+        healthBar = new SuperStatBar(maxHP, health, this, 40, 6, 30,
+                Color.GREEN, Color.RED, true, Color.BLACK, 1);
+                world.addObject(healthBar, getX(), getY() - 20);
+    }
+    
+    public int getHealth() {
+        return health; 
+    }
+    
+    public void setHealth(int hp) {
+        this.health = hp;
+        updateHealthBar();
+    }
+    
+    protected void updateHealthBar() {
+        if (healthBar != null) {
+            healthBar.update(health);
+            if (getWorld() != null)
+                healthBar.setLocation(getX(), getY() - 20);
+        }
+    }
+    
+    protected void removeHealthBar() {
+        if (healthBar != null && getWorld() != null) {
+            getWorld().removeObject(healthBar);
+            healthBar = null;
+        }
+    }
+    
+    public void takeDamage(int dmg) {
+        health -= dmg;
+        updateHealthBar();
+
+        if (maxHP <= 0 && getWorld() != null) {
+           removeHealthBar();
+           getWorld().removeObject(this);
+        }
+    }
+}

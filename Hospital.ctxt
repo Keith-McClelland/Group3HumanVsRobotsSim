@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Hospital
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Hospital\ here.\r\n\ \r\n\ @author\ (Jonathan)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Hospital()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ healHumans()
+numComments=4
