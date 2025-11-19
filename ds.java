@@ -1,7 +1,7 @@
 import greenfoot.*;  
 import java.util.List;
 
-public class Canon extends Buildings
+public class Canon extends SuperSmoothMover
 {
     private long lastShotTime = 0;
     private long cooldown = 4000; // ms between shots
@@ -17,7 +17,6 @@ public class Canon extends Buildings
     private int shootFrameCounter = 0;
 
     public Canon() {
-        super (200);
         // Idle image
         idleImage = new GreenfootImage("canon001.png"); // start at 1 since you don't have 0
         idleImage.scale(70,80);
