@@ -4,8 +4,8 @@ import java.util.List;
 public class Drone extends SuperSmoothMover
 {
     GreenfootImage drone = new GreenfootImage("drone.png");
-
     private boolean isScanning = false;
+    RobotSpeech speech;
 
     public Drone()
     {
@@ -15,6 +15,12 @@ public class Drone extends SuperSmoothMover
 
     public void act()
     {
+        // Create speech ONLY AFTER drone is added to world
+        if (speech == null && getWorld() != null) {
+            speech = new RobotSpeech();
+            getWorld().addObject(speech, getX()+110, getY()-95);
+        }
+
         if (!isScanning) {
             getClosestCrystal();
         }
@@ -26,12 +32,20 @@ public class Drone extends SuperSmoothMover
         double dy = crystal.getY() - getY();
         double distance = Math.hypot(dx, dy);
 
-        // Stop moving once in scan range (100)
         if (distance > 100) {
             setLocation(getX() + (int)(dx / distance * 2),
                         getY() + (int)(dy / distance * 2));
+
+            // keep speech attached to drone
+            if (speech != null)
+                speech.setLocation(getX()+110, getY()-95);
+
         } else {
             startScanAnimation();
+
+            // change to speech 2
+            if (speech != null)
+                speech.showSpeech2();
         }
     }
 
@@ -46,12 +60,13 @@ public class Drone extends SuperSmoothMover
 
     private void startScanAnimation()
     {
-        if (isScanning) return; // prevent duplicates
+        if (isScanning) return;
         isScanning = true;
 
         ScanAnimation scan = new ScanAnimation();
-        getWorld().addObject(scan, getX()+ getImage().getWidth()/2 + 10, getY());
-        
+        getWorld().addObject(scan, getX() + getImage().getWidth()/2 + 10, getY());
     }
 }
+
+
 

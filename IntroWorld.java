@@ -4,6 +4,7 @@ public class IntroWorld extends World
 {
     private ContinueButton button;
     public static boolean doneScanning = false;
+    
     public IntroWorld()
     {           
         super(1240, 700, 1);
@@ -11,6 +12,8 @@ public class IntroWorld extends World
 
         button = new ContinueButton();
         addObject(button, getWidth()/2, getHeight()/2 - 80);
+    
+
     }
 
     public void act() {
