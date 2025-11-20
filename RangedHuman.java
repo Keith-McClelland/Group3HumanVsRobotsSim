@@ -28,10 +28,8 @@ public class RangedHuman extends Human {
 
         /** Load animation sets based on animationType */
     private void loadAnimations() {
-        int targetWidth = 60;  // same for all humans
-        int targetHeight = 60;
-    
-        if (animationType.equalsIgnoreCase("archer")) {
+        // ARCHER TYPE
+        if (animationType != null && animationType.equalsIgnoreCase("archer")) {
     
             walkFrames = new GreenfootImage[4];
             attackFrames = new GreenfootImage[4];
@@ -48,19 +46,22 @@ public class RangedHuman extends Human {
                 attackFrames[i] = attackImg;
             }
     
-        } /*else { // Gunner
+        } else {  
+            // GUNNER TYPE
+    
             walkFrames = new GreenfootImage[6];
             attackFrames = new GreenfootImage[6];
     
             for (int i = 0; i < 6; i++) {
                 GreenfootImage img = new GreenfootImage("Gunner" + (i + 1) + ".png");
                 img.mirrorHorizontally();
-                img.scale(targetWidth, targetHeight);  // Set size to match Archer
+                img.scale(60, 60);
                 walkFrames[i] = img;
                 attackFrames[i] = img;
             }
-        }*/
+        }
     }
+
 
 
 
@@ -93,6 +94,7 @@ public class RangedHuman extends Human {
         int frame = (walkCounter / walkSpeed) % walkFrames.length;
         setImage(walkFrames[frame]);
         walkCounter++;
+
     }
 
     /** Attack animation */

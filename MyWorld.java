@@ -97,13 +97,7 @@ public class MyWorld extends World {
         frameCount = 0;
     }
 
-    private boolean fenceExists() {
-        return !getObjects(Fences.class).isEmpty();
-    }
 
-    private boolean builderExists() {
-        return !getObjects(Builders.class).isEmpty();
-    }
 
     private void spawnBuilder() {
         int y = 175;
@@ -198,6 +192,13 @@ public class MyWorld extends World {
                 addObject(robot, 50, y);
             }
         }
+    }
+    private boolean fenceExists() {
+        return !getObjects(Fences.class).isEmpty();
+    }
+
+    private boolean builderExists() {
+        return !getObjects(Builders.class).isEmpty();
     }
 }
 
