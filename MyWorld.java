@@ -183,13 +183,13 @@ public class MyWorld extends World {
             case 3: // cyborg + tank + gunner
                 int roll3 = Greenfoot.getRandomNumber(3);
                 if (roll3 == 0) {
-                    newMelee = new MeleeHuman(180, 2.5, 50, 75, 40, 20, "cyborg");
+                    newMelee = new MeleeHuman(300, 2.5, 50, 75, 40, 20, "cyborg");
                     addObject(newMelee, getWidth() - 50, y);
                 } else if (roll3 == 1) {
-                    newMelee = new GiantHuman(500, 1.2, 60, 70, 60, 40, "tank");
+                    newMelee = new GiantHuman(800, 1.2, 60, 70, 60, 40, "tank");
                     addObject(newMelee, getWidth() - 50, y);
                 } else {
-                    newRanged = new RangedHuman(90, 2, 450, 75, 35, 15, "Gunner");
+                    newRanged = new RangedHuman(400, 2, 450, 75, 35, 15, "Gunner");
                     addObject(newRanged, getWidth() - 50, y);
                 }
                 break;
