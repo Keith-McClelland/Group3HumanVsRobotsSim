@@ -1,43 +1,25 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
-/**
- * Write a description of class Hospital here.
- * 
- * @author (Jonathan)
- * @version (a version number or a date)
- */
 public class Hospital extends Buildings
 {
-    private int healAmount = 10; // how much HP humans get per tick
-    private int cooldown = 30; // healing every 1 seconds
-    private int timer = 0; // counts frames since last heal
+    private int healAmount = 10;
+    private int cooldown = 30;
+    private int timer = 0;
 
-    public Hospital() {
-        super(300);
+    public Hospital(boolean isHumanSide) {
+        super(300, isHumanSide);
     }
     
-    public void act()
-    {
+    public void act() {
         timer++;
-        
-        // When 300 frames/5 seconds passes
         if (timer >= cooldown) {
             healHumans();
-            timer = 0; // Reset the timer
+            timer = 0;
         }
     }
-    
+
     private void healHumans() {
-        ArrayList<Human> humans = new ArrayList<>(getWorld().getObjects(Human.class));
-    
-        // Only heal if their HP is BELOW HALF
-        for (Human h : humans) {
+        for (Human h : getWorld().getObjects(Human.class)) {
             if (h.getHealth() < h.maxHealth) {
-                int newHealth = h.getHealth() + healAmount;
-                
-                if (newHealth > h.maxHealth) {
-                    newHealth = h.maxHealth;
-                }
+                int newHealth = Math.min(h.getHealth() + healAmount, h.maxHealth);
                 h.setHealth(newHealth);
             }
         }

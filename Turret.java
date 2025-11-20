@@ -1,16 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
-public class Turret extends SuperSmoothMover
+public class Turret extends Buildings
 {
     private GreenfootImage turretImage;
     private long lastShotTime = 0;
-    private long cooldownTime = 300; // Faster firing (ms)
-    private double projectileSpeed = 10; // Faster projectiles
-    private int projectileDamage = 20; // Example damage
-    private int range = 500; // Longer range
+    private long cooldownTime = 300;
+    private double projectileSpeed = 10;
+    private int projectileDamage = 20;
+    private int range = 500;
 
-    public Turret() {
+    public Turret(boolean isHumanSide) {
+        super(300, isHumanSide);
+
         turretImage = new GreenfootImage("images/turret.png");
         turretImage.mirrorHorizontally();
         turretImage.scale(100, 200);

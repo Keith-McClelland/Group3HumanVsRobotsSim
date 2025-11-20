@@ -1,16 +1,24 @@
 #BlueJ class context
 comment0.target=GiantHuman
-comment1.params=health\ speed\ range\ damage\ delay\ value
-comment1.target=GiantHuman(int,\ double,\ int,\ int,\ int,\ int)
+comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
+comment1.target=GiantHuman(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
 comment2.params=
-comment2.target=void\ attackBehavior()
+comment2.target=void\ loadAnimations()
+comment2.text=Load\ animation\ sets\ based\ on\ animationType\ ("giant"\ or\ "tank")
 comment3.params=
-comment3.target=Buildings\ getClosestBuilding()
-comment3.text=Find\ closest\ Buildings\ object\ using\ ArrayList
-comment4.params=target
-comment4.target=void\ moveTowardBuilding(Buildings)
-comment4.text=Move\ toward\ a\ building
-comment5.params=target
-comment5.target=void\ attackBuilding(Buildings)
-comment5.text=Giant\ attack\ using\ ONLY\ delay/cooldown
-numComments=6
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ attackBehavior()
+comment5.params=
+comment5.target=void\ animateWalk()
+comment5.text=Walking\ animation\ logic
+comment6.params=target
+comment6.target=void\ animateAttack(Buildings)
+comment6.text=Attack\ animation\ logic
+comment7.params=target
+comment7.target=void\ moveTowardBuilding(Buildings)
+comment7.text=Move\ toward\ a\ target\ building
+comment8.params=
+comment8.target=Buildings\ getClosestEnemyBuilding()
+comment8.text=Find\ closest\ enemy\ building\ (isHumanSide\ \=\=\ false)
+numComments=9

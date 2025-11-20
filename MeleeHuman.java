@@ -28,43 +28,60 @@ public class MeleeHuman extends Human {
     /** Load animation sets based on animationType */
     private void loadAnimations() {
         if (animationType.equalsIgnoreCase("caveman")) {
-    
             // Caveman Walking (1–6)
             walkFrames = new GreenfootImage[6];
             for (int i = 0; i < 6; i++) {
                 GreenfootImage img = new GreenfootImage("cavemanwalk" + (i + 1) + ".png");
-                img.mirrorHorizontally();             // Flip horizontally
-                img.scale(img.getWidth() * 2, img.getHeight() * 2);  // Integer scale for crisp pixels
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);
                 walkFrames[i] = img;
             }
     
-            // Caveman Attack (1–4)
             attackFrames = new GreenfootImage[4];
             for (int i = 0; i < 4; i++) {
                 GreenfootImage img = new GreenfootImage("CavemanAttack" + (i + 1) + ".png");
-                img.mirrorHorizontally();             // Flip attack frames
-                img.scale(img.getWidth() * 2, img.getHeight() * 2);  // Integer scale
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);
+                attackFrames[i] = img;
+            }
+    
+        } else if (animationType.equalsIgnoreCase("cyborg")) {
+            // Cyborg Walking (1–6)
+            walkFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("CyborgRun" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);
+                walkFrames[i] = img;
+            }
+    
+            // Cyborg Attack (1–6)
+            attackFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("CyborgAttack" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 2, img.getHeight() * 2);
                 attackFrames[i] = img;
             }
     
         } else {
-    
-            // ⭐ Swordsman animations (flipped) ⭐
+            // ⭐ Swordsman animations (1–8 walk, 1–3 attack)
             walkFrames = new GreenfootImage[8];
             for (int i = 0; i < 8; i++) {
                 GreenfootImage img = new GreenfootImage("SwordsmanWalk" + (i + 1) + ".png");
-                img.mirrorHorizontally();  // 🔹 Flip Swordsman
+                img.mirrorHorizontally();
                 walkFrames[i] = img;
             }
     
             attackFrames = new GreenfootImage[3];
             for (int i = 0; i < 3; i++) {
                 GreenfootImage img = new GreenfootImage("SwordsmanAttack" + (i + 1) + ".png");
-                img.mirrorHorizontally();  // 🔹 Flip attack frames
+                img.mirrorHorizontally();
                 attackFrames[i] = img;
             }
         }
     }
+
 
 
 

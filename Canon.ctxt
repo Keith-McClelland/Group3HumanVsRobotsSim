@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Canon
-comment1.params=
-comment1.target=Canon()
+comment1.params=isHumanSide
+comment1.target=Canon(boolean)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=

@@ -16,21 +16,21 @@ public class Canon extends Buildings
     private int shootFrameSpeed = 5; // acts per frame
     private int shootFrameCounter = 0;
 
-    public Canon() {
-        super (200);
+    public Canon(boolean isHumanSide) {
+        super(200, isHumanSide); // <-- team side now set
+
         // Idle image
-        idleImage = new GreenfootImage("canon001.png"); // start at 1 since you don't have 0
+        idleImage = new GreenfootImage("canon001.png");
         idleImage.scale(70,80);
         setImage(idleImage);
     
         // Shooting animation frames 002–006
         shootFrames = new GreenfootImage[5];
         for (int i = 0; i < 5; i++) {
-            shootFrames[i] = new GreenfootImage("canon00" + (i+1) + ".png"); // 002,003,004,005,006
+            shootFrames[i] = new GreenfootImage("canon00" + (i+1) + ".png");
             shootFrames[i].scale(70,80);
         }
     }
-
 
     public void act() {
         Robot target = getClosestRobot();
@@ -65,7 +65,7 @@ public class Canon extends Buildings
             shootFrameIndex = 0;
             shootFrameCounter = 0;
 
-            // Fire projectile at the first frame of animation
+            // Fire projectile at first frame
             shootAt(target);
             lastShotTime = now;
         }
@@ -76,7 +76,6 @@ public class Canon extends Buildings
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
 
-        // Use CANON type so projectile shows canonball
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.CANON);
         getWorld().addObject(shot, getX(), getY());
     }
@@ -94,5 +93,3 @@ public class Canon extends Buildings
         }
     }
 }
-
-
