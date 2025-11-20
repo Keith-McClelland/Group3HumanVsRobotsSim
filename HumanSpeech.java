@@ -17,8 +17,8 @@ public class HumanSpeech extends Actor
     {
         
     }
+
     
-    public void showHuman1() { setImage(speech1); }
     public void showHuman2() { setImage(speech2); }
 
 }

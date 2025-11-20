@@ -73,7 +73,7 @@ public class MyWorld extends World {
        
 
         humanSpawnTimer++;
-        if (humanSpawnTimer >= spawnInterval) {
+        if (humanSpawnTimer >= spawnInterval-50) {
             humanSpawnTimer = 0;
             spawnHumans();
         }
