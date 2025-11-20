@@ -87,6 +87,8 @@ public abstract class Robot extends Units {
         }
     }
     public static void setTotalRobotsSpawned(int amount) { totalRobotsSpawned = amount; }
+    protected abstract void attackFence(Fences fence);
+
 }
 
 

@@ -1,18 +1,19 @@
 import greenfoot.*;
+import java.util.List;
 
 public class RangedRobot extends Robot {
 
     private long lastShotTime = 0;
     private long cooldownTime = 1200; // ms between shots
-    private double projectileSpeed = 8; // can be faster than RangedHuman
+    private double projectileSpeed = 8;
 
-    private boolean stoppedToShoot = false;
-
-    private GreenfootImage[] walkFrames = new GreenfootImage[8]; // 0-7 walking
-    private GreenfootImage shootFrame; // shooting image
+    private GreenfootImage[] walkFrames = new GreenfootImage[8];
+    private GreenfootImage shootFrame;
     private int currentFrame = 0;
-    private int frameDelay = 5; // ticks per frame
+    private int frameDelay = 5;
     private int frameCount = 0;
+
+    private int stopDistance = 150; // stop 150 px away from fence
 
     public RangedRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
@@ -20,39 +21,60 @@ public class RangedRobot extends Robot {
         // Load walking frames
         for (int i = 0; i < 8; i++) {
             walkFrames[i] = new GreenfootImage("rangedRobotWalk00" + i + ".png");
+            walkFrames[i].scale(20,50);
         }
 
-        // Load shooting image
+        // Load shooting frame
         shootFrame = new GreenfootImage("rangedRobotShooting.png");
+        shootFrame.scale(25,50);
 
-        // Set initial image
         setImage(walkFrames[0]);
     }
 
+    @Override
     public void act() {
         if (getHealth() <= 0) {
-            getWorld().removeObject(this);
+            if (getWorld() != null) getWorld().removeObject(this);
             return;
         }
 
-        Human target = getClosestHuman();
+        updateHealthBar();
 
-        if (target != null && getDistanceTo(target) <= range) {
-            // stop and attack
-            setImage(shootFrame);
-            shootIfReady(target);
-        } else if (target != null) {
-            // move toward the target
-            moveTowardHuman();
-            animateWalk();
+        Fences fence = getClosestFence();
+        if (fence != null) {
+            double distToFence = getDistanceTo(fence);
+            if (distToFence <= stopDistance) {
+                attackFence(fence);
+            } else {
+                moveToward(fence);
+                animateWalk();
+            }
         } else {
-            // no target, move normally
-            move(speed); // right
-            animateWalk();
+            Human target = getClosestHuman();
+            if (target != null) {
+                double dist = getDistanceTo(target);
+                if (dist <= range) {
+                    setImage(shootFrame);
+                    shootIfReady(target);
+                } else {
+                    moveToward(target);
+                    animateWalk();
+                }
+            } else {
+                move(speed);
+                animateWalk();
+            }
         }
 
-        updateHealthBar();
         checkEdges();
+    }
+
+    private void animateWalk() {
+        frameCount++;
+        if (frameCount % frameDelay == 0) {
+            currentFrame = (currentFrame + 1) % walkFrames.length;
+            setImage(walkFrames[currentFrame]);
+        }
     }
 
     private void shootIfReady(Human target) {
@@ -72,24 +94,45 @@ public class RangedRobot extends Robot {
         getWorld().addObject(shot, getX(), getY());
     }
 
-    private void animateWalk() {
-        frameCount++;
-        if (frameCount % frameDelay == 0) {
-            currentFrame = (currentFrame + 1) % walkFrames.length;
-            setImage(walkFrames[currentFrame]);
+    private void moveToward(Actor target) {
+        if (target == null) return;
+        double dx = target.getX() - getX();
+        double dy = target.getY() - getY();
+        double distance = Math.hypot(dx, dy);
+        if (distance > 0) {
+            setLocation(getX() + (int)(dx / distance * getSpeed()),
+                        getY() + (int)(dy / distance * getSpeed()));
         }
     }
 
-    protected void moveTowardRobot() {
-        // Not used — robot moves toward humans
+    private Fences getClosestFence() {
+        if (getWorld() == null) return null;
+        List<Fences> fences = getWorld().getObjects(Fences.class);
+        Fences closest = null;
+        double minDist = Double.MAX_VALUE;
+
+        for (Fences f : fences) {
+            double dist = getDistanceTo(f);
+            if (dist < minDist) {
+                minDist = dist;
+                closest = f;
+            }
+        }
+        return closest;
+    }
+
+    /** New method: explicitly attacks a fence */
+    protected void attackFence(Fences fence) {
+        setImage(shootFrame);
+        long now = System.currentTimeMillis();
+        if (fence != null && now - lastShotTime >= cooldownTime) {
+            Fences.damage(damage); // call static damage method
+            lastShotTime = now;
+        }
     }
 
     @Override
     protected void attackBehavior() {
-        // Shooting handled in act()
+        // Handled in act()
     }
 }
-
-
-
-

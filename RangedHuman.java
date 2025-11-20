@@ -2,15 +2,18 @@ import greenfoot.*;
 import java.util.List;
 
 public class RangedHuman extends Human {
-
+    //images when the robot is standing still 
     private GreenfootImage idleImage;
 
+    //array list for each type of animation (walking and attacking)
     private GreenfootImage[] walkFrames;
     private GreenfootImage[] attackFrames;
 
+    //timer that counts the walking animation + interval timing to switch between images
     private int walkCounter = 0;
     private int walkSpeed = 5;
 
+    //timer that counts the attacking animation + interval to switch between the images
     private int attackCounter = 0;
     private int attackSpeed = 12;
     private int attackFrameIndex = 0;
@@ -23,6 +26,7 @@ public class RangedHuman extends Human {
         loadAnimations();
 
         idleImage = new GreenfootImage("ArcherWalk1.png");
+        
         setImage(idleImage);
     }
 
@@ -81,7 +85,7 @@ public class RangedHuman extends Human {
 
         if (dist <= range) {
             attacking = true;
-            animateAttack(target);
+            attack(target);
         } else {
             attacking = false;
             moveTowardRobot(target);
@@ -97,23 +101,24 @@ public class RangedHuman extends Human {
 
     }
 
-    /** Attack animation */
-    private void animateAttack(Robot target) {
+    
+    private void attack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
     
         if (cooldown == 0 && target != null) {
+            //find the diffrence in position between the ranged human and robot
+            //(find angle to shoot at)
             double dx = target.getX() - getX();
             double dy = target.getY() - getY();
             double angle = Math.toDegrees(Math.atan2(dy, dx));
         
-            // Spawn projectile
+            // spawn projectile
             Projectile p = new Projectile(10, angle, damage, Projectile.Owner.HUMAN);
-        
-            // If this is an Archer, use arrow image
+            // if this is an archer, use arrow image
             if (animationType.equalsIgnoreCase("archer")) {
                 p.setImage("Arrow.png");
             }
-        
+            // the projectile class deals with the collision
             getWorld().addObject(p, getX(), getY());
         
             cooldown = delay;

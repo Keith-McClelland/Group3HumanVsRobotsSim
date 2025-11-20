@@ -20,19 +20,19 @@ public class MeleeRobot extends Robot {
     public MeleeRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
-        // --- Idle frame ---
+        // Idle frame
         idleImage = new GreenfootImage("meleeRobot000.png");
         idleImage.scale(20,50);
         setImage(idleImage);
 
-        // --- Walking frames 0–6 ---
+        // Walking frames
         walkingFrames = new GreenfootImage[7];
         for (int i = 0; i < 7; i++) {
             walkingFrames[i] = new GreenfootImage("meleeRobot00" + i + ".png");
             walkingFrames[i].scale(20,50);
         }
 
-        // --- Attack frames 0–2 ---
+        // Attack frames
         attackFrames = new GreenfootImage[3];
         for (int i = 0; i < 3; i++) {
             attackFrames[i] = new GreenfootImage("robotAttack00" + i + ".png");
@@ -61,13 +61,23 @@ public class MeleeRobot extends Robot {
 
     @Override
     protected void attackBehavior() {
+
+        // First check for fences
+        Fences fence = findFence();
+        if (fence != null) {
+            // stop movement
+            setLocation(getX(), getY());
+            attackFence(fence);
+            return;
+        }
+
+        // Normal human attack
         if (cooldown > 0) cooldown--;
 
         Human target = getClosestHuman();
         if (target == null) {
-            // No target → idle
             setImage(idleImage);
-            move(speed); // keep moving forward if no target
+            move(speed);
             animateWalk();
             return;
         }
@@ -75,16 +85,33 @@ public class MeleeRobot extends Robot {
         double dist = getDistanceTo(target);
 
         if (dist <= range) {
-            // Attack animation
             animateAttack();
             if (cooldown == 0) {
                 target.takeDamage(damage);
                 cooldown = delay;
             }
         } else {
-            // Move toward target + walking animation
             moveToward(target);
             animateWalk();
+        }
+    }
+
+    /** Find fence in range */
+    private Fences findFence() {
+        List<Fences> fences = getObjectsInRange(40, Fences.class);
+        if (!fences.isEmpty()) {
+            return fences.get(0);
+        }
+        return null;
+    }
+
+    /** Implement attackFence for melee robot */
+    @Override
+    protected void attackFence(Fences fence) {
+        animateAttack();
+        if (cooldown == 0) {
+            Fences.damage(damage);
+            cooldown = delay;
         }
     }
 

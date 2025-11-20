@@ -80,6 +80,17 @@ public class ExplodingRobot extends Robot {
         }
     }
 
+    protected void attackFence(Fences fence) 
+    {
+        // Fence check (explode on contact)
+List<Fences> fences = getObjectsInRange(30, Fences.class);
+if (!fences.isEmpty()) {
+    explode();
+    return;
+}
+
+    }
+
     private void explode() {
         if (getWorld() == null) return;
 

@@ -11,6 +11,5 @@ comment4.params=
 comment4.target=void\ animateWalk()
 comment4.text=Walking\ animation
 comment5.params=target
-comment5.target=void\ animateAttack(Robot)
-comment5.text=Attack\ animation
+comment5.target=void\ attack(Robot)
 numComments=6
