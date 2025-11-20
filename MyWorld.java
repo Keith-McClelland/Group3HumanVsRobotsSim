@@ -71,13 +71,13 @@ public class MyWorld extends World {
        
 
         humanSpawnTimer++;
-        if (humanSpawnTimer >= spawnInterval) {
+        if (humanSpawnTimer >= spawnInterval-50) {
             humanSpawnTimer = 0;
             spawnHumans();
         }
 
         robotSpawnTimer++;
-        if (robotSpawnTimer >= spawnInterval-100) {
+        if (robotSpawnTimer >= spawnInterval) {
             robotSpawnTimer = 0;
             spawnRobots();
         }
