@@ -2,8 +2,8 @@ import greenfoot.*;
 
 public class Hospital extends Buildings
 {
-    private int healAmount = 10;
-    private int cooldown = 30;
+    private int healAmount = 5;
+    private int cooldown = 50;
     private int timer = 0;
 
     private boolean doorConstructed = false;
