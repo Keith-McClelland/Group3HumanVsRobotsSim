@@ -1,7 +1,5 @@
 #BlueJ class context
 comment0.target=StatBoard
-comment1.params=
-comment1.target=StatBoard()
-comment2.params=
-comment2.target=void\ act()
-numComments=3
+comment1.params=type
+comment1.target=StatBoard(java.lang.String)
+numComments=2

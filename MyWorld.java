@@ -66,8 +66,8 @@ public class MyWorld extends World {
 
         setBackground(background);
 
-        humanStatboard = new StatBoard();
-        robotStatboard = new StatBoard();
+        humanStatboard = new StatBoard("robot");
+        robotStatboard = new StatBoard("human");
         addObject(humanStatboard, 105, 75);
         addObject(robotStatboard, getWidth() - 105, 75);
 
