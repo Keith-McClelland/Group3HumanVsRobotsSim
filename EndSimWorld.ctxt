@@ -2,6 +2,4 @@
 comment0.target=EndSimWorld
 comment1.params=winner
 comment1.target=EndSimWorld(java.lang.String)
-comment2.params=
-comment2.target=void\ act()
-numComments=3
+numComments=2

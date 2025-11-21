@@ -250,6 +250,7 @@ public class MyWorld extends World {
                 }
         }
     }
+    
     private void spawnHumanCanon() {
         if (Units.getHumanCash() < 100) return;
         Units.addHumanCash(-100);

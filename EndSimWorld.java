@@ -2,41 +2,63 @@ import greenfoot.*;
 
 public class EndSimWorld extends World {
 
-    // Track time of the simulation (stored in MyWorld for accuracy)
-    public static int totalTimeElapsed = 0; // in frames; MyWorld should update this each act
-
+    public static int totalTimeElapsed = 0;
+    GreenfootImage humanWin = new GreenfootImage("humanWinBackground.png");
+    GreenfootImage robotWin = new GreenfootImage("robotWinBackground.png");
 
     public EndSimWorld(String winner) {
-        super(1000, 600, 1);
+        super(1240, 700, 1);
+
+        if (winner.equals("Human")) {
+            setBackground(humanWin);
+        } else {
+            setBackground(robotWin);
+        }
 
         // Convert frames to seconds
         double seconds = totalTimeElapsed / 60.0;
         String roundedSeconds = String.format("%.2f", seconds);
 
-
         // Get stats from Units class
         int humanCash = Units.getHumanCash();
         int robotCash = Units.getRobotCash();
-        int totalUnits = Units.numUnits;  // total units spawned
-         
-        // To track humans / robots separately add counters in Human & Robot classes
         int humansSpawned = Human.totalHumansSpawned;
         int robotsSpawned = Robot.totalRobotsSpawned;
 
-        // UI Output
-        showText("⚔ " + winner + " WIN! ⚔", getWidth()/2, 200);
+        // Define boxes
+        int leftBoxXStart = 120;
+        int leftBoxXEnd = 490;
+        int rightBoxXStart = 800;
+        int rightBoxXEnd = 1120;
 
-        showText("Simulation Statistics:", getWidth()/2, 270);
-        showText("Time Elapsed: " + roundedSeconds + " seconds", getWidth()/2, 310);
+        int boxYStart = 150;  // moved up a bit
+        int boxHeight = 330;
 
-        showText("Humans Spawned: " + humansSpawned, getWidth()/2, 350);
-        showText("Robots Spawned: " + robotsSpawned, getWidth()/2, 380);
+        // Center X positions
+        int leftBoxCenterX = (leftBoxXStart + leftBoxXEnd) / 2;
+        int rightBoxCenterX = (rightBoxXStart + rightBoxXEnd) / 2;
 
-        showText("Human Cash Earned: $" + humanCash, getWidth()/2, 430);
-        showText("Robot Cash Earned: $" + robotCash, getWidth()/2, 460);
-    }
+        // Left box: Simulation time
+        showText("Simulation Time: " + roundedSeconds + " seconds", leftBoxCenterX, boxYStart + boxHeight / 2);
 
-    public void act() {
-        // End screen does nothing
+        // Right box: Human & Robot stats
+        int humanLineSpacing = 40; // smaller spacing between lines
+        int robotLineSpacing = 40;
+
+        int startY = boxYStart + 30; // starting Y for right box text
+
+        // Human stats
+        showText("Human Stats", rightBoxCenterX, startY);
+        showText("Humans Spawned: " + humansSpawned, rightBoxCenterX, startY + humanLineSpacing);
+        showText("Human Cash Earned: $" + humanCash, rightBoxCenterX, startY + humanLineSpacing * 2);
+
+        // Leave a space between Human and Robot stats
+        int robotStartY = startY + humanLineSpacing * 3 + 20; // 20 px extra space
+
+        showText("Robot Stats", rightBoxCenterX, robotStartY);
+        showText("Robots Spawned: " + robotsSpawned, rightBoxCenterX, robotStartY + robotLineSpacing);
+        showText("Robot Cash Earned: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 2);
     }
 }
+
+

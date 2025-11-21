@@ -19,9 +19,8 @@ public class Hospital extends Buildings
         
         if(!doorConstructed)
         {
-            
-        getWorld().addObject(new HospitalDoor(), getX(), getY()+20);
-        doorConstructed = true;
+            getWorld().addObject(new HospitalDoor(), getX(), getY()+20);
+            doorConstructed = true;
         }
         if (timer >= cooldown) {
             healHumans();
