@@ -8,10 +8,10 @@ public class MeleeRobot extends Robot {
     private GreenfootImage[] attackFrames;
 
     private int walkCounter = 0;
-    private int walkSpeed = 5; // lower = faster animation
+    private int walkSpeed = 5;   // animation pacing
 
     private int attackCounter = 0;
-    private int attackSpeed = 10; // lower = faster attack animation
+    private int attackSpeed = 10;
     private int attackFrameIndex = 0;
 
     private int cooldown = 0;
@@ -22,21 +22,21 @@ public class MeleeRobot extends Robot {
 
         // Idle frame
         idleImage = new GreenfootImage("meleeRobot000.png");
-        idleImage.scale(20,50);
+        idleImage.scale(20, 50);
         setImage(idleImage);
 
         // Walking frames
         walkingFrames = new GreenfootImage[7];
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < walkingFrames.length; i++) {
             walkingFrames[i] = new GreenfootImage("meleeRobot00" + i + ".png");
-            walkingFrames[i].scale(20,50);
+            walkingFrames[i].scale(20, 50);
         }
 
         // Attack frames
         attackFrames = new GreenfootImage[3];
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < attackFrames.length; i++) {
             attackFrames[i] = new GreenfootImage("robotAttack00" + i + ".png");
-            attackFrames[i].scale(80,100);
+            attackFrames[i].scale(80, 100);
         }
     }
 
@@ -62,19 +62,18 @@ public class MeleeRobot extends Robot {
     @Override
     protected void attackBehavior() {
 
-        // First check for fences
+        // Fence takes priority
         Fences fence = findFence();
         if (fence != null) {
-            // stop movement
-            setLocation(getX(), getY());
             attackFence(fence);
             return;
         }
 
-        // Normal human attack
         if (cooldown > 0) cooldown--;
 
         Human target = getClosestHuman();
+
+        // No target: idle & walk forward
         if (target == null) {
             setImage(idleImage);
             move(speed);
@@ -84,19 +83,24 @@ public class MeleeRobot extends Robot {
 
         double dist = getDistanceTo(target);
 
+        // In range: attack
         if (dist <= range) {
             animateAttack();
+
             if (cooldown == 0) {
                 target.takeDamage(damage);
                 cooldown = delay;
             }
-        } else {
+        } 
+        
+        // Out of range: walk to target
+        else {
             moveToward(target);
             animateWalk();
         }
     }
 
-    /** Find fence in range */
+    /** Find fence within melee range */
     private Fences findFence() {
         List<Fences> fences = getObjectsInRange(40, Fences.class);
         if (!fences.isEmpty()) {
@@ -105,10 +109,12 @@ public class MeleeRobot extends Robot {
         return null;
     }
 
-    /** Implement attackFence for melee robot */
+    /** Attack a fence */
     @Override
     protected void attackFence(Fences fence) {
+
         animateAttack();
+
         if (cooldown == 0) {
             Fences.damage(damage);
             cooldown = delay;
@@ -123,6 +129,7 @@ public class MeleeRobot extends Robot {
 
     private void animateAttack() {
         setImage(attackFrames[attackFrameIndex]);
+
         attackCounter++;
         if (attackCounter >= attackSpeed) {
             attackCounter = 0;
@@ -138,14 +145,19 @@ public class MeleeRobot extends Robot {
         double distance = Math.hypot(dx, dy);
 
         if (distance > 0) {
-            setLocation(getX() + (int)(dx / distance * getSpeed()),
-                        getY() + (int)(dy / distance * getSpeed()));
+            double nx = dx / distance;
+            double ny = dy / distance;
+            setLocation(
+                getX() + (int)(nx * getSpeed()),
+                getY() + (int)(ny * getSpeed())
+            );
         }
     }
 
     private void fadeOut() {
         GreenfootImage img = getImage();
         int alpha = img.getTransparency() - 10;
+
         if (alpha <= 0) {
             getWorld().removeObject(this);
         } else {
@@ -170,7 +182,9 @@ public class MeleeRobot extends Robot {
 
         for (Human h : humans) {
             if (h.getHealth() <= 0) continue;
+
             double dist = getDistanceTo(h);
+
             if (dist < minDist) {
                 minDist = dist;
                 closest = h;
@@ -179,5 +193,3 @@ public class MeleeRobot extends Robot {
         return closest;
     }
 }
-
-

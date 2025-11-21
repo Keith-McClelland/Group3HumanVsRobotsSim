@@ -33,16 +33,16 @@ private void loadAnimations() {
         for (int i = 0; i < 6; i++) {
             GreenfootImage img = new GreenfootImage("GiantWalk" + (i + 1) + ".png");
             img.mirrorHorizontally();
-            img.scale(img.getWidth() * 2, img.getHeight() * 2);
+            img.scale(img.getWidth() * 3, img.getHeight() * 3);
             walkFrames[i] = img;
         }
 
         // Giant Attack (1–6)
-        attackFrames = new GreenfootImage[6];
+        attackFrames = new GreenfootImage[4];
         for (int i = 0; i < 4; i++) {
             GreenfootImage img = new GreenfootImage("GiantAttack" + (i + 1) + ".png");
             img.mirrorHorizontally();
-            img.scale(img.getWidth() * 2, img.getHeight() * 2);
+            img.scale(img.getWidth() * 3, img.getHeight() * 3);
             attackFrames[i] = img;
         }
 
@@ -52,7 +52,7 @@ private void loadAnimations() {
         for (int i = 0; i < 6; i++) {
             GreenfootImage img = new GreenfootImage("TankRun" + (i + 1) + ".png");
             img.mirrorHorizontally();
-            img.scale(img.getWidth() * 2, img.getHeight() * 2);
+            img.scale(img.getWidth() * 3, img.getHeight() * 3);
             walkFrames[i] = img;
         }
 
@@ -61,7 +61,7 @@ private void loadAnimations() {
         for (int i = 0; i < 6; i++) {
             GreenfootImage img = new GreenfootImage("TankAttack" + (i + 1) + ".png");
             img.mirrorHorizontally();
-            img.scale(img.getWidth() * 2, img.getHeight() * 2);
+            img.scale(img.getWidth() * 3, img.getHeight() * 3);
             attackFrames[i] = img;
         }
     }
@@ -76,10 +76,12 @@ private void loadAnimations() {
 
     @Override
     protected void attackBehavior() {
+    
         if (cooldown > 0) cooldown--;
-
+    
         Buildings target = getClosestEnemyBuilding();
-
+    
+        // No target → idle + walk forward
         if (target == null) {
             attacking = false;
             setImage(idleImage);
@@ -87,18 +89,28 @@ private void loadAnimations() {
             animateWalk();
             return;
         }
-
-        double distance = getDistanceTo(target);
-
-        if (distance <= range) {
+    
+        double dist = getDistanceTo(target);
+    
+        // IN RANGE → ATTACK
+        if (dist <= range) {
             attacking = true;
             animateAttack(target);
-        } else {
+    
+            if (cooldown == 0) {
+                target.takeDamage(damage);
+                cooldown = delay;
+            }
+        }
+    
+        // NOT IN RANGE → MOVE TOWARD + WALK ANIMATION
+        else {
             attacking = false;
             moveTowardBuilding(target);
             animateWalk();
         }
     }
+
 
     /** Walking animation logic */
     private void animateWalk() {
