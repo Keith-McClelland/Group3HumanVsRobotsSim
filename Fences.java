@@ -1,6 +1,7 @@
 import greenfoot.*;
 import java.util.List;
 
+
 public class Fences extends SuperSmoothMover {
 
     private static SuperStatBar fenceHPBar;
@@ -23,9 +24,21 @@ public class Fences extends SuperSmoothMover {
             if (fenceHPBar != null)
                 getWorld().removeObject(fenceHPBar);
 
+            damageRobotsOnBreak();  // <-- Damage robots when fence breaks
             removeAllFences();
+
             fencesComplete = false;
             currentHitpoints = totalHitpoints;
+        }
+    }
+
+    // Method to damage all robots in the world
+    private void damageRobotsOnBreak() {
+        if (getWorld() == null) return;
+
+        List<Robot> robots = getWorld().getObjects(Robot.class);
+        for (Robot r : robots) {
+            r.takeDamage(50); // Adjust damage as needed
         }
     }
 
@@ -67,5 +80,11 @@ public class Fences extends SuperSmoothMover {
         }
     }
 
+    // Helper to let other classes know if fences are still up
+    public static boolean isFencesUp() {
+        return fencesComplete && currentHitpoints > 0;
+    }
 }
+
+
 

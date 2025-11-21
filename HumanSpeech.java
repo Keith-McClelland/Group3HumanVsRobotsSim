@@ -6,6 +6,7 @@ public class HumanSpeech extends Actor
   
     public HumanSpeech()
     {
-        speech1.scale(290,170); 
+        speech1.scale(300,160); 
+        setImage(speech1);
     }
 }

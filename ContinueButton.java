@@ -11,8 +11,5 @@ public class ContinueButton extends Actor
         setImage(button);
         
     }
-    public void act()
-    {
-        
-    }
+    
 }
