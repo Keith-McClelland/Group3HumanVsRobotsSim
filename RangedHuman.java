@@ -45,7 +45,7 @@ public class RangedHuman extends Human {
             for (int i = 0; i < 6; i++) {
                 GreenfootImage img = new GreenfootImage("Gunner" + (i + 1) + ".png");
                 img.mirrorHorizontally();
-                img.scale(50, 55);
+                img.scale(40, 45);
                 walkFrames[i] = img;
             }
             attackFrames = null; // Gunner doesn’t animate while attacking

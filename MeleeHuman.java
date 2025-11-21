@@ -51,7 +51,7 @@ public class MeleeHuman extends Human {
             for (int i = 0; i < 6; i++) {
                 GreenfootImage img = new GreenfootImage("CyborgRun" + (i + 1) + ".png");
                 img.mirrorHorizontally();
-                img.scale(img.getWidth() * 2, img.getHeight() * 2);
+                img.scale(40,50);
                 walkFrames[i] = img;
             }
     
@@ -60,7 +60,7 @@ public class MeleeHuman extends Human {
             for (int i = 0; i < 6; i++) {
                 GreenfootImage img = new GreenfootImage("CyborgAttack" + (i + 1) + ".png");
                 img.mirrorHorizontally();
-                img.scale(img.getWidth() * 2, img.getHeight() * 2);
+                img.scale(40, 45);
                 attackFrames[i] = img;
             }
     

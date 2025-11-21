@@ -2,9 +2,11 @@ import greenfoot.*;
 import java.util.List;
 
 public class TerritoryBar extends Actor {
-    private int barWidth = 200;
+    
+    //properties of the territory bar located on top of the screen
+    private int barWidth = 400;
     private int barHeight = 20;
-    private int borderThickness = 2;
+    private int borderThickness = 4;
 
     private Color humanColor = Color.BLUE;
     private Color robotColor = Color.RED;
@@ -14,22 +16,21 @@ public class TerritoryBar extends Actor {
     private GreenfootImage barImage;
 
     public TerritoryBar() {
-        // Only create blank image here
+        //  create blank image here
         barImage = new GreenfootImage(barWidth, barHeight);
         setImage(barImage);
-    }
-
-    public void addedToWorld(World w) {
-        // Initial drawing with neutral color
+        
+        // initial drawing with neutral color
         drawNeutral();
     }
 
     public void act() {
-        // Update every frame
+        // reguarly update every frame as location of both sides change
         updateBar();
     }
 
     private void drawNeutral() {
+        //draws the frame of the territory bar
         barImage.clear();
         barImage.setColor(neutralColor);
         barImage.fillRect(0, 0, barWidth, barHeight);
@@ -41,14 +42,17 @@ public class TerritoryBar extends Actor {
     }
 
     private void updateBar() {
+        //if no bar return (null check ensuring there is no errors)
         if (getWorld() == null) return;
 
+        //gets world length 
         int worldWidth = getWorld().getWidth();
 
+        //finds the furthest human and robot 
         int humanX = getFurthestHumanX();
         int robotX = getFurthestRobotX();
 
-        // convert world positions to bar pixels
+        //convert world positions to bar pixels
         int humanPos = (int)((double)humanX / worldWidth * barWidth);
         int robotPos = (int)((double)robotX / worldWidth * barWidth);
 
@@ -63,7 +67,7 @@ public class TerritoryBar extends Actor {
         barImage.setColor(robotColor);
         barImage.fillRect(robotPos, 0, barWidth - robotPos, barHeight);
 
-        // border
+        // creates the border
         barImage.setColor(borderColor);
         for (int i = 0; i < borderThickness; i++) {
             barImage.drawRect(i, i, barWidth - 1 - (i*2), barHeight - 1 - (i*2));
@@ -73,25 +77,38 @@ public class TerritoryBar extends Actor {
     }
 
     private int getFurthestHumanX() {
+        //loops through list of all humans within the world and by process of
+        //elimination, it will identify the human closest to the robot side
         List<Human> humans = getWorld().getObjects(Human.class);
         if (humans.isEmpty()) return 0;
 
-        int minX = getWorld().getWidth(); // humans start on right side
+        int x = getWorld().getWidth(); // humans start on right side
         for (Human h : humans) {
-            if (h.getX() < minX) minX = h.getX();
+            if (h.getX() < x) 
+            {
+                x = h.getX();
+            }
         }
-        return minX;
+        return x;
     }
 
     private int getFurthestRobotX() {
+        //loops through list of all robot within the world and by process of
+        //elimination, it will identify the human closest to the human side
         List<Robot> robots = getWorld().getObjects(Robot.class);
-        if (robots.isEmpty()) return 0;
-
-        int maxX = 0;
-        for (Robot r : robots) {
-            if (r.getX() > maxX) maxX = r.getX();
+        if (robots.isEmpty()) 
+        {
+            return 0;
         }
-        return maxX;
+
+        int x = 0;
+        for (Robot r : robots) {
+            if (r.getX() > x) 
+            {
+                x = r.getX();
+            }       
+        }
+        return x;
     }
 }
 
