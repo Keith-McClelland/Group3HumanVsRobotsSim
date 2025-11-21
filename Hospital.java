@@ -6,6 +6,7 @@ public class Hospital extends Buildings
     private int cooldown = 30;
     private int timer = 0;
 
+    private boolean doorConstructed = false;
     GreenfootImage hospital = new GreenfootImage("hospital.png");
     
     public Hospital() {
@@ -15,6 +16,13 @@ public class Hospital extends Buildings
     
     public void act() {
         timer++;
+        
+        if(!doorConstructed)
+        {
+            
+        getWorld().addObject(new HospitalDoor(), getX(), getY()+50);
+        doorConstructed = true;
+        }
         if (timer >= cooldown) {
             healHumans();
             timer = 0;
