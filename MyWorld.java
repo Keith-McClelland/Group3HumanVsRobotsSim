@@ -69,34 +69,38 @@ public class MyWorld extends World {
     }
 
     private void updateEvolutionStage() {
-        int humanCash = Units.getHumanCash();
-        if (humanCash >= 50 && evolutionStage == 1) 
-        {
-            evolutionStage = 2;
-        }
-        else if (humanCash >= 100 && evolutionStage == 2) 
-        {
-            evolutionStage = 3;
-        }
-        else if (humanCash >= 150 && evolutionStage == 3) 
-        {
-            evolutionStage = 4;
-        }
-        else if (humanCash >= 100 && evolutionStage == 4) 
-        {
-            evolutionStage = 5;
-        }
-        
-        int robotCash = Robot.getHumanCash();
-        if (robotCash >= 50 && evolutionStage == 1) 
-        {
-            evolutionStage = 2;
-        }
-        else if (robotCash >= 100 && evolutionStage == 2) 
-        {
-            evolutionStage = 3;
+    // Human upgrades and cannon
+    int humanCash = Units.getHumanCash();
+    if (evolutionStage == 1 && humanCash >= 50) {
+        Units.addHumanCash(-50); // spend cash
+        evolutionStage = 2;
+    } else if (evolutionStage == 2 && humanCash >= 100) {
+        Units.addHumanCash(-100);
+        evolutionStage = 3;
+    } else if (evolutionStage == 3 && humanCash >= 150) {
+        Units.addHumanCash(-150);
+        evolutionStage = 4;
+        // Spawn human canon
+        if (getObjects(Canon.class).isEmpty()) { // only one canon
+            addObject(new Canon(true), getWidth() - 100, getHeight() / 2);
         }
     }
+
+    // Robot upgrades and turret
+    int robotCash = Units.getRobotCash();
+    if (evolutionStage == 1 && robotCash >= 50) {
+        Units.addRobotCash(-50);
+        evolutionStage = 2;
+    } else if (evolutionStage == 2 && robotCash >= 100) {
+        Units.addRobotCash(-100);
+        evolutionStage = 3;
+        // Spawn robot turret
+        if (getObjects(Turret.class).isEmpty()) { // only one turret
+            addObject(new Turret(false), 100, getHeight() / 2);
+        }
+    }
+}
+
 
     private void spawnHumans() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
@@ -134,21 +138,21 @@ public class MyWorld extends World {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
 
         if (evolutionStage == 1) {
-            addObject(new MeleeRobot(130, 1.8, 40, 20, 20, 12), 50, y);
+            addObject(new MeleeRobot(100, 1.8, 40, 30, 20, 12), 50, y);
         } else if (evolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeRobot(130, 1.8, 35, 40, 20, 12), 50, y);
+                addObject(new MeleeRobot(150, 1.8, 35, 40, 20, 12), 50, y);
             else
                 addObject(new RangedRobot(100, 1.5, 300, 60, 15, 10), 50, y);
         } else if (evolutionStage >= 3) {
             int choice = Greenfoot.getRandomNumber(3); // 0,1,2
             if(choice == 0)
             {
-                addObject(new MeleeRobot(160, 2.0, 45, 40, 25, 15), 50, y);
+                addObject(new MeleeRobot(180, 2.0, 45, 40, 25, 15), 50, y);
             }
             else if (choice == 1)
             {
-                addObject(new RangedRobot(200, 1.5, 300, 60, 20, 20), 50, y);
+                addObject(new RangedRobot(200, 1.5, 300, 70, 20, 20), 50, y);
             }
             else
             {

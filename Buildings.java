@@ -15,6 +15,12 @@ public abstract class Buildings extends SuperSmoothMover
         this.health = maxHP;
         this.isHumanSide = isHumanSide;
     }
+    
+    public Buildings(int maxHP) {
+        this.maxHP = maxHP;
+        this.health = maxHP;
+        this.isHumanSide = isHumanSide;
+    }
 
     public boolean isHumanSide() {
         return isHumanSide;

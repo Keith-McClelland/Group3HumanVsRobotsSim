@@ -73,6 +73,15 @@ public abstract class Units extends SuperSmoothMover {
     public boolean isRobot() { return isRobot; }
     public double getSpeed() { return speed; }
     public int getRange() { return range; }
+     public static void addHumanCash(int amount) {
+        humanCash += amount;
+        if (humanCash < 0) humanCash = 0;
+    }
+
+    public static void addRobotCash(int amount) {
+        robotCash += amount;
+        if (robotCash < 0) robotCash = 0;
+    }
 
     public void takeDamage(int dmg) {
         health -= dmg;

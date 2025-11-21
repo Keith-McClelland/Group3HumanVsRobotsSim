@@ -1,11 +1,16 @@
+import greenfoot.*;
+
 public class Hospital extends Buildings
 {
     private int healAmount = 10;
     private int cooldown = 30;
     private int timer = 0;
 
-    public Hospital(boolean isHumanSide) {
-        super(300, isHumanSide);
+    GreenfootImage hospital = new GreenfootImage("hospital.png");
+    
+    public Hospital() {
+        super(300);
+        setImage(hospital);
     }
     
     public void act() {
