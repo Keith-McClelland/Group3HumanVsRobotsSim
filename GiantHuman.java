@@ -138,18 +138,20 @@ private void loadAnimations() {
     /** Move toward a target building */
     private void moveTowardBuilding(Buildings target) {
         if (target == null) return;
-
-        double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
+    
+    
+        double dx = target.getX() - getPreciseX();
+        double dy = target.getY() - getPreciseY();
         double distance = Math.hypot(dx, dy);
-
+    
         if (distance == 0) return;
-
-        setLocation(
-            getX() + (int)(dx / distance * getSpeed()),
-            getY() + (int)(dy / distance * getSpeed())
-        );
+    
+        double stepX = dx / distance * speed;
+        double stepY = dy / distance * speed;
+    
+        setLocation(getPreciseX() + stepX, getPreciseY() + stepY);
     }
+
 
     /** Find closest enemy building (isHumanSide == false) */
     private Buildings getClosestEnemyBuilding() {

@@ -123,12 +123,7 @@ public abstract class Units extends SuperSmoothMover {
     public void act() {
         if (getWorld() == null) return;
 
-        // YOUR ORIGINAL MOVEMENT (KEEP IT)
-        if (isRobot) {
-            move(speed);  
-        } else {
-            move(-speed); 
-        }
+ 
 
         updateHealthBar();
         checkEdges();
@@ -141,17 +136,18 @@ public abstract class Units extends SuperSmoothMover {
         int x = getX();
         int worldWidth = getWorld().getWidth();
 
-        // Human reaches left edge → Robots win
+        // Human reaches left edge, humans win
         if (!isRobot && x <= 5) {
             Greenfoot.setWorld(new EndSimWorld("Human"));
             return;
         }
     
-        // Robot reaches right edge → Humans win
-        if (isRobot && x >= worldWidth - 5) {
-            Greenfoot.setWorld(new EndSimWorld("Robots"));
+        // Robot reaches right edge, robots win
+        if (isRobot && x >= getWorld().getWidth() - 1) {
+            Greenfoot.setWorld(new EndSimWorld("Robots"));  
             return;
         }
+
     
         // Existing cleanup
         if (x < 5 || x >= worldWidth - 5) {

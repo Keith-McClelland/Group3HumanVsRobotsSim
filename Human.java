@@ -55,9 +55,8 @@ public abstract class Human extends Units {
         }
     }
 
-    // If no target, humans can keep moving forward
     protected void moveForward() {
-        setLocation(getX() + (int)-speed, getY());
+        setLocation(getPreciseX() - speed, getPreciseY());
     }
     
     public static void setTotalHumansSpawned(int amount) { totalHumansSpawned = amount; }
