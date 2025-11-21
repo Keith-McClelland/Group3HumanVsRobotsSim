@@ -11,7 +11,7 @@ public class MyWorld extends World {
     private int spawnInterval = 200;
 
     private int evolutionStage = 1; // starts with basic melee
-    private int nextStageCash = 100; // initial threshold
+    private int nextStageCash = 50; // initial threshold
 
     private StatBoard humanStatboard;
     private StatBoard robotStatboard;
@@ -81,6 +81,7 @@ public class MyWorld extends World {
 
         if (humanCash >= nextStageCash) {
             evolutionStage++;
+            
             if (evolutionStage == 2) nextStageCash = 200;
             else if (evolutionStage == 3) nextStageCash = 500;
             else if (evolutionStage == 4) nextStageCash = 1000;

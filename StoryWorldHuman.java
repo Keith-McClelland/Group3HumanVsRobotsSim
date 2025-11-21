@@ -10,6 +10,10 @@ public class StoryWorldHuman extends SuperSmoothMover
     private Crystal target;
     private HumanSpeech speech;
 
+    private boolean speechDone = false;
+    private boolean chasingDone = false; // NEW
+    private Drone droneTarget;
+    private boolean flipped = false;
 
     public StoryWorldHuman() {
         for (int i = 0; i < 4; i++) {
@@ -20,42 +24,103 @@ public class StoryWorldHuman extends SuperSmoothMover
         setImage(walk[0]);
     }
 
-    
-
     public void act() {
-     
-        if (target == null) {
-            findCrystal();
-        } else {
+        if (!speechDone) {
             moveTowardCrystal();
+            return;
         }
-    }
 
-    private void findCrystal() {
-        List<Crystal> crystals = getWorld().getObjects(Crystal.class);
-        if (!crystals.isEmpty()) target = crystals.get(0);
+        if (!chasingDone) {
+            chaseDrone();
+            return;
+        }
+
+        // After chase → return to right side
+        returnToRightSide();
     }
 
     private void moveTowardCrystal() {
+        if (target == null) {
+            List<Crystal> crystals = getWorld().getObjects(Crystal.class);
+            if (!crystals.isEmpty()) target = crystals.get(0);
+            return;
+        }
+
         double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
-        double distance = Math.hypot(dx, dy);
+        double distance = Math.abs(dx);
 
         if (distance > 100) {
-            setLocation(getX() + dx / distance * 1, getY());
+            setLocation(getX() + Math.signum(dx) * 1, getY());
+            animateWalk();
+            return;
+        }
+
+        // REMOVE robot speech
+        List<RobotSpeech> robotSpeeches = getWorld().getObjects(RobotSpeech.class);
+        if (!robotSpeeches.isEmpty()) getWorld().removeObject(robotSpeeches.get(0));
+
+        // ADD human speech
+        speech = new HumanSpeech();
+        getWorld().addObject(speech, getX() - 105, getY() - 105);
+
+        // Wait exactly 5 seconds
+        Greenfoot.delay(300);
+
+        // REMOVE human speech
+        if (speech != null && speech.getWorld() != null)
+            getWorld().removeObject(speech);
+
+        speechDone = true;
+
+        // Pick drone target
+        List<Drone> drones = getWorld().getObjects(Drone.class);
+        if (!drones.isEmpty()) droneTarget = drones.get(0);
+    }
+
+    private void chaseDrone() {
+        if (droneTarget == null || droneTarget.getWorld() == null) {
+            chasingDone = true;
+            return;
+        }
+
+        // Drone escapes
+        droneTarget.runAway();
+
+        if (droneTarget.getWorld() == null) {
+            chasingDone = true;
+            return;
+        }
+
+        // Human moves toward drone
+        double dx = droneTarget.getX() - getX();
+        double dy = droneTarget.getY() - getY();
+        double dist = Math.hypot(dx, dy);
+
+        if (dist > 5) {
+            setLocation(getX() + dx / dist * 2, getY() + dy / dist * 2);
+            animateWalk();
+        }
+    }
+
+    // AFTER chase → human turns around and runs off screen
+    private void returnToRightSide() {
+        // Face right side
+        if(!flipped){
+        for (int i = 0; i < walk.length; i++)
+        {
+            walk[i].mirrorHorizontally();  // mirror once
+            setImage(walk[0]);
+        }
+        flipped = true;
+    }
+
+        // Move right until off screen
+        if (getX() < getWorld().getWidth() -5) {
+            setLocation(getX() + 3, getY());
             animateWalk();
         } else {
-            
-                List<RobotSpeech> robotSpeeches = getWorld().getObjects(RobotSpeech.class);
-                if (!robotSpeeches.isEmpty()) {
-                    RobotSpeech robotSpeech = robotSpeeches.get(0);
-                    getWorld().removeObject(robotSpeech);
-                }
-                
-                speech = new HumanSpeech();
-                getWorld().addObject(speech, getX() - 105, getY() - 105);
-                speech.setImage(speech.speech1);
-
+            getWorld().removeObject(this);
+            Greenfoot.setWorld(new SettingsWorld());
         }
     }
 
@@ -67,6 +132,5 @@ public class StoryWorldHuman extends SuperSmoothMover
         }
     }
 }
-
 
 

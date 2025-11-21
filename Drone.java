@@ -5,6 +5,8 @@ public class Drone extends SuperSmoothMover
 {
     GreenfootImage drone = new GreenfootImage("drone.png");
     private boolean isScanning = false;
+    private boolean flippedOnce = false;
+
     RobotSpeech speech;
 
     public Drone()
@@ -57,6 +59,27 @@ public class Drone extends SuperSmoothMover
         Crystal c = crystals.get(0);
         moveTowardCrystal(c);
     }
+    
+    public void runAway() {
+    int speed = 3;
+
+     if (!flippedOnce) {
+        getImage().mirrorHorizontally();   
+        flippedOnce = true;
+    }
+    
+
+    // Move off the left side
+    if (getX() > 5) {
+        setLocation(getX() - speed, getY());
+    } else {
+        if (getWorld() != null) {
+            getWorld().removeObject(this);
+        }
+    }
+}
+
+
 
     private void startScanAnimation()
     {
