@@ -21,12 +21,12 @@ public class RangedRobot extends Robot {
         // Load walking frames
         for (int i = 0; i < 8; i++) {
             walkFrames[i] = new GreenfootImage("rangedRobotWalk00" + i + ".png");
-            walkFrames[i].scale(20,50);
+            walkFrames[i].scale(40,45);
         }
 
         // Load shooting frame
         shootFrame = new GreenfootImage("rangedRobotShooting.png");
-        shootFrame.scale(25,50);
+        shootFrame.scale(40,45);
 
         setImage(walkFrames[0]);
     }

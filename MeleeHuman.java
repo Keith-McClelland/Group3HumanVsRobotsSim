@@ -45,7 +45,7 @@ public class MeleeHuman extends Human {
                 attackFrames[i] = img;
             }
     
-        } else if (animationType.equalsIgnoreCase("cyborg")) {
+        } else {
             // Cyborg Walking (1–6)
             walkFrames = new GreenfootImage[6];
             for (int i = 0; i < 6; i++) {
@@ -64,21 +64,6 @@ public class MeleeHuman extends Human {
                 attackFrames[i] = img;
             }
     
-        } else {
-            // ⭐ Swordsman animations (1–8 walk, 1–3 attack)
-            walkFrames = new GreenfootImage[8];
-            for (int i = 0; i < 8; i++) {
-                GreenfootImage img = new GreenfootImage("SwordsmanWalk" + (i + 1) + ".png");
-                img.mirrorHorizontally();
-                walkFrames[i] = img;
-            }
-    
-            attackFrames = new GreenfootImage[3];
-            for (int i = 0; i < 3; i++) {
-                GreenfootImage img = new GreenfootImage("SwordsmanAttack" + (i + 1) + ".png");
-                img.mirrorHorizontally();
-                attackFrames[i] = img;
-            }
         }
     }
 

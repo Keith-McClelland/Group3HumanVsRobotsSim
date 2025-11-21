@@ -8,10 +8,13 @@ public class MyWorld extends World {
 
     private int humanSpawnTimer = 0;
     private int robotSpawnTimer = 0;
-    private int spawnInterval = 200;
 
-    private int evolutionStage = 1; // starts with basic melee
-    private int nextStageCash = 50; // initial threshold
+    private int evolutionStage = 1; // stage 1
+    private int maxHumans = 10;
+    private int maxRobots = 10;
+
+    private int humanSpawnInterval = 120; // frames (~2s)
+    private int robotSpawnInterval = 120;
 
     private StatBoard humanStatboard;
     private StatBoard robotStatboard;
@@ -21,7 +24,7 @@ public class MyWorld extends World {
 
         setPaintOrder(
             StatsHUD.class,
-            SuperStatBar.class, 
+            SuperStatBar.class,
             Builders.class,
             Fences.class,
             Robot.class
@@ -29,18 +32,15 @@ public class MyWorld extends World {
 
         setBackground(background);
 
-        // Statboards
         humanStatboard = new StatBoard();
         robotStatboard = new StatBoard();
         addObject(humanStatboard, 105, 75);
         addObject(robotStatboard, getWidth() - 105, 75);
 
-        // HUD
         addObject(new StatsHUD(true), 126, 96);
         addObject(new StatsHUD(false), 1157, 96);
-        addObject(new TerritoryBar(), getWidth()/2, 30);
+        addObject(new TerritoryBar(), getWidth() / 2, 30);
 
-        // RESET STATS
         Units.setHumanCash(0);
         Units.setRobotCash(0);
         Human.setTotalHumansSpawned(0);
@@ -54,38 +54,47 @@ public class MyWorld extends World {
         EndSimWorld.totalTimeElapsed = frameCount;
 
         humanSpawnTimer++;
-        if (humanSpawnTimer >= spawnInterval) {
+        if (humanSpawnTimer >= humanSpawnInterval) {
             humanSpawnTimer = 0;
-            spawnHumans();
+            if (getObjects(Human.class).size() < maxHumans) spawnHumans();
         }
 
         robotSpawnTimer++;
-        int robotInterval = Math.max(60, spawnInterval - frameCount / 10);
-        if (robotSpawnTimer >= robotInterval) {
+        if (robotSpawnTimer >= robotSpawnInterval) {
             robotSpawnTimer = 0;
-            spawnRobots();
+            if (getObjects(Robot.class).size() < maxRobots) spawnRobots();
         }
 
-        // Check evolution stage based on human cash
         updateEvolutionStage();
-
-        // Builder spawn logic
-        if (Units.getHumanCash() >= 100 && !fenceExists() && !builderExists()) {
-            spawnBuilder();
-            Units.setHumanCash(Units.getHumanCash() - 100);
-        }
     }
 
     private void updateEvolutionStage() {
         int humanCash = Units.getHumanCash();
-
-        if (humanCash >= nextStageCash) {
-            evolutionStage++;
-            
-            if (evolutionStage == 2) nextStageCash = 200;
-            else if (evolutionStage == 3) nextStageCash = 500;
-            else if (evolutionStage == 4) nextStageCash = 1000;
-            else if (evolutionStage == 5) nextStageCash = 2000;
+        if (humanCash >= 50 && evolutionStage == 1) 
+        {
+            evolutionStage = 2;
+        }
+        else if (humanCash >= 100 && evolutionStage == 2) 
+        {
+            evolutionStage = 3;
+        }
+        else if (humanCash >= 150 && evolutionStage == 3) 
+        {
+            evolutionStage = 4;
+        }
+        else if (humanCash >= 100 && evolutionStage == 4) 
+        {
+            evolutionStage = 5;
+        }
+        
+        int robotCash = Robot.getHumanCash();
+        if (robotCash >= 50 && evolutionStage == 1) 
+        {
+            evolutionStage = 2;
+        }
+        else if (robotCash >= 100 && evolutionStage == 2) 
+        {
+            evolutionStage = 3;
         }
     }
 
@@ -93,27 +102,31 @@ public class MyWorld extends World {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
 
         if (evolutionStage == 1) {
-            addObject(new MeleeHuman(150, 2, 40, 50, 40, 10, "caveman"), getWidth() - 50, y);
-        }
-
-        if (evolutionStage >= 2) {
-            addObject(new MeleeHuman(150, 2, 40, 50, 40, 10, "caveman"), getWidth() - 50, y);
-            addObject(new RangedHuman(50, 2, 400, 50, 40, 10, "archer"), getWidth() - 50, y);
-        }
-
-        if (evolutionStage >= 3) {
-            addObject(new MeleeHuman(200, 2.5, 50, 60, 50, 15, "modern"), getWidth() - 50, y);
-            addObject(new RangedHuman(80, 2, 450, 60, 45, 12, "modern"), getWidth() - 50, y);
-        }
-
-        if (evolutionStage >= 4) {
-            addObject(new GiantHuman(500, 1.5, 60, 75, 60, 25, "giant"), getWidth() - 50, y);
-            addObject(new ExplodingRobot(300, 2, 100, 40, 20, 20), getWidth() - 50, y); // example
-        }
-
-        if (evolutionStage >= 5) {
-            addObject(new Turret(false), 100, getHeight()/2 + 50);
-            addObject(new Canon(true), getWidth() - 100, getHeight()/2 + 50);
+            addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+        } else if (evolutionStage == 2) {
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+            else
+                addObject(new RangedHuman(50, 1.5, 300, 25, 20, 12, "archer"), getWidth() - 50, y);
+        } else if (evolutionStage >= 3) {
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(100, 2.0, 50, 40, 25, 15, "cyborg"), getWidth() - 50, y);
+            else
+                addObject(new RangedHuman(50, 1.8, 350, 30, 25, 15, "gunner"), getWidth() - 50, y);
+        }else if (evolutionStage >= 4) {
+            int choice = Greenfoot.getRandomNumber(3); // 0,1,2
+            if(choice == 0)
+            {
+                addObject(new MeleeHuman(100, 2.0, 50, 40, 25, 15, "cyborg"), getWidth() - 50, y);
+            }
+            else if (choice == 1)
+            {
+                addObject(new RangedHuman(50, 1.8, 350, 20, 25, 15, "gunner"), getWidth() - 50, y);
+            }
+            else
+            {
+                addObject(new GiantHuman(1000, 0.5, 100, 20, 30, 500, "giant"), getWidth() - 50, y);
+            }
         }
     }
 
@@ -121,42 +134,27 @@ public class MyWorld extends World {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
 
         if (evolutionStage == 1) {
-            addObject(new MeleeRobot(220, 2, 45, 15, 35, 12), 50, y);
-        }
-
-        if (evolutionStage >= 2) {
+            addObject(new MeleeRobot(130, 1.8, 40, 20, 20, 12), 50, y);
+        } else if (evolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeRobot(220, 2, 45, 15, 35, 12), 50, y);
+                addObject(new MeleeRobot(130, 1.8, 35, 40, 20, 12), 50, y);
             else
-                addObject(new RangedRobot(140, 2, 375, 20, 35, 12), 50, y);
-        }
-
-        if (evolutionStage >= 3) {
-            if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeRobot(250, 2.5, 50, 20, 40, 15), 50, y);
+                addObject(new RangedRobot(100, 1.5, 300, 60, 15, 10), 50, y);
+        } else if (evolutionStage >= 3) {
+            int choice = Greenfoot.getRandomNumber(3); // 0,1,2
+            if(choice == 0)
+            {
+                addObject(new MeleeRobot(160, 2.0, 45, 40, 25, 15), 50, y);
+            }
+            else if (choice == 1)
+            {
+                addObject(new RangedRobot(200, 1.5, 300, 60, 20, 20), 50, y);
+            }
             else
-                addObject(new RangedRobot(180, 2, 400, 25, 40, 15), 50, y);
-        }
-
-        if (evolutionStage >= 4) {
-            if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeRobot(300, 2.5, 60, 25, 45, 20), 50, y);
-            else
-                addObject(new ExplodingRobot(300, 2, 100, 40, 20, 20), 50, y);
-        }
-    }
-
-    private void spawnBuilder() {
-        addObject(new Builders(), getWidth() - 100, 175);
-    }
-
-    private boolean fenceExists() {
-        return !getObjects(Fences.class).isEmpty();
-    }
-
-    private boolean builderExists() {
-        return !getObjects(Builders.class).isEmpty();
+            {
+                addObject(new ExplodingRobot(500, 1.5, 50, 40, 20, 20), 50, y);
+            }
     }
 }
-
+}
 

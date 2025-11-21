@@ -2,13 +2,16 @@ import greenfoot.*;
 import java.util.List;
 
 public class ExplodingRobot extends Robot {
-
+    //the area where damage is done to human
     private int explosionRadius = 50;
+    //the distance for the the robot to find the humans  
     private int detectionRange;
+    
+    //when detected, at a certain range they will speed up 
     private double rushSpeed;
     private boolean rushing = false;
 
-    // Walking animation
+    // walking animation - variables counting the image index, animation speed
     private GreenfootImage[] walkFrames;
     private int frameIndex = 0;
     private int frameDelay = 5; // number of act() calls per frame
@@ -54,7 +57,7 @@ public class ExplodingRobot extends Robot {
         }
     }
 
-    @Override
+    
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;
 
@@ -83,11 +86,11 @@ public class ExplodingRobot extends Robot {
     protected void attackFence(Fences fence) 
     {
         // Fence check (explode on contact)
-List<Fences> fences = getObjectsInRange(30, Fences.class);
-if (!fences.isEmpty()) {
-    explode();
-    return;
-}
+        List<Fences> fences = getObjectsInRange(30, Fences.class);
+        if (!fences.isEmpty()) {
+            explode();
+            return;
+        }
 
     }
 
