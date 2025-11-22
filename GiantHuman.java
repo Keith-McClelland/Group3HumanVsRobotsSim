@@ -10,7 +10,7 @@ public class GiantHuman extends Human {
     private GreenfootImage[] attackFrames;
 
     private int walkCounter = 0;
-    private int walkSpeed = 7;      // slower for giant
+    private int walkSpeed = 15;      // slower for giant
     private int attackCounter = 0;
     private int attackSpeed = 12;   // slower attack for giant
     private int attackFrameIndex = 0;
