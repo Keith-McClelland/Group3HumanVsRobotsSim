@@ -84,19 +84,23 @@ public class RangedRobot extends Robot {
             lastShotTime = now;
         }
     }
-
+    
     private void shootAt(Human target) {
-        // Play laser sound
-        Greenfoot.playSound("laser.mp3");  
-        
+        Greenfoot.playSound("laser.mp3");
+    
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
     
         Projectile shot = new Projectile(projectileSpeed, angle, damage, Projectile.Owner.ROBOT);
+    
+        // ⭐ Set the projectile image to ray.png
+        GreenfootImage ray = new GreenfootImage("ray.png");
+        ray.scale(40, 6); // size tweak (optional)
+        shot.setImage(ray);
+    
         getWorld().addObject(shot, getX(), getY());
     }
-
 
     private void moveToward(Actor target) {
         if (target == null) return;

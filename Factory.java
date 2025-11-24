@@ -7,7 +7,6 @@ public class Factory extends Buildings
     private int cooldown = 50;
     private int timer = 0;
 
-
     public Factory() {
         super(400, false);
 
