@@ -1,18 +1,21 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 import java.util.List;
 
-public class Turret extends Buildings
-{
-    private GreenfootImage turretImage;
+public class Turret extends Buildings {
+
     private long lastShotTime = 0;
-    private long cooldownTime = 300;
+    private long cooldown = 300; // ms between shots
     private double projectileSpeed = 10;
     private int projectileDamage = 20;
     private int range = 500;
 
-    public Turret(boolean isHumanSide) {
-        super(300, isHumanSide);
+    private GreenfootImage turretImage;
 
+    // constructor takes team side
+    public Turret(boolean isHumanSide) {
+        super(300, isHumanSide); // robot turret = false
+
+        // load turret image
         turretImage = new GreenfootImage("images/turret.png");
         turretImage.mirrorHorizontally();
         turretImage.scale(100, 200);
@@ -20,10 +23,10 @@ public class Turret extends Buildings
     }
 
     public void act() {
-        Human target = getClosestHuman();
-        if (target != null) {
-            double distance = getDistanceTo(target);
-            if (distance <= range) {
+        // only shoot opposite team
+        if (isRobotSide()) {
+            Human target = getClosestHuman();
+            if (target != null && getDistance(target) <= range) {
                 shootIfReady(target);
             }
         }
@@ -31,13 +34,13 @@ public class Turret extends Buildings
 
     private void shootIfReady(Human target) {
         long now = System.currentTimeMillis();
-        if (now - lastShotTime >= cooldownTime) {
-            shootAt(target);
+        if (now - lastShotTime >= cooldown) {
+            fire(target);
             lastShotTime = now;
         }
     }
 
-    private void shootAt(Human target) {
+    private void fire(Human target) {
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
@@ -47,26 +50,23 @@ public class Turret extends Buildings
     }
 
     private Human getClosestHuman() {
-        if (getWorld() == null) return null;
-
         List<Human> humans = getWorld().getObjects(Human.class);
         Human closest = null;
-        double minDist = Double.MAX_VALUE;
+        double best = Double.MAX_VALUE;
 
         for (Human h : humans) {
-            double dist = getDistanceTo(h);
-            if (dist < minDist) {
-                minDist = dist;
+            if (h.getHealth() <= 0) continue; // skip dead humans
+            double d = getDistance(h);
+            if (d < best) {
+                best = d;
                 closest = h;
             }
         }
         return closest;
     }
 
-    private double getDistanceTo(Actor a) {
-        double dx = getX() - a.getX();
-        double dy = getY() - a.getY();
-        return Math.hypot(dx, dy);
+    private double getDistance(Actor a) {
+        return Math.hypot(a.getX() - getX(), a.getY() - getY());
     }
 }
 

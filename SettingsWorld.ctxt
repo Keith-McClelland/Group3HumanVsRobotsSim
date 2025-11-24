@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=SettingsWorld
+comment0.text=\r\n\ IntroWorld\ is\ a\ Greenfoot\ World\ that\ displays\ the\ introductory\ scene\ of\ the\ game\ simulation.\ \r\n\ It\ shows\ a\ start\ background\ with\ the\ title\ NEXUS,\ a\ continue\ button\ right\ under\ it.\ \r\n\ When\ Continue\ button\ is\ clicked,\ the\ story\ of\ the\ game\ will\ begin\ and\ a\ robot\ from\ the\ robot\ side\ (left)\ \r\n\ will\ attempt\ to\ retrieve\ a\ gem\ that\ sits\ on\ the\ human\ side\ (right),\ while\ the\ human\ rejects\ the\ robot\ \r\n\ leading\ to\ a\ battle\ \r\n\ <p>\r\n\ It\ displays\ the\ front\ page\ when\ the\ user\ opens\ the\ game\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=SettingsWorld()
 comment2.params=

@@ -2,17 +2,17 @@ import greenfoot.*;
 import greenfoot.Color;
 
 public class StatsHUD extends Actor {
-
-    private boolean isLeftSide; 
+    //place holder for the stats board representing each side money, number 
+    //of people alive and dead
+    private boolean isLeftSide; //dictates what text should be displayed
     private Font arcadeFont;
 
     public StatsHUD(boolean isLeftSide) {
         this.isLeftSide = isLeftSide;
 
-        // Load ARCADECLASSIC font (the only Greenfoot supported way)
+        // loads ARCADECLASSIC font 
         arcadeFont = new Font("ARCADECLASSIC.ttf", false, false, 10);
-
-        updateStats();
+        updateStats(); //updates the value as it constantly changes
     }
 
     public void act() {
@@ -35,19 +35,17 @@ public class StatsHUD extends Actor {
                 "HUMANS DEAD:   " + Units.humansDead;
         }
 
-        // Panel size
+        // panel size
         GreenfootImage img = new GreenfootImage(140, 200);
 
-        // Background panel
+        // background panel (clear)
         img.setColor(new Color(0, 0, 0, 0));
         img.fillRect(0, 0, img.getWidth(), img.getHeight());
 
-        // Text
+    
         img.setColor(Color.WHITE);
         img.setFont(arcadeFont);
-
         img.drawString(text, 15, 40);
-
         setImage(img);
     }
 }

@@ -1,77 +1,84 @@
-import greenfoot.*;  
+import greenfoot.*;
 import java.util.List;
 
-public class Canon extends Buildings
-{
+public class Canon extends Buildings {
+
+    //controls the shot fire rate(avoid constant shooting)
     private long lastShotTime = 0;
-    private long cooldown = 4000; // ms between shots
-    private double projectileSpeed = 8;
-    private int projectileDamage = 80;
-
-    private GreenfootImage idleImage;
-    private GreenfootImage[] shootFrames;
-
     private boolean shooting = false;
-    private int shootFrameIndex = 0;
-    private int shootFrameSpeed = 5; // acts per frame
-    private int shootFrameCounter = 0;
+    private long cooldown = 4000; //shot fire rate (increase for longer fire rate)
+    
+    private double projectileSpeed = 8; //speed the projectile will move at
+    private int projectileDamage = 80; //the amount of damage the shot will do
+
+    //keeps track of the images and helps with animation
+    private GreenfootImage idleImage; 
+    private GreenfootImage[] shootFrames;
+    private int frameIndex = 0;
+    private int frameCounter = 0;
+    private int frameSpeed = 5;
+
 
     public Canon(boolean isHumanSide) {
-        super(200, isHumanSide); // <-- team side now set
+        super(200, isHumanSide); // human cannon = true
 
-        // Idle image
+        // load idle frame
         idleImage = new GreenfootImage("canon001.png");
-        idleImage.scale(70,80);
+        idleImage.scale(70, 80);
         setImage(idleImage);
-    
-        // Shooting animation frames 002–006
+
+        // load shooting animation frames 
         shootFrames = new GreenfootImage[5];
         for (int i = 0; i < 5; i++) {
-            shootFrames[i] = new GreenfootImage("canon00" + (i+1) + ".png");
-            shootFrames[i].scale(70,80);
+            shootFrames[i] = new GreenfootImage("canon00" + (i + 2) + ".png");
+            shootFrames[i].scale(70, 80);
         }
     }
 
     public void act() {
-        Robot target = getClosestRobot();
-
-        if (shooting) {
-            animateShoot();
-        } else if (target != null) {
-            shootIfReady(target);
+        // only shoot opposite team
+        if (isHumanSide()) {
+            // finds the robot closest to itself 
+            Robot target = getClosestRobot();
+            if (shooting) 
+            {
+                animate();
+            } else if (target != null) 
+            {
+                attemptShoot(target);
+            }
         }
     }
 
     private Robot getClosestRobot() {
         List<Robot> robots = getWorld().getObjects(Robot.class);
         Robot closest = null;
-        double minDist = Double.MAX_VALUE;
+        double best = Double.MAX_VALUE;
 
         for (Robot r : robots) {
-            if (r.getHealth() <= 0) continue;
-            double dist = Math.hypot(r.getX() - getX(), r.getY() - getY());
-            if (dist < minDist) {
-                minDist = dist;
+            if (r.getHealth() <= 0) continue; // skip dead robots
+            double d = Math.hypot(r.getX() - getX(), r.getY() - getY());
+            if (d < best) {
+                best = d;
                 closest = r;
             }
         }
         return closest;
     }
 
-    private void shootIfReady(Robot target) {
+    private void attemptShoot(Robot target) {
         long now = System.currentTimeMillis();
         if (now - lastShotTime >= cooldown) {
             shooting = true;
-            shootFrameIndex = 0;
-            shootFrameCounter = 0;
+            frameIndex = 0;
+            frameCounter = 0;
 
-            // Fire projectile at first frame
-            shootAt(target);
+            fire(target);
             lastShotTime = now;
         }
     }
 
-    private void shootAt(Robot target) {
+    private void fire(Robot target) {
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
@@ -80,16 +87,19 @@ public class Canon extends Buildings
         getWorld().addObject(shot, getX(), getY());
     }
 
-    private void animateShoot() {
-        setImage(shootFrames[shootFrameIndex]);
-        shootFrameCounter++;
-        if (shootFrameCounter >= shootFrameSpeed) {
-            shootFrameCounter = 0;
-            shootFrameIndex++;
-            if (shootFrameIndex >= shootFrames.length) {
+    private void animate() {
+        setImage(shootFrames[frameIndex]);
+        frameCounter++;
+
+        if (frameCounter >= frameSpeed) {
+            frameCounter = 0;
+            frameIndex++;
+
+            if (frameIndex >= shootFrames.length) {
                 shooting = false;
                 setImage(idleImage);
             }
         }
     }
 }
+

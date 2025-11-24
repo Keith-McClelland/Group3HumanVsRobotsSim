@@ -168,11 +168,15 @@ public class MyWorld extends World {
     private void spawnHumans() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
     
+        int hp = GameSettings.humanHP;
+        double speed = GameSettings.humanSpeed;
+        int cash = GameSettings.humanCashPerKill;
+    
         // --------------------------
         // Stage 1: caveman only
         // --------------------------
         if (evolutionStage == 1) {
-            addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+            addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             return;
         }
     
@@ -180,19 +184,18 @@ public class MyWorld extends World {
         // Stage 2: caveman + archer
         // --------------------------
         if (evolutionStage == 2) {
-            if (Greenfoot.getRandomNumber(1) == 0)
-                addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else
-                addObject(new RangedHuman(50, 1.5, 300, 25, 20, 12, "archer"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
             return;
         }
-        
+    
         if (evolutionStage == 3) {
-            if (Greenfoot.getRandomNumber(1) == 0)
-                addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else
-                addObject(new RangedHuman(50, 1.5, 300, 25, 20, 12, "archer"), getWidth() - 50, y);
- 
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
         }
     
         // --------------------------
@@ -201,11 +204,11 @@ public class MyWorld extends World {
         if (evolutionStage == 4) {
             int choice = Greenfoot.getRandomNumber(3); // 0,1,2
             if (choice == 0)
-                addObject(new MeleeHuman(100, 1.8, 40, 30, 20, 10, "caveman"), getWidth() - 50, y);
+                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else if (choice == 1)
-                addObject(new RangedHuman(50, 1.5, 300, 25, 20, 12, "archer"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
             else
-                addObject(new GiantHuman(500, 0.5, 100, 20, 30, 500, "giant"), getWidth() - 50, y);
+                addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 20, 30, cash * 10, "giant"), getWidth() - 50, y);
             return;
         }
     
@@ -215,39 +218,37 @@ public class MyWorld extends World {
         if (evolutionStage >= 5) {
             int choice = Greenfoot.getRandomNumber(3);
             if (choice == 0)
-                addObject(new MeleeHuman(100, 2.0, 50, 40, 25, 15, "cyborg"), getWidth() - 50, y);
+                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
             else if (choice == 1)
-                addObject(new RangedHuman(50, 1.8, 350, 20, 25, 15, "gunner"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 20, 25, cash, "gunner"), getWidth() - 50, y);
             else
-                addObject(new GiantHuman(1000, 0.5, 100, 20, 30, 500, "tank"), getWidth() - 50, y);
+                addObject(new GiantHuman(hp * 10, speed * 0.5, 100, 20, 30, cash * 20, "tank"), getWidth() - 50, y);
         }
     }
 
-    private void spawnRobots() 
-    {
-            int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
+    private void spawnRobots() {
+        int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
     
-            if (evolutionStage == 1) {
-                addObject(new MeleeRobot(100, 1.8, 40, 30, 20, 12), 50, y);
-            } else if (evolutionStage == 2) {
-                if (Greenfoot.getRandomNumber(1) == 0)
-                    addObject(new MeleeRobot(150, 1.8, 35, 40, 20, 12), 50, y);
-                else
-                    addObject(new RangedRobot(100, 1.5, 300, 60, 15, 10), 50, y);
-            } else if (evolutionStage >= 3) {
-                int choice = Greenfoot.getRandomNumber(10); // 0,1,2
-                if(choice == 0)
-                {
-                    addObject(new ExplodingRobot(500, 1.5, 50, 40, 20, 20), 50, y);
-                }
-                else if (choice <= 5)
-                {
-                    addObject(new RangedRobot(200, 1.5, 300, 70, 20, 20), 50, y);
-                }
-                else
-                {
-                    addObject(new MeleeRobot(180, 2.0, 45, 40, 25, 15), 50, y);
-                }
+        int hp = GameSettings.robotHP;
+        double speed = GameSettings.robotSpeed;
+        int cash = GameSettings.robotCashPerKill;
+    
+        if (evolutionStage == 1) {
+            addObject(new MeleeRobot(hp, speed, 40, 30, 20, cash), 50, y);
+        } else if (evolutionStage == 2) {
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeRobot(hp + 50, speed, 35, 40, 20, cash), 50, y);
+            else
+                addObject(new RangedRobot(hp, speed * 0.8, 300, 60, 15, cash), 50, y);
+        } else if (evolutionStage >= 3) {
+            int choice = Greenfoot.getRandomNumber(10); // 0–9
+            if (choice == 0) {
+                addObject(new ExplodingRobot(hp * 5, speed * 0.8, 50, 40, 20, cash * 2), 50, y);
+            } else if (choice <= 5) {
+                addObject(new RangedRobot(hp * 2, speed * 0.9, 300, 70, 20, cash * 2), 50, y);
+            } else {
+                addObject(new MeleeRobot(hp + 80, speed * 1.1, 45, 40, 25, cash), 50, y);
+            }
         }
     }
     
@@ -301,4 +302,5 @@ public class MyWorld extends World {
         if (valid) addObject(new Turret(false), x, y);
     }
 }
+
 

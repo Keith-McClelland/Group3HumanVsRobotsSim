@@ -1,13 +1,28 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+/**
+ * IntroWorld is a Greenfoot World that displays the introductory scene of the game simulation. 
+ * It shows a start background with the title NEXUS, a continue button right under it. 
+ * When Continue button is clicked, the story of the game will begin and a robot from the robot side (left) 
+ * will attempt to retrieve a gem that sits on the human side (right), while the human rejects the robot 
+ * leading to a battle 
+ * <p>
+ * It displays the front page when the user opens the game
+ * 
+ * @author (your name) 
+ * @version November 2025
+ */
 public class SettingsWorld extends World
 {
-
     ContinueButton continueButton;
     public SettingsWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1240, 700, 1);
+        
+        // Reset all settings
+        GameSettings.reset();
+        
         setBackground("storyworld.png");
         
         Actor panel = new Actor() {};
@@ -25,7 +40,7 @@ public class SettingsWorld extends World
         setupHumanColumn();
         setupRobotColumn();
         
-        ContinueButton continueButton = new ContinueButton();
+        continueButton = new ContinueButton();
         addObject(continueButton, getWidth() / 2, 550);
     }
 
@@ -44,26 +59,25 @@ public class SettingsWorld extends World
     // Right side (Robot settings)
     private void setupRobotColumn() {
         int y = 200;
-        
-        // Creates four columns 
+        String[] properties = {"robotSpawnRate", "robotHP", "robotSpeed", "robotCash"};
         for (int i = 0; i < 4; i++) {
-            addObject(new ArrowButton(false), 770, y); // left arrow
-            addObject(new ValueBox(), 860, y); // middle box
-            addObject(new ArrowButton(true), 950, y);  // right arrow
+            ValueBox box = new ValueBox(properties[i]); // use new constructor
+            addObject(new ArrowButton(false, box), 770, y);
+            addObject(box, 860, y);
+            addObject(new ArrowButton(true, box), 950, y);
             y += 80;
         }
     }
     
-    
     // Left side (Human settings)
     private void setupHumanColumn() {
         int y = 200;
-        
-        // Creates four columns
+        String[] properties = {"humanSpawnRate", "humanHP", "humanSpeed", "humanCash"};
         for (int i = 0; i < 4; i++) {
-            addObject(new ArrowButton(false), 330, y); // left arrow
-            addObject(new ValueBox(), 420, y); // middle box
-            addObject(new ArrowButton(true), 510, y);  // right arrow
+            ValueBox box = new ValueBox(properties[i]); // use new constructor
+            addObject(new ArrowButton(false, box), 330, y);
+            addObject(box, 420, y);
+            addObject(new ArrowButton(true, box), 510, y);
             y += 80;
         }
     }
