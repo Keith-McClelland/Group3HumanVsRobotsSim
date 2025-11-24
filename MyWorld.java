@@ -272,7 +272,7 @@ public class MyWorld extends World {
             else if (choice == 1)
                 addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
             else
-                addObject(new GiantHuman(hp * 10, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
+                addObject(new GiantHuman(hp * 10,  0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
         }
     
         // --------------------------
@@ -281,11 +281,18 @@ public class MyWorld extends World {
         if (evolutionStage >= 5) {
             int choice = Greenfoot.getRandomNumber(4);
             if (choice <= 1)
-                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
+            {
+                addObject(new GiantHuman(hp * 30,  0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
+            }
             else if (choice <= 3)
+            {
                 addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
+            }
             else
-                addObject(new GiantHuman(hp * 30, speed * 0.5, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
+            {
+                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
+            }
+                
         }
     }
 
