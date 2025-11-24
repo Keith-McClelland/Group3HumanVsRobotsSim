@@ -2,26 +2,22 @@ import greenfoot.*;
 import java.util.List;
 
 public class ExplodingRobot extends Robot {
-    //the area where damage is done to human
-    private int explosionRadius = 50;
-    //the distance for the the robot to find the humans  
-    private int detectionRange;
-    
-    //when detected, at a certain range they will speed up 
-    private double rushSpeed;
-    private boolean rushing = false;
 
-    // walking animation - variables counting the image index, animation speed
+    private int explosionRadius = 50;
+    private int detectionRange;
+    private double rushSpeed;
+
+    // walking animation
     private GreenfootImage[] walkFrames;
     private int frameIndex = 0;
-    private int frameDelay = 5; // number of act() calls per frame
+    private int frameDelay = 5;
     private int frameCounter = 0;
 
     public ExplodingRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
         this.detectionRange = range * 2;
-        this.rushSpeed = 2.5 * speed;
+        this.rushSpeed = speed * 2.5;
 
         loadWalkingFrames();
         setImage(walkFrames[0]);
@@ -37,14 +33,52 @@ public class ExplodingRobot extends Robot {
 
     @Override
     public void act() {
-        super.act();
+        if (getWorld() == null) return;
 
-        if (!pendingRemoval) {
-            attackBehavior();
+        // Only behave if not dying
+        if (!isPendingRemoval()) {
+            super.act();    // handles movement + health
             animateWalking();
-        } else {
-            // safely remove after explosion
-            if (getWorld() != null) getWorld().removeObject(this);
+        }
+    }
+
+    @Override
+    protected void attackBehavior() {
+
+        Human closest = getClosestHuman();
+        if (closest != null) {
+
+            double dist = getDistanceTo(closest);
+
+            // explode on human
+            if (dist <= explosionRadius) {
+                explode();
+                markForRemoval();
+                return;
+            }
+
+            // rush if close enough
+            if (dist <= detectionRange) {
+                double dx = closest.getX() - getX();
+                double dy = closest.getY() - getY();
+                double length = Math.hypot(dx, dy);
+
+                setLocation(
+                    getX() + (int)(dx / length * rushSpeed),
+                    getY() + (int)(dy / length * rushSpeed)
+                );
+            }
+        }
+
+        // fence explosion
+        attackFence();
+    }
+
+    private void attackFence() {
+        List<Fences> fences = getObjectsInRange(30, Fences.class);
+        if (!fences.isEmpty()) {
+            explode();
+            markForRemoval();
         }
     }
 
@@ -57,58 +91,20 @@ public class ExplodingRobot extends Robot {
         }
     }
 
-    
-    protected void attackBehavior() {
-        if (cooldown > 0) cooldown--;
-
-        Human closest = getClosestHuman();
-        if (closest == null) return;
-
-        double dist = getDistanceTo(closest);
-
-        // Explode if human is within explosion radius
-        if (dist <= explosionRadius) {
-            explode();
-            pendingRemoval = true;
-            return;
-        }
-
-        // Move toward human if within detection range
-        if (dist <= detectionRange) {
-            double dx = closest.getX() - getX();
-            double dy = closest.getY() - getY();
-            double distance = Math.hypot(dx, dy);
-            setLocation(getX() + (int)(dx / distance * getSpeed()),
-                        getY() + (int)(dy / distance * getSpeed()));
-        }
-    }
-
-    protected void attackFence(Fences fence) 
-    {
-        // Fence check (explode on contact)
-        List<Fences> fences = getObjectsInRange(30, Fences.class);
-        if (!fences.isEmpty()) {
-            explode();
-            return;
-        }
-
-    }
-
     private void explode() {
         if (getWorld() == null) return;
-
-        // Explosion effect
+    
+        // Play explosion sound
+        Greenfoot.playSound("explosion.mp3");
+    
+        // Visual explosion effect
         BombEffect explosion = new BombEffect(100);
         getWorld().addObject(explosion, getX(), getY());
-
-        // Damage all humans in explosion radius
+    
+        // Damage all humans in radius
         List<Human> humans = getObjectsInRange(explosionRadius, Human.class);
         for (Human h : humans) {
             h.takeDamage(damage);
         }
     }
 }
-
-
-
-

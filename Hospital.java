@@ -10,9 +10,10 @@ public class Hospital extends Buildings
     GreenfootImage hospital = new GreenfootImage("hospital.png");
     
     public Hospital() {
-        super(300);
+        super(1000, true);
         setImage(hospital);
     }
+
     
     public void act() {
         timer++;

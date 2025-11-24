@@ -110,7 +110,6 @@ public class MeleeRobot extends Robot {
     }
 
     /** Attack a fence */
-    @Override
     protected void attackFence(Fences fence) {
 
         animateAttack();

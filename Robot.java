@@ -2,11 +2,12 @@ import greenfoot.*;
 import java.util.List;
 
 public abstract class Robot extends Units {
+
     protected int cooldown = 0;
-    protected boolean pendingRemoval = false; // flag for safe removal
+    private boolean pendingRemoval = false;
+
     private static int numRobots = 0;
     public static int totalRobotsSpawned = 0;
-
 
     protected Robot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value, true);
@@ -17,81 +18,87 @@ public abstract class Robot extends Units {
     @Override
     public void act() {
         if (getWorld() == null) return;
+        if (getHealth() <= 0) pendingRemoval = true;
 
-        // Check death
-        if (getHealth() <= 0 && !pendingRemoval) {
-            pendingRemoval = true;
-        }
-
-        // Only act if alive
         if (!pendingRemoval) {
             attackBehavior();
             moveTowardHuman();
         } else {
             die();
         }
-        checkEdges();
 
+        checkEdges();
     }
 
     protected abstract void attackBehavior();
 
     protected Human getClosestHuman() {
         if (getWorld() == null) return null;
-
-        List<Human> humans = getObjectsInRange(1000, Human.class);
-        Human closest = null;
-        double minDist = Double.MAX_VALUE;
-
-        for (Human h : humans) {
-            double dist = getDistanceTo(h);
-            if (dist < minDist) {
-                minDist = dist;
-                closest = h;
-            }
-        }
-        return closest;
+        return getClosest(getObjectsInRange(1000, Human.class));
     }
 
     protected void moveTowardHuman() {
         Human target = getClosestHuman();
-        if (target != null) {
-            double dx = target.getX() - getX();
-            double dy = target.getY() - getY();
-            double distance = Math.hypot(dx, dy);
-            if (distance > range) {
-                setLocation(getX() + (int)(dx / distance * getSpeed()),
-                            getY() + (int)(dy / distance * getSpeed()));
-            }
-        }
+        if (target != null) moveToward(target, range);
     }
 
     protected void die() {
-        removeHealthBar(); // inherited from Units, safely removes bar
+        removeHealthBar();
         if (getWorld() != null) {
             getWorld().removeObject(this);
             numRobots--;
         }
     }
 
+    @Override
+    public void takeDamage(int dmg) {
+        super.takeDamage(dmg);
+        if (getHealth() <= 0) pendingRemoval = true;
+    }
+
     public static int getNumRobots() {
         return numRobots;
     }
 
-    @Override
-    public void takeDamage(int dmg) {
-        super.takeDamage(dmg); // updates health and healthBar from Units
-        if (getHealth() <= 0 && !pendingRemoval) 
-        {
-            pendingRemoval = true;
+    public static void setTotalRobotsSpawned(int amount) {
+        totalRobotsSpawned = amount;
+    }
+
+    // Utility: return closest actor from list
+    protected <T extends Actor> T getClosest(List<T> list) {
+        T closest = null;
+        double minDist = Double.MAX_VALUE;
+
+        for (T obj : list) {
+            double d = getDistanceTo(obj);
+            if (d < minDist) {
+                minDist = d;
+                closest = obj;
+            }
+        }
+        return closest;
+    }
+
+    // Utility: move toward actor unless already in range
+    protected void moveToward(Actor target, double stopRange) {
+        if (target == null) return;
+
+        double dx = target.getX() - getX();
+        double dy = target.getY() - getY();
+        double distance = Math.hypot(dx, dy);
+
+        if (distance > stopRange) {
+            setLocation(
+                getX() + (int)(dx / distance * getSpeed()),
+                getY() + (int)(dy / distance * getSpeed())
+            );
         }
     }
-    public static void setTotalRobotsSpawned(int amount) { totalRobotsSpawned = amount; }
-    protected abstract void attackFence(Fences fence);
-
+    protected boolean isPendingRemoval() {
+        return pendingRemoval;
+    }
+    
+    protected void markForRemoval() {
+        pendingRemoval = true;
+    }
 }
-
-
-
-
-

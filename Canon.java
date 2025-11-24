@@ -28,8 +28,8 @@ public class Canon extends Buildings {
         setImage(idleImage);
 
         // load shooting animation frames 
-        shootFrames = new GreenfootImage[5];
-        for (int i = 0; i < 5; i++) {
+        shootFrames = new GreenfootImage[4];
+        for (int i = 0; i < 4; i++) {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 2) + ".png");
             shootFrames[i].scale(70, 80);
         }
