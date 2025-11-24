@@ -16,10 +16,8 @@ public abstract class Human extends Units {
 
     @Override
     public void act() {
-        if (getWorld() == null || getHealth() <= 0) return;
-        updateHealthBar();
+        super.act();
         attackBehavior();
-        checkEdges();
     }
 
     protected abstract void attackBehavior();

@@ -17,6 +17,7 @@ public abstract class Robot extends Units {
 
     @Override
     public void act() {
+
         if (getWorld() == null) return;
 
         if (getHealth() <= 0) {
@@ -29,8 +30,8 @@ public abstract class Robot extends Units {
         } else {
             die();
         }
-
         checkEdges();
+
     }
 
     protected abstract void attackBehavior();

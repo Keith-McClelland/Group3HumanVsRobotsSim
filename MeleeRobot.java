@@ -57,6 +57,7 @@ public class MeleeRobot extends Robot {
         }
 
         attackBehavior();
+        checkEdges();
     }
 
     @Override

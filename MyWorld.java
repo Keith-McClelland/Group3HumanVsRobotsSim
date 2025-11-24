@@ -227,8 +227,7 @@ public class MyWorld extends World {
         }
     }
 
-    private void spawnHumans() 
-    {
+    private void spawnHumans() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
         int hp = GameSettings.humanHP;
         double speed = GameSettings.humanSpeed;
@@ -265,20 +264,19 @@ public class MyWorld extends World {
                 addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else if (choice <= 8) // 40% chance
                 addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
-            else // 10% chance
-                addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
-            return;
+            else
+                addObject(new GiantHuman(hp * 5, 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
         }
     
         // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
         if (evolutionStage >= 5) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
             if (choice <= 4) // 50% chance
-                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
+                addObject(new MeleeHuman(hp* modernMultiplier, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
             else if (choice <= 8) // 40% chance
-                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
+                addObject(new RangedHuman((hp / 2)* modernMultiplier, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
             else // 10% chance
-                addObject(new GiantHuman(hp * 30, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
+                addObject(new GiantHuman((hp * 5)* modernMultiplier, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
         }
     }
 

@@ -69,10 +69,6 @@ public class MeleeHuman extends Human {
         }
     }
 
-
-
-
-
     @Override
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;

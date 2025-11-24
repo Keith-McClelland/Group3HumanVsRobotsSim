@@ -56,6 +56,13 @@ public abstract class Units extends SuperSmoothMover {
         if (isRobot) robotsAlive++;
         else humansAlive++;
     }
+    
+    public void act() {
+        if (getWorld() == null) return;
+        updateHealthBar();
+        checkEdges();
+        restrictPlayableArea();
+    }
 
     protected void addedToWorld(World world) {
         healthBar = new SuperStatBar(maxHealth, health, this, 40, 6, 30,
@@ -110,16 +117,6 @@ public abstract class Units extends SuperSmoothMover {
         }
     }
 
-    public void act() {
-        if (getWorld() == null) return;
-
- 
-
-        updateHealthBar();
-        checkEdges();
-        restrictPlayableArea();
-    }
-
     protected void checkEdges() {
         if (getWorld() == null) return;
 
@@ -132,15 +129,15 @@ public abstract class Units extends SuperSmoothMover {
             return;
         }
     
+ 
         // Robot reaches right edge, robots win
-        if (isRobot && x >= getWorld().getWidth() - 1) {
-            Greenfoot.setWorld(new EndSimWorld("Robots"));  
+        if (isRobot && x >= worldWidth - 5) {
+            Greenfoot.setWorld(new EndSimWorld("Robots"));
             return;
         }
-
-    
-        // Existing cleanup
-        if (x < 5 || x >= worldWidth - 5) {
+        
+        // Cleanup only if NOT winning
+        if (!isRobot && x < 5) { // Human cleanup
             removeHealthBar();
             getWorld().removeObject(this);
         }
