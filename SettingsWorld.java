@@ -26,6 +26,7 @@ public class SettingsWorld extends World
         setBackground("storyworld.png");
         
         Actor panel = new Actor() {};
+        
         // Dark grey background
         GreenfootImage bg = new GreenfootImage(1200, 600);
         bg.setColor(new Color(45, 45, 45));

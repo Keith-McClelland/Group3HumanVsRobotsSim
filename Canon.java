@@ -30,7 +30,7 @@ public class Canon extends Buildings {
         // load shooting animation frames 
         shootFrames = new GreenfootImage[5];
         for (int i = 0; i < 5; i++) {
-            shootFrames[i] = new GreenfootImage("canon00" + (i + 2) + ".png");
+            shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
             shootFrames[i].scale(70, 80);
         }
     }
