@@ -227,87 +227,60 @@ public class MyWorld extends World {
         }
     }
 
-
     private void spawnHumans() {
-        int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
-    
-        int hp = GameSettings.humanHP;
-        double speed = GameSettings.humanSpeed;
-        int cash = GameSettings.humanCashPerKill;
-    
-        // --------------------------
-        // Stage 1: caveman only
-        // --------------------------
-        if (evolutionStage == 1) {
-            addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-            return;
-        }
-    
-        // --------------------------
-        // Stage 2: caveman + archer
-        // --------------------------
-        if (evolutionStage == 2) {
-            if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-            else
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
-            return;
-        }
-            // --------------------------
-        // Stage 3: caveman + archer + cannon
-        // --------------------------
-        if (evolutionStage == 3) {
-            if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-            else
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
-        }
-    
-        // --------------------------
-        // Stage 4: caveman + archer + giant + hospital + cannon
-        // --------------------------
-        if (evolutionStage == 4) {
-            int choice = Greenfoot.getRandomNumber(3); // 0,1,2
-            if (choice == 0)
-                addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-            else if (choice == 1)
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
-            else
-<<<<<<< HEAD
-                addObject(new GiantHuman(hp * 10,  0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
-=======
-                addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
->>>>>>> 92885da30f5179d8d7de2575f49617cd83a64a98
-        }
-    
-        // --------------------------
-        // Stage 5+: cyborg + gunner + tank + hospital + cannon
-        // --------------------------
-        if (evolutionStage >= 5) {
-            int choice = Greenfoot.getRandomNumber(4);
-            if (choice <= 1)
-<<<<<<< HEAD
-            {
-                addObject(new GiantHuman(hp * 30,  0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
-            }
-            else if (choice <= 3)
-            {
-                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
-            }
-            else
-            {
-                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
-            }
-                
-=======
-                addObject(new MeleeHuman(hp * modernMultiplier, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
-            else if (choice <= 3)
-                addObject(new RangedHuman((hp / 2) * modernMultiplier, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
-            else
-                addObject(new GiantHuman((hp * 5) * modernMultiplier, speed * 0.5, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
->>>>>>> 92885da30f5179d8d7de2575f49617cd83a64a98
-        }
+    int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
+    int hp = GameSettings.humanHP;
+    double speed = GameSettings.humanSpeed;
+    int cash = GameSettings.humanCashPerKill;
+
+    // Stage 1: Caveman only
+    if (evolutionStage == 1) {
+        addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+        return;
     }
+
+    // Stage 2: Caveman + Archer
+    if (evolutionStage == 2) {
+        if (Greenfoot.getRandomNumber(2) == 0)
+            addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+        else
+            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+        return;
+    }
+
+    // Stage 3: Caveman + Archer + Cannon (spawn handled separately)
+    if (evolutionStage == 3) {
+        if (Greenfoot.getRandomNumber(2) == 0)
+            addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+        else
+            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+        return;
+    }
+
+    // Stage 4: Caveman + Archer + Giant + Cannons
+    if (evolutionStage == 4) {
+        int choice = Greenfoot.getRandomNumber(10); // 0–9
+        if (choice <= 4) // 50% chance
+            addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+        else if (choice <= 8) // 40% chance
+            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
+        else // 10% chance
+            addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
+        return;
+    }
+
+    // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
+    if (evolutionStage >= 5) {
+        int choice = Greenfoot.getRandomNumber(10); // 0–9
+        if (choice <= 4) // 50% chance
+            addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
+        else if (choice <= 8) // 40% chance
+            addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
+        else // 10% chance
+            addObject(new GiantHuman(hp * 30, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
+    }
+}
+
 
     private void spawnRobots() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
