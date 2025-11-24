@@ -99,7 +99,7 @@ public class MyWorld extends World {
     private int robotFactoryInterval = 1500;
     private int modernMultiplier = 2; 
 
-    private int evolutionStage = 1; // stage 1
+    private static int  evolutionStage = 1; // stage 1
     private int maxHumans = 10;
     private int maxRobots = 10;
 
@@ -389,6 +389,16 @@ public class MyWorld extends World {
         int x = 350; // fixed left side
         int y = 175 ;
         addObject(new Factory(), x, y);
+    }
+    
+    public static int getHumanLevel()
+    {
+        return evolutionStage;
+    }
+    
+    public static int getRobotLevel()
+    {
+        return evolutionStage;
     }
 }
 

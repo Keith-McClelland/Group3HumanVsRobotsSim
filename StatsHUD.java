@@ -21,19 +21,23 @@ public class StatsHUD extends Actor {
 
     private void updateStats() {
 
-        String text;
+    String text;
 
-        if (isLeftSide) {
-            text =
-                "ROBOT CASH:    " + Units.robotCash + "\n" + "\n"+ "\n"+
-                "ROBOTS ALIVE:  " + Units.robotsAlive + "\n" + "\n"+ "\n"+
-                "ROBOTS DEAD:   " + Units.robotsDead;
-        } else {
-            text =
-                "HUMAN CASH:    " + Units.humanCash + "\n" + "\n"+ "\n"+
-                "HUMANS ALIVE:  " + Units.humansAlive + "\n" + "\n"+ "\n"+
-                "HUMANS DEAD:   " + Units.humansDead;
-        }
+    int humanLevel = MyWorld.getHumanLevel();
+    int robotLevel = MyWorld.getRobotLevel();
+    if (isLeftSide) {
+        text =
+            "ROBOT CASH:    " + Units.robotCash + "\n\n" +
+            "ROBOTS ALIVE:  " + Units.robotsAlive + "\n\n" +
+            "ROBOTS DEAD:   " + Units.robotsDead + "\n\n" +
+            "STAGE:         " + robotLevel;
+    } else {
+        text =
+            "HUMAN CASH:    " + Units.humanCash + "\n\n" +
+            "HUMANS ALIVE:  " + Units.humansAlive + "\n\n" +
+            "HUMANS DEAD:   " + Units.humansDead + "\n\n" +
+            "STAGE:         " + humanLevel;
+    }
 
         // panel size
         GreenfootImage img = new GreenfootImage(140, 200);
