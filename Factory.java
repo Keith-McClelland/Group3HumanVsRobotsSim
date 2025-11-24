@@ -3,7 +3,6 @@ import greenfoot.*;
 public class Factory extends Buildings
 {
     private GreenfootImage factory = new GreenfootImage("factory.png");
-    private boolean doorCreated = false;
     private int repairAmount = 5;
     private int cooldown = 50;
     private int timer = 0;
@@ -13,7 +12,7 @@ public class Factory extends Buildings
 
         // set image
         GreenfootImage img = new GreenfootImage("factory.png");
-        img.scale(300, 200);
+        img.scale(200,100);
         setImage(img);
     }
 
@@ -37,5 +36,8 @@ public class Factory extends Buildings
         }
     }
 
+    public void takeDamage(int dmg) {
+        super.takeDamage(dmg);
+    }
 }
 
