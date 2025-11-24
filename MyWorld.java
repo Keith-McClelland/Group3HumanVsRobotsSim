@@ -204,7 +204,7 @@ public class MyWorld extends World {
             Units.addHumanCash(-100);
             evolutionStage = 5;
             if (getObjects(Hospital.class).isEmpty()) {
-                addObject(new Hospital(), getWidth() - 100, getHeight() / 2);
+                spawnHumanHospital();
             }
         }
     
@@ -222,64 +222,65 @@ public class MyWorld extends World {
             Units.addRobotCash(-75);
             evolutionStage = 4;
             if (getObjects(Factory.class).isEmpty()) {
-                addObject(new Factory(), 100, getHeight() / 2);
+                spawnRobotFactory();
             }
         }
     }
 
-    private void spawnHumans() {
-    int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
-    int hp = GameSettings.humanHP;
-    double speed = GameSettings.humanSpeed;
-    int cash = GameSettings.humanCashPerKill;
-
-    // Stage 1: Caveman only
-    if (evolutionStage == 1) {
-        addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-        return;
-    }
-
-    // Stage 2: Caveman + Archer
-    if (evolutionStage == 2) {
-        if (Greenfoot.getRandomNumber(2) == 0)
+    private void spawnHumans() 
+    {
+        int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
+        int hp = GameSettings.humanHP;
+        double speed = GameSettings.humanSpeed;
+        int cash = GameSettings.humanCashPerKill;
+    
+        // Stage 1: Caveman only
+        if (evolutionStage == 1) {
             addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-        else
-            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
-        return;
+            return;
+        }
+    
+        // Stage 2: Caveman + Archer
+        if (evolutionStage == 2) {
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+            else
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+            return;
+        }
+    
+        // Stage 3: Caveman + Archer + Cannon (spawn handled separately)
+        if (evolutionStage == 3) {
+            if (Greenfoot.getRandomNumber(2) == 0)
+                addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+            else
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+            return;
+        }
+    
+        // Stage 4: Caveman + Archer + Giant + Cannons
+        if (evolutionStage == 4) {
+            int choice = Greenfoot.getRandomNumber(10); // 0–9
+            if (choice <= 4) // 50% chance
+                addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
+            else if (choice <= 8) // 40% chance
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
+            else // 10% chance
+                addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
+            return;
+        }
+    
+        // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
+        if (evolutionStage >= 5) {
+            int choice = Greenfoot.getRandomNumber(10); // 0–9
+            if (choice <= 4) // 50% chance
+                addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
+            else if (choice <= 8) // 40% chance
+                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
+            else // 10% chance
+                addObject(new GiantHuman(hp * 30, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
+        }
     }
-
-    // Stage 3: Caveman + Archer + Cannon (spawn handled separately)
-    if (evolutionStage == 3) {
-        if (Greenfoot.getRandomNumber(2) == 0)
-            addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-        else
-            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
-        return;
-    }
-
-    // Stage 4: Caveman + Archer + Giant + Cannons
-    if (evolutionStage == 4) {
-        int choice = Greenfoot.getRandomNumber(10); // 0–9
-        if (choice <= 4) // 50% chance
-            addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
-        else if (choice <= 8) // 40% chance
-            addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
-        else // 10% chance
-            addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
-        return;
-    }
-
-    // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
-    if (evolutionStage >= 5) {
-        int choice = Greenfoot.getRandomNumber(10); // 0–9
-        if (choice <= 4) // 50% chance
-            addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
-        else if (choice <= 8) // 40% chance
-            addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
-        else // 10% chance
-            addObject(new GiantHuman(hp * 30, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
-    }
-}
 
 
     private void spawnRobots() {
@@ -372,25 +373,10 @@ public class MyWorld extends World {
         if (Units.getHumanCash() < 200) return;
         Units.addHumanCash(-200);
     
-        int x = getWidth() - 250; // right side like human cannons
-        int y = 175;
-        boolean valid = false;
+        int x = getWidth() - 350; // fixed right side
+        int y = 175 ;
     
-        for (int attempts = 0; attempts < 5; attempts++) {
-            
-            valid = true;
-    
-            // Prevent overlap with cannons, other buildings, etc.
-            for (Buildings b : getObjects(Buildings.class)) {
-                if (b.isHumanSide() && Math.abs(b.getY() - y) < 100) {
-                    valid = false;
-                    break;
-                }
-            }
-            if (valid) break;
-        }
-    
-        if (valid) addObject(new Hospital(), x, y);
+        addObject(new Hospital(), x, y);
     }
     
     private void spawnRobotFactory() {
@@ -398,26 +384,9 @@ public class MyWorld extends World {
         if (Units.getRobotCash() < 200) return;
         Units.addRobotCash(-200);
     
-        int x = 120; // left side for robots
-        int y = 0;
-        boolean valid = false;
-    
-        for (int attempts = 0; attempts < 5; attempts++) {
-            y = 175 + Greenfoot.getRandomNumber(getHeight() - 350);
-            valid = true;
-    
-            // Prevent overlap with other robot buildings
-            for (Buildings b : getObjects(Buildings.class)) {
-                if (!b.isHumanSide() && Math.abs(b.getY() - y) < 100) {
-                    valid = false;
-                    break;
-                }
-            }
-    
-            if (valid) break;
-        }
-    
-        if (valid) addObject(new Factory(), x, y);
+        int x = 350; // fixed left side
+        int y = 175 ;
+        addObject(new Factory(), x, y);
     }
 }
 
