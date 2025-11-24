@@ -11,5 +11,5 @@ comment4.target=void\ checkCollision()
 comment5.params=
 comment5.target=void\ checkEdges()
 comment6.params=
-comment6.target=void\ removeSelf()
+comment6.target=void\ removeBullet()
 numComments=7

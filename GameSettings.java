@@ -1,21 +1,15 @@
-/**
- * Write a description of class GameSettings here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class GameSettings {
-    // Humans
-    public static int humanSpawnRate = 120;
-    public static int humanHP = 100;
-    public static double humanSpeed = 1.8;
-    public static int humanCashPerKill = 10;
+    // Human base settings
+    public static int humanSpawnRate = 120; // Frames/delay
+    public static int humanHP = 100; // Starting Hp for each human unit
+    public static double humanSpeed = 1.8; // Movement speed of humans 
+    public static int humanCashPerKill = 10; // Money earned when a Robot kills a Human
 
-    // Robots
-    public static int robotSpawnRate = 120;
-    public static int robotHP = 100;
-    public static double robotSpeed = 1.8;
-    public static int robotCashPerKill = 10;
+    // Robot base settings
+    public static int robotSpawnRate = 120; // Frames/delay
+    public static int robotHP = 100; // Starting Hp for each robot unit
+    public static double robotSpeed = 1.8; // Movement speed of robots 
+    public static int robotCashPerKill = 10; // Money earned when a Human kills a Robot
 
     // Reset all values
     public static void reset() {

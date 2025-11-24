@@ -2,12 +2,14 @@ import greenfoot.*;
 
 public class Projectile extends SuperSmoothMover
 {
+    //controls movement / damage info
     private double speed;
     private double angle;
     private int damage;
-    private Owner owner; // Who fired the projectile
 
+    //who fired this projectile (ensures it only damages the oppostion side)
     public enum Owner { HUMAN, ROBOT, CANON }
+    private Owner owner;
 
     public Projectile(double speed, double angle, int damage, Owner owner)
     {
@@ -16,17 +18,23 @@ public class Projectile extends SuperSmoothMover
         this.damage = damage;
         this.owner = owner;
 
+        //face direction of travel
         setRotation((int)angle);
-        
-        if (owner == Owner.HUMAN) {
+
+        /*
+        //set correct image based on owner
+        if (owner == Owner.HUMAN) 
+        {
             setImage("laser.png");
-        } 
-        else if (owner == Owner.ROBOT) {
-            setImage("ray.png");
-        } 
-        else if (owner == Owner.CANON) {
-            setImage("canonBall.png");
         }
+        else if (owner == Owner.ROBOT) 
+        {
+            setImage("ray.png");
+        }
+        else 
+        {
+            setImage("canonBall.png");
+        }*/
     }
 
     public void act()
@@ -38,6 +46,8 @@ public class Projectile extends SuperSmoothMover
         checkEdges();
     }
 
+    //moves the projectile depending on angle/speed 
+    //(info is given by object shot from)
     private void moveProjectile()
     {
         double rad = Math.toRadians(angle);
@@ -46,58 +56,60 @@ public class Projectile extends SuperSmoothMover
         setLocation(getX() + dx, getY() + dy);
     }
 
+    //handles all hit detection
     private void checkCollision()
     {
         if (getWorld() == null) return;
 
-        // All projectiles hit fences
-        Fences fenceHit = (Fences)getOneIntersectingObject(Fences.class);
-        if (fenceHit != null) {
-            fenceHit.damage(damage);
-            removeSelf();
+        //all projectiles can hit fences
+        Fences fence = (Fences)getOneIntersectingObject(Fences.class);
+        if (fence != null) {
+            fence.damage(damage);
+            removeBullet();
             return;
         }
 
-        // Humans are hit only by Robot projectiles
+        //robot bullets can damage humans
         if (owner == Owner.ROBOT) {
-            Human humanHit = (Human)getOneIntersectingObject(Human.class);
-            if (humanHit != null) {
-                humanHit.takeDamage(damage);
-                removeSelf();
-                return;
+            Human human = (Human)getOneIntersectingObject(Human.class);
+            if (human != null) {
+                human.takeDamage(damage);
+                removeBullet();
             }
         }
 
-        // Robots are hit only by Human projectiles
+        //human + canon bullets can damage robots
         if (owner == Owner.HUMAN || owner == Owner.CANON) {
-            Robot robotHit = (Robot)getOneIntersectingObject(Robot.class);
-            if (robotHit != null) {
-                robotHit.takeDamage(damage);
-                removeSelf();
+            Robot robot = (Robot)getOneIntersectingObject(Robot.class);
+            if (robot != null) {
+                robot.takeDamage(damage);
+                removeBullet();
             }
         }
     }
 
+    //removes bullet when leaving the world bounds
     private void checkEdges()
     {
         if (getWorld() == null) return;
-    
+
         int x = getX();
         int y = getY();
-        int width = getWorld().getWidth();
-        int height = getWorld().getHeight();
-    
-        int margin = 5; // buffer in pixels
-    
-        if (x < margin || x > width - margin || y < 175 || y > height - margin) {
-            removeSelf();
-        }
+        int w = getWorld().getWidth();
+        int h = getWorld().getHeight();
+
+        int margin = 5;
+
+        //top is limited (175) to prevent bullets going upward off-screen in your layout
+        if (x < margin || x > w - margin || y < 175 || y > h - margin)
+            removeBullet();
     }
 
-
-    private void removeSelf()
+    //safe removal helper
+    private void removeBullet()
     {
-        if (getWorld() != null) {
+        if (getWorld() != null)
+        {
             getWorld().removeObject(this);
         }
     }

@@ -3,35 +3,37 @@ import java.util.List;
 
 public class Canon extends Buildings {
 
+    // controls the shot fire rate
     private long lastShotTime = 0;
     private boolean shooting = false;
-    private long cooldown = 4000;
+    private long cooldown = 4000; // ms
 
     private double projectileSpeed = 8;
     private int projectileDamage = 80;
 
-    private GreenfootImage idleImage; 
+    // animation
+    private GreenfootImage idleImage;
     private GreenfootImage[] shootFrames;
     private int frameIndex = 0;
     private int frameCounter = 0;
     private int frameSpeed = 5;
 
-    private GreenfootSound shootSound = new GreenfootSound("cannon.mp3");
-
     public Canon(boolean isHumanSide) {
-        super(200, isHumanSide); 
-    
+        super(200, isHumanSide);
+
+        // idle frame
         idleImage = new GreenfootImage("canon001.png");
         idleImage.scale(70, 80);
         setImage(idleImage);
-    
+
+        // shooting frames
         shootFrames = new GreenfootImage[5];
         for (int i = 0; i < 5; i++) {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
             shootFrames[i].scale(70, 80);
         }
     }
-    
+
     public void act() {
         if (!isHumanSide()) return;
 
@@ -62,15 +64,13 @@ public class Canon extends Buildings {
 
     private void attemptShoot(Robot target) {
         long now = System.currentTimeMillis();
+
         if (now - lastShotTime >= cooldown) {
             shooting = true;
             frameIndex = 0;
             frameCounter = 0;
 
             fire(target);
-
-            shootSound.play();
-
             lastShotTime = now;
         }
     }
@@ -99,3 +99,4 @@ public class Canon extends Buildings {
         }
     }
 }
+

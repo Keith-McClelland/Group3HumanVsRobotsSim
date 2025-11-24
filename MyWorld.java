@@ -1,40 +1,47 @@
 import greenfoot.*;
 import java.util.List;
 /**
-    Art Credits:
-    
-    - Robot 0 by Hannah Cohan (PlatForge) — https://opengameart.org/content/robot-0
-    - Tuxemon Tileset by Buch — https://opengameart.org/content/tuxemon-tileset
-    - Sci-Fi Tileset Layer – Junkyard (Kelvana Prime) by Galacti-Chron — https://opengameart.org/content/sci-fi-tileset-layer-junkyard-kelvana-prime
-    - Wasteland Tileset by Jarp.pix — https://jarppix.itch.io/wasteland-tileset
-    - Explosion Set 1 by M484 Games — https://opengameart.org/content/explosion-set-1-m484-games
-    - Simple Sci-Fi Bullets by Bonsaiheldin — https://opengameart.org/content/sci-fi-space-simple-bullets
-    - Laser Pack 2020 by Wenrexa — https://wenrexa.itch.io/laser2020
-    - Pixel Art Cannon by 1up Indie — https://opengameart.org/content/pixel-art-canon
-    - Open Gunner Starter Kit by Master484 — https://opengameart.org/content/open-gunner-starter-kit
-    - 16x16 Desert Tilesets by 16Pixel / OGA collection — https://opengameart.org/content/16x16-desert-tilesets
-    - Free RPG Desert Tileset by itch.io asset page — https://free-game-assets.itch.io/free-rpg-desert-tileset
-    - Free Robot Pixel Art Sprite Sheets by CraftPix — https://craftpix.net/freebies/free-robot-pixel-art-sprite-sheets
-    - Bullets – Pixel 64-Bit Assets by PIOmakesPIXELS — https://piomakespixels.itch.io/bullets-pixel-64-bit-assets
-    - 2D Sci-Fi Turret Pack by LeavarioxStudios — https://leavarioxstudios.itch.io/2d-sci-fi-turret-pack
-    - Crystals & Stone Set by phobi — https://opengameart.org/content/crystals-and-stone-set
-    - Stone by contributor — https://opengameart.org/content/stone
-    - Overworld Objects by Kelvin Shadewing — https://opengameart.org/content/overworld-objects
-    - Play / Pause / Mute / Unmute Buttons by contributor — https://opengameart.org/content/play-pause-mute-and-unmute-buttons
-    - Transparent PNG assets (misc props/robots) by HiClipArt — https://www.hiclipart.com
-    - Free Factory-related assets by multiple authors — https://itch.io/game-assets/free/tag-factory
-    - Factory search results (OpenGameArt) — https://opengameart.org/art-search-advanced?keys=factory
-    - Persian Foot Archer by Spring Spring - https://opengameart.org/content/greek-hypaspist-persian-foot-archer-pegasus-pony
-    - Free 3 Cyberpunk Characters Pixel Art by CraftPix - https://craftpix.net/freebies/free-3-cyberpunk-characters-pixel-art
-    - Character Animations (Caveman) by Chasersgaming - https://opengameart.org/content/character-animations-caveman     
-    - Free Villagers Sprite Sheets Pixel Art by CraftPix - https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art
-    - https://pixabay.com/sound-effects/classic-punch-impact-352711
-    - https://pixabay.com/sound-effects/sword-sound-260274
-    - https://pixabay.com/sound-effects/laser-45816
-    - https://pixabay.com/sound-effects/arrow-swish-03-306040
-    - https://pixabay.com/sound-effects/gun-shot-350315
-    - https://pixabay.com/sound-effects/explosion-312361
-**/
+ *   Human vs Robot Simulation:
+ *   
+ *   
+ *   
+ *   
+ *   Art Credits:
+ *   - Robot 0 by Hannah Cohan (PlatForge) — https://opengameart.org/content/robot-0
+ *   - Tuxemon Tileset by Buch — https://opengameart.org/content/tuxemon-tileset
+ *   - Sci-Fi Tileset Layer – Junkyard (Kelvana Prime) by Galacti-Chron — https://opengameart.org/content/sci-fi-tileset-layer-junkyard-kelvana-prime
+ *   - Wasteland Tileset by Jarp.pix — https://jarppix.itch.io/wasteland-tileset
+ *   - Explosion Set 1 by M484 Games — https://opengameart.org/content/explosion-set-1-m484-games
+ *   - Simple Sci-Fi Bullets by Bonsaiheldin — https://opengameart.org/content/sci-fi-space-simple-bullets
+ *   - Laser Pack 2020 by Wenrexa — https://wenrexa.itch.io/laser2020
+ *   - Pixel Art Cannon by 1up Indie — https://opengameart.org/content/pixel-art-canon
+ *   - Open Gunner Starter Kit by Master484 — https://opengameart.org/content/open-gunner-starter-kit
+ *   - 16x16 Desert Tilesets by 16Pixel / OGA collection — https://opengameart.org/content/16x16-desert-tilesets
+ *   - Free RPG Desert Tileset by itch.io asset page — https://free-game-assets.itch.io/free-rpg-desert-tileset
+ *   - Free Robot Pixel Art Sprite Sheets by CraftPix — https://craftpix.net/freebies/free-robot-pixel-art-sprite-sheets
+ *   - Bullets – Pixel 64-Bit Assets by PIOmakesPIXELS — https://piomakespixels.itch.io/bullets-pixel-64-bit-assets
+ *   - 2D Sci-Fi Turret Pack by LeavarioxStudios — https://leavarioxstudios.itch.io/2d-sci-fi-turret-pack
+ *   - Crystals & Stone Set by phobi — https://opengameart.org/content/crystals-and-stone-set
+ *   - Stone by contributor — https://opengameart.org/content/stone
+ *   - Overworld Objects by Kelvin Shadewing — https://opengameart.org/content/overworld-objects
+ *   - Play / Pause / Mute / Unmute Buttons by contributor — https://opengameart.org/content/play-pause-mute-and-unmute-buttons
+ *   - Transparent PNG assets (misc props/robots) by HiClipArt — https://www.hiclipart.com
+ *   - Free Factory-related assets by multiple authors — https://itch.io/game-assets/free/tag-factory
+ *   - Factory search results (OpenGameArt) — https://opengameart.org/art-search-advanced?keys=factory
+ *   - Persian Foot Archer by Spring Spring — https://opengameart.org/content/greek-hypaspist-persian-foot-archer-pegasus-pony
+ *   - Free 3 Cyberpunk Characters Pixel Art by CraftPix — https://craftpix.net/freebies/free-3-cyberpunk-characters-pixel-art
+ *   - Character Animations (Caveman) by Chasersgaming — https://opengameart.org/content/character-animations-caveman
+ *   - Free Villagers Sprite Sheets Pixel Art by CraftPix — https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art
+ *   
+ *   Sound Credits:
+ *   - Classic Punch Impact — https://pixabay.com/sound-effects/classic-punch-impact-352711
+ *   - Sword Sound — https://pixabay.com/sound-effects/sword-sound-260274
+ *   - Laser — https://pixabay.com/sound-effects/laser-45816
+ *   - Arrow Swish — https://pixabay.com/sound-effects/arrow-swish-03-306040
+ *   - Gun Shot — https://pixabay.com/sound-effects/gun-shot-350315
+ *   - Explosion — https://pixabay.com/sound-effects/explosion-312361
+ **/
+
 
 
 public class MyWorld extends World {
@@ -62,7 +69,6 @@ public class MyWorld extends World {
 
     private StatBoard humanStatboard;
     private StatBoard robotStatboard;
-    
     
 
     public MyWorld() {
@@ -119,6 +125,7 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             if (getObjects(Robot.class).size() < maxRobots) spawnRobots();
         }
+        
         if (evolutionStage >= 3) { 
             humanCannonTimer++;
             if (humanCannonTimer >= humanCannonInterval) {
@@ -126,6 +133,7 @@ public class MyWorld extends World {
                 spawnHumanCanon();
             }
         }
+        
         if (evolutionStage >= 3) {
             robotTurretTimer++;
             if (robotTurretTimer >= robotTurretInterval) {
@@ -224,9 +232,9 @@ public class MyWorld extends World {
             if (choice == 0)
                 addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else if (choice == 1)
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
             else
-                addObject(new GiantHuman(hp * 5, speed * 0.5, 100, 20, 30, cash * 10, "giant"), getWidth() - 50, y);
+                addObject(new GiantHuman(hp * 10, speed * 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
         }
     
         // --------------------------
@@ -237,9 +245,9 @@ public class MyWorld extends World {
             if (choice <= 1)
                 addObject(new MeleeHuman(hp, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
             else if (choice <= 3)
-                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 20, 25, cash, "gunner"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
             else
-                addObject(new GiantHuman(hp * 10, speed * 0.5, 100, 20, 30, cash * 20, "tank"), getWidth() - 50, y);
+                addObject(new GiantHuman(hp * 30, speed * 0.5, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
         }
     }
 
@@ -253,17 +261,17 @@ public class MyWorld extends World {
             addObject(new MeleeRobot(hp, speed, 40, 30, 20, cash), 50, y);
         } else if (evolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
-                addObject(new MeleeRobot(hp + 50, speed, 35, 40, 20, cash), 50, y);
+                addObject(new MeleeRobot(hp + 50, speed, 35, 45, 20, cash), 50, y);
             else
-                addObject(new RangedRobot(hp, speed * 0.8, 300, 60, 15, cash), 50, y);
+                addObject(new RangedRobot(hp, speed * 0.8, 300, 40, 15, cash), 50, y);
         } else if (evolutionStage >= 3) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
             if (choice == 0) {
                 addObject(new ExplodingRobot(hp * 5, speed * 0.8, 50, 40, 20, cash * 2), 50, y);
             } else if (choice <= 5) {
-                addObject(new RangedRobot(hp * 2, speed * 0.9, 300, 70, 20, cash * 2), 50, y);
+                addObject(new RangedRobot(hp * 2, speed * 0.9, 300, 50, 20, cash * 2), 50, y);
             } else {
-                addObject(new MeleeRobot(hp + 80, speed * 1.1, 45, 40, 25, cash), 50, y);
+                addObject(new MeleeRobot(hp + 80, speed * 1.1, 45, 50, 25, cash), 50, y);
             }
         }
     }
@@ -323,12 +331,12 @@ public class MyWorld extends World {
         if (Units.getHumanCash() < 200) return;
         Units.addHumanCash(-200);
     
-        int x = getWidth() - 120; // right side like human cannons
-        int y = 0;
+        int x = getWidth() - 250; // right side like human cannons
+        int y = 175;
         boolean valid = false;
     
         for (int attempts = 0; attempts < 5; attempts++) {
-            y = 175 + Greenfoot.getRandomNumber(getHeight() - 350);
+            
             valid = true;
     
             // Prevent overlap with cannons, other buildings, etc.
@@ -343,6 +351,7 @@ public class MyWorld extends World {
     
         if (valid) addObject(new Hospital(), x, y);
     }
+    
     private void spawnRobotFactory() {
         // Cost check
         if (Units.getRobotCash() < 200) return;

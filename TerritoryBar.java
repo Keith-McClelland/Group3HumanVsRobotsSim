@@ -2,12 +2,12 @@ import greenfoot.*;
 import java.util.List;
 
 public class TerritoryBar extends Actor {
-    
     //properties of the territory bar located on top of the screen
     private int barWidth = 400;
     private int barHeight = 20;
     private int borderThickness = 4;
 
+    //color used for the territory bar
     private Color humanColor = Color.BLUE;
     private Color robotColor = Color.RED;
     private Color neutralColor = Color.GRAY;
