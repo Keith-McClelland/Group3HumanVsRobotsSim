@@ -5,8 +5,9 @@ public class Turret extends Buildings {
 
     private long lastShotTime = 0;
     private long cooldown = 300; // ms between shots
+    private long cooldownTime = 240;
     private double projectileSpeed = 10;
-    private int projectileDamage = 20;
+    private int projectileDamage = 30;
     private int range = 500;
 
     private GreenfootImage turretImage;
@@ -39,15 +40,17 @@ public class Turret extends Buildings {
             lastShotTime = now;
         }
     }
-
+    
     private void fire(Human target) {
+        Greenfoot.playSound("laser.mp3");
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
-
+    
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.ROBOT);
         getWorld().addObject(shot, getX() + 40, getY() - 40);
     }
+
 
     private Human getClosestHuman() {
         List<Human> humans = getWorld().getObjects(Human.class);

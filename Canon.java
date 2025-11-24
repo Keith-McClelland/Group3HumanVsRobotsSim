@@ -28,25 +28,25 @@ public class Canon extends Buildings {
         setImage(idleImage);
 
         // load shooting animation frames 
+
         shootFrames = new GreenfootImage[5];
         for (int i = 0; i < 5; i++) {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
+            shootFrames = new GreenfootImage[4];
             shootFrames[i].scale(70, 80);
-        }
+        
     }
+}
 
-    public void act() {
-        // only shoot opposite team
-        if (isHumanSide()) {
-            // finds the robot closest to itself 
-            Robot target = getClosestRobot();
-            if (shooting) 
-            {
-                animate();
-            } else if (target != null) 
-            {
-                attemptShoot(target);
-            }
+     public void act() {
+        if (!isHumanSide()) return;
+
+        Robot target = getClosestRobot();
+
+        if (shooting) {
+            animate();
+        } else if (target != null) {
+            attemptShoot(target);
         }
     }
 

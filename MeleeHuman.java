@@ -2,6 +2,7 @@ import greenfoot.*;
 import java.util.List;
 
 public class MeleeHuman extends Human {
+    private GreenfootSound attackSound;
 
     private GreenfootImage idleImage;
 
@@ -10,7 +11,6 @@ public class MeleeHuman extends Human {
 
     private int walkCounter = 0;
     private int walkSpeed = 5;
-
     private int attackCounter = 0;
     private int attackSpeed = 10;
     private int attackFrameIndex = 0;
@@ -44,6 +44,7 @@ public class MeleeHuman extends Human {
                 img.scale(img.getWidth() * 2, img.getHeight() * 2);
                 attackFrames[i] = img;
             }
+            attackSound = new GreenfootSound("sword.mp3");
     
         } else {
             // Cyborg Walking (1–6)
@@ -63,6 +64,7 @@ public class MeleeHuman extends Human {
                 img.scale(40, 45);
                 attackFrames[i] = img;
             }
+            attackSound = new GreenfootSound("punch.mp3");
     
         }
     }
@@ -110,14 +112,19 @@ public class MeleeHuman extends Human {
     /** Attack animation logic */
     private void animateAttack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
-
+    
         if (cooldown == 0) {
             target.takeDamage(damage);
+    
+            if (attackSound != null) {
+                attackSound.play();
+            }
+    
             cooldown = delay;
         }
-
+    
         attackCounter++;
-
+    
         if (attackCounter >= attackSpeed) {
             attackCounter = 0;
             attackFrameIndex = (attackFrameIndex + 1) % attackFrames.length;

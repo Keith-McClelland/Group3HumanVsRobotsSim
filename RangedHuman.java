@@ -2,6 +2,8 @@ import greenfoot.*;
 import java.util.List;
 
 public class RangedHuman extends Human {
+    private GreenfootSound attackSound;
+    
     private GreenfootImage idleImage;
     private GreenfootImage[] walkFrames;
     private GreenfootImage[] attackFrames;
@@ -39,6 +41,7 @@ public class RangedHuman extends Human {
                 attackImg.scale(attackImg.getWidth() * 2, attackImg.getHeight() * 2);
                 attackFrames[i] = attackImg;
             }
+            attackSound = new GreenfootSound("arrow.mp3");
         } else {
             // Gunner type
             walkFrames = new GreenfootImage[6];
@@ -49,6 +52,7 @@ public class RangedHuman extends Human {
                 walkFrames[i] = img;
             }
             attackFrames = null; // Gunner doesn’t animate while attacking
+            attackSound = new GreenfootSound("gun.mp3");
         }
     }
 
@@ -98,6 +102,10 @@ public class RangedHuman extends Human {
             // Gunner stops moving while attacking
             setImage(walkFrames[5]);
         }
+        if (attackSound != null) {
+                attackSound.play();
+            }
+
 
         if (cooldown == 0 && target != null) {
             double dx = target.getX() - getX();
