@@ -40,17 +40,23 @@ public class Turret extends Buildings {
             lastShotTime = now;
         }
     }
-    
+        
     private void fire(Human target) {
         Greenfoot.playSound("laser.mp3");
+    
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
     
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.ROBOT);
+    
+        // ⭐ Set projectile image to ray.png
+        GreenfootImage ray = new GreenfootImage("ray.png");
+        ray.scale(40, 6);   // adjust size to look like a laser beam
+        shot.setImage(ray);
+    
         getWorld().addObject(shot, getX() + 40, getY() - 40);
     }
-
 
     private Human getClosestHuman() {
         List<Human> humans = getWorld().getObjects(Human.class);
