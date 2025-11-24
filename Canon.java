@@ -19,7 +19,8 @@ public class Canon extends Buildings {
     private int frameSpeed = 5;
 
 
-    public Canon(boolean isHumanSide) {
+    public Canon(boolean isHumanSide) 
+    {
         super(200, isHumanSide); // human cannon = true
 
         // load idle frame
@@ -30,13 +31,14 @@ public class Canon extends Buildings {
         // load shooting animation frames 
 
         shootFrames = new GreenfootImage[5];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) 
+        {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
             shootFrames = new GreenfootImage[4];
             shootFrames[i].scale(70, 80);
-        
+    
+        }
     }
-}
 
      public void act() {
         if (!isHumanSide()) return;

@@ -1,17 +1,4 @@
-
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-/**
- * IntroWorld is a Greenfoot World that displays the introductory scene of the game simulation. 
- * It shows a start background with the title NEXUS, a continue button right under it. 
- * When Continue button is clicked, the story of the game will begin and a robot from the robot side (left) 
- * will attempt to retrieve a gem that sits on the human side (right), while the human rejects the robot 
- * leading to a battle 
- * <p>
- * It displays the front page when the user opens the game
- * 
- * @author (your name) 
- * @version November 2025
- */
 public class SettingsWorld extends World
 {
     ContinueButton continueButton;

@@ -18,12 +18,6 @@ public abstract class Buildings extends SuperSmoothMover
         this.isHumanSide = isHumanSide;
     }
     
-    //this constructor is used for hospital and factory
-    public Buildings(int maxHP) 
-    {
-        this.maxHP = maxHP;
-        this.health = maxHP;
-    }
 
     //returns if building belongs to human
     public boolean isHumanSide() 
