@@ -1,9 +1,47 @@
 import greenfoot.*;
 import java.util.List;
 /**
- *   Human vs Robot Simulation:
- *   
- *   
+ *  This simulation represents an ongoing conflict between Humans and Robots,
+ *  where both sides fight for territorial control in order to obtain the
+ *  “Nexus,” a gem required for each side to continue existing. Both
+ *  sides depend on the Nexus. Therefore, each side expands and upgrades over
+ *  time in response to resources collected through combat.
+ *
+ *  As the simulation progresses, each side earns cash through combat. When
+ *  specific cash thresholds are met, new evolution stages unlock. These
+ *  stages change which units are spawned, increase overall combat strength, 
+ *  and unlock structures such as cannons, turrets, hospitals, and factories.
+ *
+ *  Human Progression:
+ *  Stage 1: Caveman (melee)
+ *      - Features: basic melee unit, standard HP and damage
+ *  Stage 2: Unlocks Archer; Cavemen continue spawning
+ *      - Features: Archers have ranged combat up to 300 pixels, reduced HP and slower speed
+ *  Stage 3: Cannons begin spawning for long-range support; Cavemen and Archers continue spawning
+ *      - Features: Cannons have slow fire rate, but high damage to enemy units
+ *  Stage 4: Unlocks Giant Human; Cannons, Cavemen, and Archers continue spawning
+ *      - Features: Giant moves slowly, very high HP, deals high damage to buildings
+ *  Stage 5+: Unit evolution and Hospital spawns
+ *      - CaveMan evolves into Cyborg (futuristic melee unit; faster, higher damage)
+ *      - Archers evolve into Futuristic Gunner (ranged unit; faster, higher damage)
+ *      - Giant evolves into Tank (heavy unit; extremely high HP, high damage)
+ *      - Structures: Cannon and Hospital continue functioning as support; Hospital heals nearby humans
+ *
+ *  Robot Progression:
+ *  Stage 1: Basic Melee Robots
+ *      - Features: standard health, speed from GameSettings, short-range combat
+ *  Stage 2: Unlocks Ranged Robots and improved melee variants
+ *      - Features: Ranged robots have 300-range attacks; melee robots have increased HP
+ *  Stage 3: Unlocks Exploding Robots, upgraded ranged robots, and faster melee units
+ *      - Features: Exploding Robots have high HP and detonate on death; upgraded melee units are faster
+ *      - Structures: Turrets spawn; provide ranged defensive fire
+ *  Stage 4: Factory structure unlocks
+ *      - Features: Factory supports production of robots and allows continuous spawning
+ *  Stage 5+: Robot units evolve further
+ *      - Basic Melee Robots evolve into Cyborg Bots (faster, higher damage)
+ *      - Ranged Robots evolve into Gunner Bots (higher range and fire rate)
+ *      - Exploding Robots evolve into Bomber Bots (detonate on death, larger area damage)
+ *      - Structures: Turrets and Factories continue functioning, providing support and production
  *   
  *   
  *   Art Credits:
