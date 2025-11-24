@@ -115,6 +115,8 @@ public class RangedHuman extends Human {
             Projectile p = new Projectile(10, angle, damage, Projectile.Owner.HUMAN);
             if (animationType.equalsIgnoreCase("archer")) {
                 p.setImage("Arrow.png");
+            } else {
+                p.setImage("laser.png");
             }
             getWorld().addObject(p, getX(), getY());
             cooldown = delay;

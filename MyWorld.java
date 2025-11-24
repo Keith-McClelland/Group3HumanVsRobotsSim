@@ -92,6 +92,8 @@ public class MyWorld extends World {
         addObject(new StatsHUD(true), 126, 96);
         addObject(new StatsHUD(false), 1157, 96);
         addObject(new TerritoryBar(), getWidth() / 2, 30);
+        
+        
 
         Units.setHumanCash(0);
         Units.setRobotCash(0);

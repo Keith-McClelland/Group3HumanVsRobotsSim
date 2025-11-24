@@ -3,44 +3,38 @@ import java.util.List;
 
 public class Canon extends Buildings {
 
-    //controls the shot fire rate(avoid constant shooting)
+    // controls the shot fire rate
     private long lastShotTime = 0;
     private boolean shooting = false;
-    private long cooldown = 4000; //shot fire rate (increase for longer fire rate)
-    
-    private double projectileSpeed = 8; //speed the projectile will move at
-    private int projectileDamage = 80; //the amount of damage the shot will do
+    private long cooldown = 4000; // ms
 
-    //keeps track of the images and helps with animation
-    private GreenfootImage idleImage; 
+    private double projectileSpeed = 8;
+    private int projectileDamage = 80;
+
+    // animation
+    private GreenfootImage idleImage;
     private GreenfootImage[] shootFrames;
     private int frameIndex = 0;
     private int frameCounter = 0;
     private int frameSpeed = 5;
 
+    public Canon(boolean isHumanSide) {
+        super(200, isHumanSide);
 
-    public Canon(boolean isHumanSide) 
-    {
-        super(200, isHumanSide); // human cannon = true
-
-        // load idle frame
+        // idle frame
         idleImage = new GreenfootImage("canon001.png");
         idleImage.scale(70, 80);
         setImage(idleImage);
 
-        // load shooting animation frames 
-
+        // shooting frames
         shootFrames = new GreenfootImage[5];
-        for (int i = 0; i < 5; i++) 
-        {
+        for (int i = 0; i < 5; i++) {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
-            shootFrames = new GreenfootImage[4];
             shootFrames[i].scale(70, 80);
-    
         }
     }
 
-     public void act() {
+    public void act() {
         if (!isHumanSide()) return;
 
         Robot target = getClosestRobot();
@@ -58,7 +52,7 @@ public class Canon extends Buildings {
         double best = Double.MAX_VALUE;
 
         for (Robot r : robots) {
-            if (r.getHealth() <= 0) continue; // skip dead robots
+            if (r.getHealth() <= 0) continue;
             double d = Math.hypot(r.getX() - getX(), r.getY() - getY());
             if (d < best) {
                 best = d;
@@ -70,6 +64,7 @@ public class Canon extends Buildings {
 
     private void attemptShoot(Robot target) {
         long now = System.currentTimeMillis();
+
         if (now - lastShotTime >= cooldown) {
             shooting = true;
             frameIndex = 0;
