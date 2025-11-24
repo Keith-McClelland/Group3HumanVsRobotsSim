@@ -39,8 +39,6 @@ public abstract class Units extends SuperSmoothMover {
 
     public static final int MIN_PLAYABLE_Y = 175;
 
-
-
     public Units(int health, double speed, int range, int damage, int delay, int value, boolean isRobot) {
 
         this.health = health;
@@ -65,14 +63,6 @@ public abstract class Units extends SuperSmoothMover {
         world.addObject(healthBar, getX(), getY() - 20);
     }
 
-    public int getHealth() { return health; }
-    public void setHealth(int hp) {
-        this.health = hp;
-        updateHealthBar();
-    }
-    public boolean isRobot() { return isRobot; }
-    public double getSpeed() { return speed; }
-    public int getRange() { return range; }
      public static void addHumanCash(int amount) {
         humanCash += amount;
         if (humanCash < 0) humanCash = 0;
@@ -203,13 +193,34 @@ public abstract class Units extends SuperSmoothMover {
         }
         return closest;
     }
+    
+        protected void moveToward(Actor target, double stopRange) {
+        double dx = target.getX() - getX();
+        double dy = target.getY() - getY();
+        double distance = Math.hypot(dx, dy);
+
+        if (distance > stopRange) {
+            setLocation(
+                getX() + (int)(dx / distance * getSpeed()),
+                getY() + (int)(dy / distance * getSpeed())
+            );
+        }
+    }
 
     protected double getDistanceTo(Actor a) {
         double dx = getPreciseX() - ((SuperSmoothMover)a).getPreciseX();
         double dy = getPreciseY() - ((SuperSmoothMover)a).getPreciseY();
         return Math.hypot(dx, dy);
     }
-
+    //getters and setters 
+    public void setHealth(int hp) {
+        this.health = hp;
+        updateHealthBar();
+    }
+    public int getHealth() { return health; }
+    public boolean isRobot() { return isRobot; }
+    public double getSpeed() { return speed; }
+    public int getRange() { return range; }
     public static int getHumanCash() { return humanCash; }
     public static int getRobotCash() { return robotCash; }
     public static void setHumanCash(int a) { humanCash = a; }

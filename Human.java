@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Human extends Units {
 
@@ -24,49 +24,15 @@ public abstract class Human extends Units {
 
     protected abstract void attackBehavior();
 
-    protected Robot getClosestRobot() {
-        if (getWorld() == null) return null;
-        return getClosest(getObjectsInRange(1000, Robot.class));
-    }
-
-    protected void moveTowardRobot(Robot target) {
-        if (target != null) moveToward(target, range);
-    }
-
     protected void moveForward() {
         setLocation(getPreciseX() - speed, getPreciseY());
     }
 
-    public static void setTotalHumansSpawned(int amount) {
+
+    protected void moveTowardRobot(Robot target) {
+        if (target != null) moveToward(target, range);
+    }
+        public static void setTotalHumansSpawned(int amount) {
         totalHumansSpawned = amount;
-    }
-
-    // Utility: get closest actor
-    protected <T extends Actor> T getClosest(List<T> list) {
-        T closest = null;
-        double minDist = Double.MAX_VALUE;
-
-        for (T obj : list) {
-            double d = getDistanceTo(obj);
-            if (d < minDist) {
-                minDist = d;
-                closest = obj;
-            }
-        }
-        return closest;
-    }
-
-    // Utility: move toward a target unless in range
-    protected void moveToward(Actor target, double stopRange) {
-        double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
-        double distance = Math.hypot(dx, dy);
-
-        if (distance > stopRange) {
-            setLocation(
-                getX() + (int)(dx / distance * getSpeed()),
-                getY() + (int)(dy / distance * getSpeed())
-            );
-        }
     }
 }
