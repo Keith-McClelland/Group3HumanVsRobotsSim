@@ -108,7 +108,6 @@ public class MyWorld extends World {
 
     private StatBoard humanStatboard;
     private StatBoard robotStatboard;
-    
 
     public MyWorld() {
         super(1240, 700, 1);
@@ -131,18 +130,15 @@ public class MyWorld extends World {
         addObject(new StatsHUD(true), 126, 96);
         addObject(new StatsHUD(false), 1157, 96);
         addObject(new TerritoryBar(), getWidth() / 2, 30);
-        
-        
 
         Units.setHumanCash(0);
         Units.setRobotCash(0);
         Human.setTotalHumansSpawned(0);
         Robot.setTotalRobotsSpawned(0);
-        
-        // Reset alive + dead counts
+
         Human.setHumansAlive(0);
         Human.setHumansDead(0);
-        
+
         Robot.setRobotsAlive(0);
         Robot.setRobotsDead(0);
 
@@ -164,7 +160,7 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             if (getObjects(Robot.class).size() < maxRobots) spawnRobots();
         }
-        
+
         if (evolutionStage >= 3) { 
             humanCannonTimer++;
             if (humanCannonTimer >= humanCannonInterval) {
@@ -172,7 +168,7 @@ public class MyWorld extends World {
                 spawnHumanCanon();
             }
         }
-        
+
         if (evolutionStage >= 3) {
             robotTurretTimer++;
             if (robotTurretTimer >= robotTurretInterval) {
@@ -180,47 +176,55 @@ public class MyWorld extends World {
                 spawnRobotTurret();
             }
         }
-            updateEvolutionStage();
+
+        updateEvolutionStage();
     }
-    
+
     private void updateEvolutionStage() {
         int humanCash = Units.getHumanCash();
         int robotCash = Units.getRobotCash();
-    
-        // Human upgrades
+
+        // ----------------- Human upgrades -----------------
         if (evolutionStage == 1 && humanCash >= 25) {
             Units.addHumanCash(-25);
             evolutionStage = 2;
+            addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
         } else if (evolutionStage == 2 && humanCash >= 50) {
             Units.addHumanCash(-50);
             evolutionStage = 3;
+            addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
         } else if (evolutionStage == 3 && humanCash >= 75) {
             Units.addHumanCash(-75);
             evolutionStage = 4;
+            addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
             if (getObjects(Canon.class).isEmpty()) {
                 addObject(new Canon(true), getWidth() - 100, getHeight() / 2);
             }
         } else if (evolutionStage == 4 && humanCash >= 100) {
             Units.addHumanCash(-100);
             evolutionStage = 5;
+            addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
             if (getObjects(Hospital.class).isEmpty()) {
                 spawnHumanHospital();
             }
         }
-    
-        // Robot upgrades
+
+        // ----------------- Robot upgrades -----------------
         if (evolutionStage == 1 && robotCash >= 25) {
             Units.addRobotCash(-25);
             evolutionStage = 2;
+            addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
         } else if (evolutionStage == 2 && robotCash >= 50) {
             Units.addRobotCash(-50);
             evolutionStage = 3;
+            addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
             if (getObjects(Turret.class).isEmpty()) {
                 addObject(new Turret(false), 100, getHeight() / 2);
             }
         } else if (evolutionStage == 3 && robotCash >= 75) {
             Units.addRobotCash(-75);
             evolutionStage = 4;
+            addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
             if (getObjects(Factory.class).isEmpty()) {
                 spawnRobotFactory();
             }
