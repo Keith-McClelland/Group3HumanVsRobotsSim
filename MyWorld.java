@@ -118,8 +118,6 @@ public class MyWorld extends World {
         setPaintOrder(
             StatsHUD.class,
             SuperStatBar.class,
-            Builders.class,
-            Fences.class,
             Robot.class
         );
         

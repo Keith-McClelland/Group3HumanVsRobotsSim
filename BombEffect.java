@@ -33,7 +33,6 @@ public class BombEffect extends Effect
             {
                 getWorld().removeObject(h); // or remove if instant kill
             }
-            Fences.damage(3000); // optional
         }
     }
 
