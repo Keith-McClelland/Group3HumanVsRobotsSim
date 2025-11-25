@@ -129,8 +129,9 @@ public class MyWorld extends World {
 
         setBackground(background);
 
-        humanStatboard = new StatBoard("robot");
-        robotStatboard = new StatBoard("human");
+        humanStatboard = new StatBoard("human");
+        robotStatboard = new StatBoard("robot");
+
         addObject(humanStatboard, 105, 75);
         addObject(robotStatboard, getWidth() - 105, 75);
 
@@ -192,10 +193,18 @@ public class MyWorld extends World {
     
     public void playMusic()
     {
-        backgroundMusic.setVolume(20);
-        backgroundMusic.playLoop();
+        if (!backgroundMusic.isPlaying()) {
+            backgroundMusic.setVolume(20);
+            backgroundMusic.playLoop();
+        }
     }
    
+    @Override 
+    public void stopped()
+    {
+        backgroundMusic.stop();
+    }
+    
     public static void stopMusic()
     {
         backgroundMusic.stop();
