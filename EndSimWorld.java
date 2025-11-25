@@ -50,14 +50,14 @@ public class EndSimWorld extends World {
         // Human stats
         showText("Human Stats", rightBoxCenterX, startY);
         showText("Humans Spawned: " + humansSpawned, rightBoxCenterX, startY + humanLineSpacing);
-        showText("Human Cash Earned: $" + humanCash, rightBoxCenterX, startY + humanLineSpacing * 2);
+        showText("Human LeftOver Cash: $" + humanCash, rightBoxCenterX, startY + humanLineSpacing * 2);
 
         // Leave a space between Human and Robot stats
         int robotStartY = startY + humanLineSpacing * 3 + 20; // 20 px extra space
 
         showText("Robot Stats", rightBoxCenterX, robotStartY);
         showText("Robots Spawned: " + robotsSpawned, rightBoxCenterX, robotStartY + robotLineSpacing);
-        showText("Robot Cash Earned: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 2);
+        showText("Robot LeftOver Cash: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 2);
     }
 }
 

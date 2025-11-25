@@ -131,8 +131,8 @@ public class MyWorld extends World {
         humanStatboard = new StatBoard("human");
         robotStatboard = new StatBoard("robot");
 
-        addObject(humanStatboard, 105, 75);
-        addObject(robotStatboard, getWidth() - 105, 75);
+        addObject(robotStatboard, 105, 75);
+        addObject(humanStatboard, getWidth() - 105, 75);
 
         addObject(new StatsHUD(true), 126, 96);
         addObject(new StatsHUD(false), 1157, 96);
