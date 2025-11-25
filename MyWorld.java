@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *  and unlock structures such as cannons, turrets, hospitals, and factories.
  *  
  *  Known Bugs:
- *  - There is no known bugs.
+ *  - There is no known bugs yet.
  *
  *  Human Progression:
  *  Stage 1: Caveman (melee)
@@ -40,12 +40,6 @@ import java.util.ArrayList;
  *      - Structures: Turrets spawn; provide ranged defensive fire
  *  Stage 4: Factory structure unlocks
  *      - Features: Factory supports production of robots and allows continuous spawning
- *  Stage 5+: Robot units evolve further
- *      - Basic Melee Robots evolve into Cyborg Bots (faster, higher damage)
- *      - Ranged Robots evolve into Gunner Bots (higher range and fire rate)
- *      - Exploding Robots evolve into Bomber Bots (detonate on death, larger area damage)
- *      - Structures: Turrets and Factories continue functioning, providing support and production
- *  
  *  
  *   Art Credits:
  *   - Robot 0 by Hannah Cohan (PlatForge) — https://opengameart.org/content/robot-0
@@ -82,6 +76,8 @@ import java.util.ArrayList;
  *   - Gun Shot — https://pixabay.com/sound-effects/gun-shot-350315
  *   - Explosion — https://pixabay.com/sound-effects/explosion-312361
  *   - Battle March Action Loop — https://pixabay.com/sound-effects/battle-march-action-loop-6935
+ *   - Another Dark Cue — https://pixabay.com/sound-effects/another-dark-cue-16452
+ *   - Ambient Spring Forest — https://pixabay.com/sound-effects/ambient-spring-forest-323801
  **/
 public class MyWorld extends World {
 
