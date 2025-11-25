@@ -99,7 +99,7 @@ public class MyWorld extends World {
     private int robotFactoryInterval = 1500;
     private int modernMultiplier = 2; 
 
-    private static int  evolutionStage = 1; // stage 1
+    private static int  evolutionStage; // stage 1
     private int maxHumans = 10;
     private int maxRobots = 10;
 
@@ -119,6 +119,8 @@ public class MyWorld extends World {
             Fences.class,
             Robot.class
         );
+        
+        evolutionStage = 1;
 
         setBackground(background);
 
