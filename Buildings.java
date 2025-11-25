@@ -93,6 +93,16 @@ public abstract class Buildings extends SuperSmoothMover
     }
     
     /**
+     * Gets the maximum health of the building.
+     *
+     * @return the building's maximum hp
+     */
+    public int getMaxHP() 
+    {
+        return maxHP;
+    }
+    
+    /**
      * Sets the building's health to a specific value and updates the health bar. 
      *
      * @param hp the new health value to assign 
