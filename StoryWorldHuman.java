@@ -171,7 +171,9 @@ public class StoryWorldHuman extends SuperSmoothMover
         {
             //once off screen → go to settings world
             getWorld().removeObject(this);
+            IntroWorld.stopMusic();
             Greenfoot.setWorld(new SettingsWorld());
+            
         }
     }
     

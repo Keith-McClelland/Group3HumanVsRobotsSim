@@ -13,6 +13,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class SettingsWorld extends World
 {
     ContinueButton continueButton;
+    GreenfootSound backgroundMusic = new GreenfootSound("settingWolrd.mp3");
     /**
      * Creates the settings menu world, initializes default settings, 
      * draws the layout, and places all UI components.
@@ -24,7 +25,7 @@ public class SettingsWorld extends World
         
         // Reset all settings
         GameSettings.reset();
-        
+        playMusic();
         setBackground("storyworld.png");
         
         Actor panel = new Actor() {};
@@ -61,8 +62,45 @@ public class SettingsWorld extends World
     private void handleContinueButton() {
         if (Greenfoot.mouseClicked(continueButton)) {
             // Enter the next world
+            stopMusic();
             Greenfoot.setWorld(new MyWorld()); // <-- change to desired world
         }
+    }
+    
+    /**
+     * Plays background music
+     */
+    public void playMusic()
+    {
+        if (!backgroundMusic.isPlaying()) {
+            backgroundMusic.setVolume(50);
+            backgroundMusic.playLoop();
+        }
+    }
+    
+    /**
+     * Starts playing the music
+     */
+    @Override
+    public void started() {
+        playMusic(); // resumes loop if not already playing
+    }
+
+    /**
+     * Stops the music
+     */
+    @Override
+    public void stopped()
+    {
+        backgroundMusic.stop();
+    }
+    
+    /**
+     * Stops the music
+     */
+    public void stopMusic()
+    {
+        backgroundMusic.stop();
     }
     
     /**

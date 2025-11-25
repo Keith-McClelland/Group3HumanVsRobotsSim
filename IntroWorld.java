@@ -16,8 +16,9 @@ public class IntroWorld extends World
     private ContinueButton button;
     // checks if robot is done scanning
     public static boolean doneScanning = false;
-    // ?import background music
-    private GreenfootSound bgMusic = new GreenfootSound("introWorld.mp3");
+    // import background music
+    private static GreenfootSound backgroundMusic = new GreenfootSound("introWorldBackground.mp3");
+    
     /**
      * Constructor for IntroWorld. 
      * Initializes the world dimensions to 1240x700 pixels, sets the initial 
@@ -42,14 +43,16 @@ public class IntroWorld extends World
     public void act() {
         // Check if the user clicks the ContinueButton
         if (Greenfoot.mouseClicked(button)) {
+            playMusic();
             setBackground(new GreenfootImage("storyworld.png"));
             removeObject(button);
-            
+                        
             Crystal crystal = new Crystal();
             addObject(crystal,954,503);
             
             Drone drone = new Drone();
             addObject(drone,0,560);
+        
         }
         
         if(doneScanning)
@@ -57,6 +60,42 @@ public class IntroWorld extends World
             spawnHuman();
             doneScanning = false;
         }
+    }
+    
+    /**
+     * Plays background music
+     */
+    public void playMusic()
+    {
+        if (!backgroundMusic.isPlaying()) {
+            backgroundMusic.setVolume(30);
+            backgroundMusic.playLoop();
+        }
+    }
+    
+    /**
+     * Starts playing the music
+     */
+    @Override
+    public void started() {
+        playMusic(); // resumes loop if not already playing
+    }
+
+    /**
+     * Stops the music
+     */
+    @Override
+    public void stopped()
+    {
+        backgroundMusic.stop();
+    }
+    
+    /**
+     * Stops the music
+     */
+    public static void stopMusic()
+    {
+        backgroundMusic.stop();
     }
 
     
