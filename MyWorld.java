@@ -6,13 +6,13 @@ import java.util.ArrayList;
  *  “Nexus,” a gem required for each side to continue existing. Both
  *  sides depend on the Nexus. Therefore, each side expands and upgrades over
  *  time in response to resources collected through combat.
- *
+ *  <p>
  *  As the simulation progresses, each side earns cash through combat. When
  *  specific cash thresholds are met, new evolution stages unlock. These
- *  stages change which units are spawned, increase overall combat strength, 
+ *  stages change which units are spawned, increase overall combat strength,
  *  and unlock structures such as cannons, turrets, hospitals, and factories.
  *  
- *  Known Bugs: 
+ *  Known Bugs:
  *  - There is no known bugs.
  *
  *  Human Progression:
@@ -45,8 +45,8 @@ import java.util.ArrayList;
  *      - Ranged Robots evolve into Gunner Bots (higher range and fire rate)
  *      - Exploding Robots evolve into Bomber Bots (detonate on death, larger area damage)
  *      - Structures: Turrets and Factories continue functioning, providing support and production
- *   
- *   
+ *  
+ *  
  *   Art Credits:
  *   - Robot 0 by Hannah Cohan (PlatForge) — https://opengameart.org/content/robot-0
  *   - Tuxemon Tileset by Buch — https://opengameart.org/content/tuxemon-tileset
@@ -73,7 +73,7 @@ import java.util.ArrayList;
  *   - Free 3 Cyberpunk Characters Pixel Art by CraftPix — https://craftpix.net/freebies/free-3-cyberpunk-characters-pixel-art
  *   - Character Animations (Caveman) by Chasersgaming — https://opengameart.org/content/character-animations-caveman
  *   - Free Villagers Sprite Sheets Pixel Art by CraftPix — https://craftpix.net/freebies/free-villagers-sprite-sheets-pixel-art
- *   
+ *  
  *   Sound Credits:
  *   - Classic Punch Impact — https://pixabay.com/sound-effects/classic-punch-impact-352711
  *   - Sword Sound — https://pixabay.com/sound-effects/sword-sound-260274
@@ -83,30 +83,27 @@ import java.util.ArrayList;
  *   - Explosion — https://pixabay.com/sound-effects/explosion-312361
  *   - Battle March Action Loop — https://pixabay.com/sound-effects/battle-march-action-loop-6935
  **/
-
-
-
 public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
-    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.mp3");
+    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.wav");
     public static int frameCount = 0;
 
     private int humanSpawnTimer = 0;
     private int robotSpawnTimer = 0;
     private int humanCannonTimer = 0;
-    private int humanCannonInterval = 1200; 
+    private int humanCannonInterval = 1200;
     private int robotTurretTimer = 0;
-    private int robotTurretInterval = 1200; 
+    private int robotTurretInterval = 1200;
     private int humanHospitalTimer = 0;
-    private int humanHospitalInterval = 1500; 
+    private int humanHospitalInterval = 1500;
     private int robotFactoryTimer = 0;
     private int robotFactoryInterval = 1500;
-    private int modernMultiplier = 2; 
+    private int modernMultiplier = 2;
 
     private static int humanEvolutionStage ;
     private static int robotEvolutionStage ;
-    
+   
     private int maxHumans = 10;
     private int maxRobots = 10;
 
@@ -115,7 +112,11 @@ public class MyWorld extends World {
 
     private StatBoard humanStatboard;
     private StatBoard robotStatboard;
-
+    
+    /**
+     * Constructor for MyWorld sets up world size, background, HUD, statboards, and initial state.
+     * Music is also played
+     */
     public MyWorld() {
         super(1240, 700, 1);
 
@@ -124,7 +125,7 @@ public class MyWorld extends World {
             SuperStatBar.class,
             Robot.class
         );
-        
+       
         humanEvolutionStage = 1;
         robotEvolutionStage = 1;
 
@@ -154,9 +155,12 @@ public class MyWorld extends World {
         frameCount = 0;
         playMusic();
     }
-    
+   
 
-
+    /**
+     * The act method is called repeatedly by Greenfoot.
+     * Handles frame counting, unit spawning, building timers, and evolution updates.
+     */
     public void act() {
         frameCount++;
         EndSimWorld.totalTimeElapsed = frameCount;
@@ -172,15 +176,15 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             if (getObjects(Robot.class).size() < maxRobots) spawnRobots();
         }
-        
-        if (humanEvolutionStage >= 3) { 
+       
+        if (humanEvolutionStage >= 3) {
             humanCannonTimer++;
             if (humanCannonTimer >= humanCannonInterval) {
                 humanCannonTimer = 0;
                 spawnHumanCanon();
             }
         }
-        
+       
         if (robotEvolutionStage >= 3) {
             robotTurretTimer++;
             if (robotTurretTimer >= robotTurretInterval) {
@@ -190,9 +194,12 @@ public class MyWorld extends World {
         }
 
         updateEvolutionStage();
-        
+       
     }
     
+    /**
+     * Plays background music
+     */
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
@@ -200,22 +207,40 @@ public class MyWorld extends World {
             backgroundMusic.playLoop();
         }
     }
-   
-    @Override 
+    
+    /**
+     * Starts playing the music
+     */
+    @Override
+    public void started() {
+        playMusic(); // resumes loop if not already playing
+    }
+
+    /**
+     * Stops the music
+     */
+    @Override
     public void stopped()
     {
         backgroundMusic.stop();
     }
     
+    /**
+     * Stops the music
+     */
     public static void stopMusic()
     {
         backgroundMusic.stop();
     }
-
+    
+    /**
+     * Checks the cash of each side and upgrades evolution stage if the required amount of cash is met.
+     * Spawns new buildings by stage.
+     */
     private void updateEvolutionStage() {
         int humanCash = Units.getHumanCash();
         int robotCash = Units.getRobotCash();
-    
+   
         // Human upgrades
         if (humanEvolutionStage == 1 && humanCash >= 25) {
             Units.addHumanCash(-25);
@@ -240,7 +265,7 @@ public class MyWorld extends World {
                 spawnHumanHospital();
             }
         }
-        
+       
         // Robot upgrades
         if (robotEvolutionStage == 1 && robotCash >= 25) {
             Units.addRobotCash(-25);
@@ -259,23 +284,26 @@ public class MyWorld extends World {
             robotEvolutionStage = 4;
             addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
             if (getObjects(Factory.class).isEmpty()) {
-                spawnRobotFactory(); 
+                spawnRobotFactory();
             }
         }
     }
-
+    
+    /**
+     * Spawns humans based on evolution stage and probabilities for different unit types.
+     */
     private void spawnHumans() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
         int hp = GameSettings.humanHP;
         double speed = GameSettings.humanSpeed;
         int cash = GameSettings.humanCashPerKill;
-    
+   
         // Stage 1: Caveman only
         if (humanEvolutionStage == 1) {
             addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             return;
         }
-    
+   
         // Stage 2: Caveman + Archer
         if (humanEvolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
@@ -284,7 +312,7 @@ public class MyWorld extends World {
                 addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
             return;
         }
-    
+   
         // Stage 3: Caveman + Archer + Cannon (spawn handled separately)
         if (humanEvolutionStage == 3) {
             if (Greenfoot.getRandomNumber(2) == 0)
@@ -293,7 +321,7 @@ public class MyWorld extends World {
                 addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 100, cash, "archer"), getWidth() - 50, y);
             return;
         }
-    
+   
         // Stage 4: Caveman + Archer + Giant + Cannons
         if (humanEvolutionStage == 4) {
             int choice = Greenfoot.getRandomNumber(11); // 0–9
@@ -304,7 +332,7 @@ public class MyWorld extends World {
             else
                 addObject(new GiantHuman(hp * 5, 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
         }
-    
+   
         // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
         if (humanEvolutionStage >= 5) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
@@ -317,7 +345,9 @@ public class MyWorld extends World {
         }
     }
 
-
+    /**
+     * Spawns robots based on evolution stage and probabilities for different unit types.
+     */
     private void spawnRobots() {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
         int hp = GameSettings.robotHP;
@@ -328,7 +358,7 @@ public class MyWorld extends World {
         // --------------------------
         if (robotEvolutionStage == 1) {
             addObject(new MeleeRobot(hp, speed, 40, 30, 20, cash), 50, y);
-        } 
+        }
         // --------------------------
         // Stage 2: Melee Robot + Ranged Robot + Turret
         // --------------------------
@@ -337,7 +367,7 @@ public class MyWorld extends World {
                 addObject(new MeleeRobot(hp + 50, speed, 35, 45, 20, cash), 50, y);
             else
                 addObject(new RangedRobot(hp, speed * 0.8, 300, 40, 15, cash), 50, y);
-        } 
+        }
         // --------------------------
         // Stage 3: Melee Robot + Ranged Robot + Turret + Factory
         // --------------------------
@@ -353,89 +383,114 @@ public class MyWorld extends World {
         }
     }
     
+    /**
+     * Attempts to spawn a Human Cannon on the right side of the battlefield.
+     * A cannon costs 100 cash. It will only spawn if:
+     *  - Humans have enough cash
+     *  - Evolution stage is below 3 (stage 3+ disables cannons)
+     */
     private void spawnHumanCanon() {
         if (Units.getHumanCash() > 25 && humanEvolutionStage >= 3) return;
         Units.addHumanCash(-25);
-    
+   
         int x = getWidth() - 120;
         int y = 0;
         boolean valid = false;
-    
+   
         for (int attempts = 0; attempts < 5; attempts++) {
             y = 175 + Greenfoot.getRandomNumber(getHeight() - 350);
             valid = true;
-    
+   
             for (Canon c : getObjects(Canon.class)) {
                 if (Math.abs(c.getY() - y) < 80) {
                     valid = false;
                     break;
                 }
             }
-    
+   
             if (valid) break;
         }
-    
+   
         if (valid) addObject(new Canon(true), x, y);
     }
     
+    /**
+     * Attempts to spawn a Robot Turret on the left side of the battlefield.
+     * A turret costs 100 cash. It will only spawn if:
+     *  - Robots have enough cash
+     *  - Evolution stage is below 3
+     */
     private void spawnRobotTurret() {
         if (Units.getRobotCash() > 25 && robotEvolutionStage >= 3) return;
         Units.addRobotCash(-25);
-    
+   
         int x = 120;
         int y = 0;
         boolean valid = false;
-    
+   
         for (int attempts = 0; attempts < 5; attempts++) {
             y = 175 + Greenfoot.getRandomNumber(getHeight() - 350);
             valid = true;
-    
+   
             for (Buildings b : getObjects(Buildings.class)) {
                 if (!b.isHumanSide() && Math.abs(b.getY() - y) < 80) {
                     valid = false;
                     break;
                 }
             }
-    
+   
             if (valid) break;
         }
-    
+   
         if (valid) addObject(new Turret(false), x, y);
     }
     
+    /**
+     * Attempts to spawn a Human Hospital on the right side.
+     * Cost: 200.
+     */
     private void spawnHumanHospital() {
         // Cost check
         if (Units.getHumanCash() > 100) return;
         Units.addHumanCash(-100);
-    
+   
         int x = getWidth() - 350; // fixed right side
         int y = 175 ;
-    
+   
         addObject(new Hospital(), x, y);
     }
     
+    /**
+     * Attempts to spawn a Robot Factory on the left side.
+     * Cost: 200.
+     */
     private void spawnRobotFactory() {
         // Cost check
         if (Units.getRobotCash() > 100) return; // corrected
         Units.addRobotCash(-100);
-    
+   
         int x = 350; // fixed left side
         int y = 175 ;
         addObject(new Factory(), x, y);
     }
     
+    /**
+     * Getter method for human level
+     * @return      human evolution stage
+     */
     public static int getHumanLevel()
     {
         return humanEvolutionStage;
     }
     
+    /**
+     * Getter method for robot level
+     * @return      robot evolution stage
+     */
     public static int getRobotLevel()
     {
         return robotEvolutionStage;
     }
-    
-    
-
 }
 
 
