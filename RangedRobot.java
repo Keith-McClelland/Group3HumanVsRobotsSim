@@ -13,7 +13,7 @@ public class RangedRobot extends Robot {
     private int frameDelay = 5;
     private int frameCount = 0;
 
-    private int stopDistance = 150; // stop 150 px away from fence
+    private int stopDistance = 150; 
 
     // Sound array for overlapping firing sounds
     private GreenfootSound[] laserSounds;
@@ -48,35 +48,21 @@ public class RangedRobot extends Robot {
             if (getWorld() != null) getWorld().removeObject(this);
             return;
         }
-
         updateHealthBar();
-
-        Fences fence = getClosestFence();
-        if (fence != null) {
-            double distToFence = getDistanceTo(fence);
-            if (distToFence <= stopDistance) {
-                attackFence(fence);
+        Human target = getClosestHuman();
+        if (target != null) {
+            double dist = getDistanceTo(target);
+            if (dist <= range) {
+                setImage(shootFrame);
+                shootIfReady(target);
             } else {
-                moveToward(fence);
+                moveToward(target);
                 animateWalk();
             }
         } else {
-            Human target = getClosestHuman();
-            if (target != null) {
-                double dist = getDistanceTo(target);
-                if (dist <= range) {
-                    setImage(shootFrame);
-                    shootIfReady(target);
-                } else {
-                    moveToward(target);
-                    animateWalk();
-                }
-            } else {
-                move(speed);
-                animateWalk();
-            }
+            move(speed);
+            animateWalk();
         }
-
         checkEdges();
     }
 
@@ -126,37 +112,8 @@ public class RangedRobot extends Robot {
         }
     }
 
-    private Fences getClosestFence() {
-        if (getWorld() == null) return null;
-        List<Fences> fences = getWorld().getObjects(Fences.class);
-        Fences closest = null;
-        double minDist = Double.MAX_VALUE;
-
-        for (Fences f : fences) {
-            double dist = getDistanceTo(f);
-            if (dist < minDist) {
-                minDist = dist;
-                closest = f;
-            }
-        }
-        return closest;
-    }
-
-    protected void attackFence(Fences fence) {
-        setImage(shootFrame);
-        long now = System.currentTimeMillis();
-        if (fence != null && now - lastShotTime >= cooldownTime) {
-            // Play laser sound when attacking fence
-            laserSounds[soundIndex].play();
-            soundIndex = (soundIndex + 1) % NUM_SOUNDS;
-
-            Fences.damage(damage);
-            lastShotTime = now;
-        }
-    }
 
     @Override
     protected void attackBehavior() {
-        // Handled in act()
     }
 }

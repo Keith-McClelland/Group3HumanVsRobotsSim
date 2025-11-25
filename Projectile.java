@@ -62,12 +62,6 @@ public class Projectile extends SuperSmoothMover
         if (getWorld() == null) return;
 
         //all projectiles can hit fences
-        Fences fence = (Fences)getOneIntersectingObject(Fences.class);
-        if (fence != null) {
-            fence.damage(damage);
-            removeBullet();
-            return;
-        }
 
         //robot bullets can damage humans
         if (owner == Owner.ROBOT) {

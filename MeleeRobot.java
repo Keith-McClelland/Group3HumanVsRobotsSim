@@ -63,13 +63,6 @@ public class MeleeRobot extends Robot {
     @Override
     protected void attackBehavior() {
 
-        // Fence takes priority
-        Fences fence = findFence();
-        if (fence != null) {
-            attackFence(fence);
-            return;
-        }
-
         if (cooldown > 0) cooldown--;
 
         Human target = getClosestHuman();
@@ -98,26 +91,6 @@ public class MeleeRobot extends Robot {
         else {
             moveToward(target);
             animateWalk();
-        }
-    }
-
-    /** Find fence within melee range */
-    private Fences findFence() {
-        List<Fences> fences = getObjectsInRange(40, Fences.class);
-        if (!fences.isEmpty()) {
-            return fences.get(0);
-        }
-        return null;
-    }
-
-    /** Attack a fence */
-    protected void attackFence(Fences fence) {
-
-        animateAttack();
-
-        if (cooldown == 0) {
-            Fences.damage(damage);
-            cooldown = delay;
         }
     }
 
