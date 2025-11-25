@@ -1,6 +1,19 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * TerritoryBar is a UI element displayed at the top of the screen. 
+ * <p>
+ * It visually represents the "territory control" of the human and robot sides. 
+ * The bar shows: 
+ * - Human-controlled territory in blue 
+ * - Robot-controlled territory in red 
+ * - Neutral territory in gray 
+ * <p>
+ * The bar updates every frame based on the furthest positions of humans and robots. 
+ * 
+ * @author Veznu Premathas
+ * @version November 2025
+ */
 public class TerritoryBar extends Actor {
     //properties of the territory bar located on top of the screen
     private int barWidth = 400;
@@ -14,7 +27,11 @@ public class TerritoryBar extends Actor {
     private Color borderColor = Color.BLACK;
 
     private GreenfootImage barImage;
-
+    
+    /**
+     * Constructs a new TerritoryBar. 
+     * Initializes the bar image and draws it in a neutral state. 
+     */
     public TerritoryBar() {
         //  create blank image here
         barImage = new GreenfootImage(barWidth, barHeight);
@@ -23,12 +40,20 @@ public class TerritoryBar extends Actor {
         // initial drawing with neutral color
         drawNeutral();
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Updates the territory bar based on the current positions of humans and robots. 
+     */
     public void act() {
         // reguarly update every frame as location of both sides change
         updateBar();
     }
-
+    
+    /**
+     * Draws the bar in a neutral state. 
+     * Fills the bar with the neutral color and draws the border. 
+     */
     private void drawNeutral() {
         //draws the frame of the territory bar
         barImage.clear();
@@ -40,7 +65,11 @@ public class TerritoryBar extends Actor {
         }
         setImage(barImage);
     }
-
+    
+    /**
+     * Updates the territory bar each frame. 
+     * Calculates the positions of the furthest humans and robots and draws the bar. 
+     */
     private void updateBar() {
         //if no bar return (null check ensuring there is no errors)
         if (getWorld() == null) return;
@@ -75,7 +104,12 @@ public class TerritoryBar extends Actor {
 
         setImage(barImage);
     }
-
+    
+    /**
+     * Finds the X-coordinate of the human unit closest to the robot side. 
+     *
+     * @return X-coordinate of the furthest human, or 0 if no humans exist. 
+     */
     private int getFurthestHumanX() {
         //loops through list of all humans within the world and by process of
         //elimination, it will identify the human closest to the robot side
@@ -91,7 +125,12 @@ public class TerritoryBar extends Actor {
         }
         return x;
     }
-
+    
+    /**
+     * Finds the X-coordinate of the robot unit closest to the human side. 
+     *
+     * @return X-coordinate of the furthest robot, or 0 if no robots exist. 
+     */
     private int getFurthestRobotX() {
         //loops through list of all robot within the world and by process of
         //elimination, it will identify the human closest to the human side

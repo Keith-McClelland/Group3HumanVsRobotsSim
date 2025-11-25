@@ -101,7 +101,7 @@ public class Canon extends Buildings {
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
 
-        Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.CANON);
+        Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.HUMAN);
         shot.setImage("canonBall.png");
         getWorld().addObject(shot, getX(), getY());
 

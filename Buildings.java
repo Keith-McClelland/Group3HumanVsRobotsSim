@@ -20,6 +20,10 @@ public abstract class Buildings extends SuperSmoothMover
         this.isHumanSide = isHumanSide;
     }
 
+    public void act()
+    {
+        completeTask();
+    }
     // returns if building belongs to human
     public boolean isHumanSide() 
     {

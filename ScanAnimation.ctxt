@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=ScanAnimation
+comment0.text=\r\n\ ScanAnimation\ is\ a\ visual\ effect\ representing\ a\ scanning\ animation,\ \r\n\ used\ by\ drones.\ \r\n\ <p>\r\n\ The\ animation\ cycles\ through\ a\ series\ of\ frames\ a\ fixed\ number\ \r\n\ of\ times\ before\ removing\ itself\ from\ the\ world.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=
 comment1.target=ScanAnimation()
+comment1.text=\r\n\ Constructor\ for\ ScanAnimation\ that\ creates\ a\ new\ ScanAnimation\ object.\ \r\n\ <p>\r\n\ Loads\ the\ animation\ frames\ and\ scales\ them\ to\ the\ desired\ size.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Plays\ the\ animation.\ \r\n
 comment3.params=
 comment3.target=void\ animateScan()
+comment3.text=\r\n\ Creates\ the\ scan\ animation.\ \r\n\ <p>\r\n\ Updates\ the\ frame\ every\ cycle,\ \r\n\ loops\ through\ the\ frames,\ counts\ completed\ cycles,\ \r\n\ and\ removes\ the\ object\ after\ finishing\ its\ cycles.\ \r\n
 numComments=4

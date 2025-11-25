@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=IntroWorld
+comment0.text=\r\n\ IntroWorld\ is\ a\ Greenfoot\ World\ that\ displays\ the\ introductory\ scene\ of\ the\ game\ simulation.\ \r\n\ It\ shows\ a\ start\ background\ with\ the\ title\ NEXUS,\ a\ continue\ button\ right\ under\ it.\ \r\n\ When\ Continue\ button\ is\ clicked,\ the\ story\ of\ the\ game\ will\ begin\ and\ a\ robot\ from\ the\ robot\ side\ (left)\ \r\n\ will\ attempt\ to\ retrieve\ a\ gem\ that\ sits\ on\ the\ human\ side\ (right),\ while\ the\ human\ rejects\ the\ robot\ \r\n\ leading\ to\ a\ battle\ \r\n\ <p>\r\n\ It\ displays\ the\ front\ page\ when\ the\ user\ opens\ the\ game\r\n\ \r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=IntroWorld()
+comment1.text=\r\n\ Constructor\ for\ IntroWorld.\ \r\n\ Initializes\ the\ world\ dimensions\ to\ 1240x700\ pixels,\ sets\ the\ initial\ \r\n\ background\ image\ to\ "introworld.png",\ and\ places\ the\ continue\ button.\ \ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ -\ Checks\ if\ the\ continue\ button\ is\ clicked\ to\ transition\ the\ scene.\ \r\n\ -\ Checks\ if\ doneScanning\ is\ true\ to\ spawn\ a\ human.\ \r\n
 comment3.params=
 comment3.target=void\ spawnHuman()
+comment3.text=\r\n\ Spawns\ a\ StoryWorldHuman\ at\ a\ specific\ position\ on\ the\ right\ side\ of\ the\ world.\ \r\n
 numComments=4

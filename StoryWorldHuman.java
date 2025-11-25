@@ -1,6 +1,18 @@
 import java.util.List;
 import greenfoot.*;
-
+/**
+ * StoryWorldHuman represents a human character in the story sequence. 
+ * <p>
+ * The human: 
+ * Walks toward a Crystal and delivers a speech. 
+ * Chases away a Drone. 
+ * Exits the world to the right after completing its actions. 
+ * Animations for walking and speech bubbles are included. 
+ * 
+ * @author Veznu Premathas 
+ * @version November 2025
+ * 
+ */
 public class StoryWorldHuman extends SuperSmoothMover
 {
     //controls the propeties of the walk animation frames
@@ -17,7 +29,10 @@ public class StoryWorldHuman extends SuperSmoothMover
     private boolean chasingDone = false; 
     private Drone droneTarget;
     private boolean flipped = false;
-
+    
+    /**
+     * Constructor for StoryWorldHuman that creates a StoryWorldHuman character and loads its walking frames. 
+     */
     public StoryWorldHuman() {
         //load and prepare walking frames
         for (int i = 0; i < 4; i++) {
@@ -29,7 +44,11 @@ public class StoryWorldHuman extends SuperSmoothMover
         //start on first walk frame
         setImage(walk[0]);
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Handles the three stages of the story: 
+     */
     public void act() {
         //walk to crystal and talk
         if (!speechDone) {
@@ -47,7 +66,10 @@ public class StoryWorldHuman extends SuperSmoothMover
         //chasing drone away
         returnToRightSide();
     }
-
+    
+    /**
+     * Moves the human toward the Crystal, triggers speech, and selects a drone to chase. 
+     */
     private void moveTowardCrystal() {
         //find the crystal on first update
         if (target == null) {
@@ -94,7 +116,10 @@ public class StoryWorldHuman extends SuperSmoothMover
         List<Drone> drones = getWorld().getObjects(Drone.class);
         if (!drones.isEmpty()) droneTarget = drones.get(0);
     }
-
+    
+    /**
+     * Chases the target drone until it escapes or is removed from the world. 
+     */
     private void chaseDrone() {
         //if drone already escaped, move to next phase
         if (droneTarget == null || droneTarget.getWorld() == null) {
@@ -121,8 +146,12 @@ public class StoryWorldHuman extends SuperSmoothMover
             animateWalk();
         }
     }
-
-    //after chase human turns around and exits right side
+    
+    /**
+     * Moves the human off-screen to the right and flips image if necessary. 
+     * <p>
+     * Once fully off-screen, removes the human and switches to the SettingsWorld. 
+     */
     private void returnToRightSide() {
         //flip human image to face right side 
         if (!flipped) {
@@ -145,7 +174,10 @@ public class StoryWorldHuman extends SuperSmoothMover
             Greenfoot.setWorld(new SettingsWorld());
         }
     }
-
+    
+    /**
+     * Animates walking by cycling through the frames. 
+     */
     private void animateWalk() {
         //slow down animation speed
         animationTimer++;
@@ -157,5 +189,6 @@ public class StoryWorldHuman extends SuperSmoothMover
         }
     }
 }
+
 
 

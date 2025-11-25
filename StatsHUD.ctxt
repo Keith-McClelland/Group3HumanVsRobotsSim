@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=StatsHUD
+comment0.text=\r\n\ SmallLabel\ is\ a\ Greenfoot\ Actor\ used\ to\ display\ statistics\ about\ the\ \r\n\ Human\ and\ Robot\ teams\ during\ gameplay.\ This\ includes\ each\ side's\ cash,\ number\ \r\n\ of\ units\ alive,\ and\ number\ of\ units\ dead.\ \r\n\ <p>\r\n\ Two\ objects\ of\ this\ class\ are\ created\ \u2014\ one\ for\ Humans\ and\ one\ for\ Robots.\ \r\n\ The\ boolean\ value\ passed\ to\ the\ constructor\ determines\ which\ side\u2019s\ data\ is\ shown.\ \r\n\ <p>\r\n\ The\ HUD\ updates\ every\ frame,\ grabbing\ all\ its\ information\ from\ static\ data\ stored\ in\ the\ Units\ class.\ \r\n\ The\ text\ is\ using\ the\ "ARCADECLASSIC"\ font.\ \r\n\ \r\n\ @author\ Veznu\ Premathas\ \r\n\ @version\ November\ 2025\ \r\n
 comment1.params=isLeftSide
 comment1.target=StatsHUD(boolean)
+comment1.text=\r\n\ Constructor\ for\ StatsHUD\ that\ creates\ a\ StatsHUD\ panel.\r\n\r\n\ @param\ isLeftSide\ \ \ \ If\ true,\ displays\ robot\ statistics.\ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ If\ false,\ displays\ human\ statistics.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Continuously\ updates\ the\ HUD\ every\ frame\ to\ reflect\ changing\ game\ values.\r\n
 comment3.params=
 comment3.target=void\ updateStats()
+comment3.text=\r\n\ Rebuilds\ the\ HUD\ panel\ image,\ pulling\ live\ values\ from\ the\ Units\ class.\r\n\ This\ method\ draws\ the\ texts\ depending\ on\ whether\ the\ HUD\ is\ displaying\r\n\ Human\ or\ Robot\ statistics.\r\n
 numComments=4

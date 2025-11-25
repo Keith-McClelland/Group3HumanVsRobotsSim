@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=HumanSpeech
+comment0.text=\r\n\ HumanSpeech\ is\ a\ Greenfoot\ Actor\ that\ represents\ a\ speech\ bubble\ or\ message\ popup\ used\ by\ human\ units\ \r\n\ or\ during\ the\ IntroWorld\ where\ the\ story\ begins.\ \r\n\ <p>\r\n\ This\ actor\ simply\ displays\ the\ image\ humanSpeech1.png,\ which\ is\ scaled\ \r\n\ to\ 300\u00D7160\ pixels.\ Other\ classes\ can\ add\ or\ remove\ this\ actor\ \r\n\ to\ show\ temporary\ speech\ messages\ on\ screen.\ \r\n\ <p>\r\n\ This\ class\ handles\ only\ the\ visual\ appearance\ of\ the\ speech\ bubble.\ \r\n\ \r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=HumanSpeech()
+comment1.text=\r\n\ Constructor\ for\ HumanSpeech\ that\ creates\ a\ HumanSpeech\ object\ and\ scales\ the\ speech\ bubble\ image\ to\ \r\n\ 300x100\ before\ setting\ it\ as\ the\ actor's\ appearance.\ \r\n
 numComments=2

@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=TerritoryBar
+comment0.text=\r\n\ TerritoryBar\ is\ a\ UI\ element\ displayed\ at\ the\ top\ of\ the\ screen.\ \r\n\ <p>\r\n\ It\ visually\ represents\ the\ "territory\ control"\ of\ the\ human\ and\ robot\ sides.\ \r\n\ The\ bar\ shows\:\ \r\n\ -\ Human-controlled\ territory\ in\ blue\ \r\n\ -\ Robot-controlled\ territory\ in\ red\ \r\n\ -\ Neutral\ territory\ in\ gray\ \r\n\ <p>\r\n\ The\ bar\ updates\ every\ frame\ based\ on\ the\ furthest\ positions\ of\ humans\ and\ robots.\ \r\n\ \r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=TerritoryBar()
+comment1.text=\r\n\ Constructs\ a\ new\ TerritoryBar.\ \r\n\ Initializes\ the\ bar\ image\ and\ draws\ it\ in\ a\ neutral\ state.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Updates\ the\ territory\ bar\ based\ on\ the\ current\ positions\ of\ humans\ and\ robots.\ \r\n
 comment3.params=
 comment3.target=void\ drawNeutral()
+comment3.text=\r\n\ Draws\ the\ bar\ in\ a\ neutral\ state.\ \r\n\ Fills\ the\ bar\ with\ the\ neutral\ color\ and\ draws\ the\ border.\ \r\n
 comment4.params=
 comment4.target=void\ updateBar()
+comment4.text=\r\n\ Updates\ the\ territory\ bar\ each\ frame.\ \r\n\ Calculates\ the\ positions\ of\ the\ furthest\ humans\ and\ robots\ and\ draws\ the\ bar.\ \r\n
 comment5.params=
 comment5.target=int\ getFurthestHumanX()
+comment5.text=\r\n\ Finds\ the\ X-coordinate\ of\ the\ human\ unit\ closest\ to\ the\ robot\ side.\ \r\n\r\n\ @return\ X-coordinate\ of\ the\ furthest\ human,\ or\ 0\ if\ no\ humans\ exist.\ \r\n
 comment6.params=
 comment6.target=int\ getFurthestRobotX()
+comment6.text=\r\n\ Finds\ the\ X-coordinate\ of\ the\ robot\ unit\ closest\ to\ the\ human\ side.\ \r\n\r\n\ @return\ X-coordinate\ of\ the\ furthest\ robot,\ or\ 0\ if\ no\ robots\ exist.\ \r\n
 numComments=7

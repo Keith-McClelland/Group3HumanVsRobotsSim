@@ -1,3 +1,14 @@
+/**
+ * The GameSettings class stores all customizable gameplay variables for both the 
+ * Human and Robot sides. These values are read by units, spawners, and 
+ * buildings during gameplay. These settings can be modified from the settings menu 
+ * to adjust gameplay balance, speed, and difficulty. 
+ * <p>
+ * This class uses static variables so that all worlds and classes can access 
+ * the active settings. 
+ * @author Jonathan Shi 
+ * @version November 2025 
+ */
 public class GameSettings {
     // Human base settings
     public static int humanSpawnRate = 120; // Frames/delay

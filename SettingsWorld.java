@@ -1,7 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+/**
+ * SettingsWorld is a Greenfoot World that displays the settings menu of the game simulation. 
+ * It shows two sides Human (left) and Robots (right) with four options of settings {Spawn rate, starting hp, speed, cash earned per kill}.  
+ * These settings only affect how the units behave. 
+ * The white text values are the base settings applied for the units. 
+ * <p>
+ * Clicking the left arrow button will decrease the value inside the middle box by 1. 
+ * Clicking the right arrow button will increase the value inside the middle box by 1. 
+ * @author Jonathan Shi 
+ * @version November 2025
+ */
 public class SettingsWorld extends World
 {
     ContinueButton continueButton;
+    /**
+     * Creates the settings menu world, initializes default settings, 
+     * draws the layout, and places all UI components.
+     */
     public SettingsWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -31,12 +46,18 @@ public class SettingsWorld extends World
         continueButton = new ContinueButton();
         addObject(continueButton, getWidth() / 2, 550);
     }
-
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Handles UI interaction such as clicking the Continue button. 
+     */
     public void act() {
         handleContinueButton();
     }
-
-    // Checks if continue button is clicked
+    
+    /**
+     * Checks if the Continue button is clicked.
+     * If clicked, transitions into the main gameplay world.
+     */
     private void handleContinueButton() {
         if (Greenfoot.mouseClicked(continueButton)) {
             // Enter the next world
@@ -44,7 +65,15 @@ public class SettingsWorld extends World
         }
     }
     
-    // Right side (Robot settings)
+    /**
+     * Creates and positions the right column of settings for Robot units.
+     * <p>
+     * Settings included:
+     *     SpawnRate
+     *     Starting HP
+     *     Speed
+     *     Cash
+     */
     private void setupRobotColumn() {
         int y = 200;
         String[] properties = {"robotSpawnRate", "robotHP", "robotSpeed", "robotCash"};
@@ -57,7 +86,15 @@ public class SettingsWorld extends World
         }
     }
     
-    // Left side (Human settings)
+    /**
+     * Creates and positions the left column of settings for Human units.
+     * <p>
+     * Settings included:
+     *     SpawnRate
+     *     Starting HP
+     *     Speed
+     *     Cash
+     */
     private void setupHumanColumn() {
         int y = 200;
         String[] properties = {"humanSpawnRate", "humanHP", "humanSpeed", "humanCash"};
@@ -70,6 +107,17 @@ public class SettingsWorld extends World
         }
     }
     
+    /**
+     * Draws all title labels and row labels for both Human and Robot columns. 
+     * <p>
+     * Title labels include:
+     *     Humans, Robots
+     * Small row labels include:
+     *     SpawnRate
+     *     Starting HP
+     *     Speed
+     *     Cash gained per kill
+     */
     private void setupLabels() {
         // Titles
         addObject(new TitleLabel("Humans", 48), 350, 80);

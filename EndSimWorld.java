@@ -1,11 +1,26 @@
 import greenfoot.*;
-
+/**
+ * EndSimWorld is a Greenfoot World that displays the end results of the simulation. 
+ * It shows the winning side, the total simulation time, and summary statistics 
+ * for both Humans and Robots 
+ * <p> 
+ * It reads static data from Units, Robots, and Human classes to display final results 
+ * 
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * @version November 2025
+ */
 public class EndSimWorld extends World {
 
     public static int totalTimeElapsed = 0;
     GreenfootImage humanWin = new GreenfootImage("humanWinBackground.png");
     GreenfootImage robotWin = new GreenfootImage("robotWinBackground.png");
-
+    
+    /**
+     * This simple constructor creates a new EndSimWorld instance and displays the winner and stats. 
+     * @param winner The winner of the simulation. Should be "Human" or "Robot". 
+     *               This determines which background image is shown. 
+     */
     public EndSimWorld(String winner) {
         super(1240, 700, 1);
 
@@ -50,14 +65,14 @@ public class EndSimWorld extends World {
         // Human stats
         showText("Human Stats", rightBoxCenterX, startY);
         showText("Humans Spawned: " + humansSpawned, rightBoxCenterX, startY + humanLineSpacing);
-        showText("Human LeftOver Cash: $" + humanCash, rightBoxCenterX, startY + humanLineSpacing * 2);
+        showText("Human Cash Earned: $" + humanCash, rightBoxCenterX, startY + humanLineSpacing * 2);
 
         // Leave a space between Human and Robot stats
         int robotStartY = startY + humanLineSpacing * 3 + 20; // 20 px extra space
 
         showText("Robot Stats", rightBoxCenterX, robotStartY);
         showText("Robots Spawned: " + robotsSpawned, rightBoxCenterX, robotStartY + robotLineSpacing);
-        showText("Robot LeftOver Cash: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 2);
+        showText("Robot Cash Earned: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 2);
     }
 }
 

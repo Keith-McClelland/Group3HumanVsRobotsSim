@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=ValueBox
+comment0.text=\r\n\ ValueBox\ is\ a\ rectangular\ box\ that\ displays\ and\ allows\ adjusting\ a\ units\ stats\ in\ game\ setting.\ \r\n\ <p>\r\n\ It\ can\ increment\ or\ decrement\ the\ value,\ and\ automatically\ updates\ both\ its\ display\ and\ \r\n\ the\ corresponding\ property\ in\ GameSettings.\ \r\n\ <p>\r\n\ Supports\ properties\ like\ humanHP,\ humanSpeed,\ robotHP,\ robotSpeed,\ spawn\ rates,\ and\ cash\ per\ kill.\ \r\n\ \r\n\ @author\ Jonathan\ Shi\r\n\ @version\ November\ 2025\r\n
 comment1.params=property
 comment1.target=ValueBox(java.lang.String)
+comment1.text=\r\n\ Constructs\ a\ ValueBox\ for\ a\ specific\ game\ property.\ \r\n\ @param\ property\ The\ name\ of\ the\ property\ this\ box\ controls.\ \r\n
 comment2.params=
 comment2.target=void\ increment()
+comment2.text=\ \r\n\ Increase\ the\ value\ by\ 1\ and\ update\ display\ and\ setting\ \r\n
 comment3.params=
 comment3.target=void\ decrement()
+comment3.text=\ \r\n\ Decrease\ the\ value\ by\ 1\ (not\ below\ 0)\ and\ update\ display\ and\ setting\ \r\n
 comment4.params=
 comment4.target=void\ updateImage()
+comment4.text=Updates\ the\ visual\ representation\ of\ the\ ValueBox
 comment5.params=
 comment5.target=void\ updateSetting()
+comment5.text=Updates\ the\ corresponding\ property\ in\ GameSettings
 comment6.params=
 comment6.target=int\ getValue()
+comment6.text=Returns\ the\ current\ value\ displayed\ in\ this\ box
 numComments=7

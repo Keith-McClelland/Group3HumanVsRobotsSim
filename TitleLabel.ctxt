@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=TitleLabel
+comment0.text=\r\n\ TitleLabel\ is\ a\ simple\ Actor\ that\ displays\ a\ text\ label\ on\ the\ screen.\ \r\n\ <p>\r\n\ The\ text\ is\ displayed\ as\ an\ image\ using\ GreenfootImage\ with\ a\ specified\ size\ and\ color.\ \r\n\ This\ class\ is\ mainly\ used\ for\ titles\ in\ the\ world.\ \r\n\ \r\n\ @author\ Jonathan\ Shi\r\n\ @version\ November\ 2025\r\n
 comment1.params=text\ size
 comment1.target=TitleLabel(java.lang.String,\ int)
+comment1.text=\r\n\ Constructs\ a\ new\ TitleLabel.\ \r\n\r\n\ @param\ text\ The\ string\ to\ display.\ \r\n\ @param\ size\ The\ font\ size\ of\ the\ text.\ \r\n
 numComments=2

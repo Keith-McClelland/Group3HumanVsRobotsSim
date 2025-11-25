@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=Projectile
+comment0.text=\r\n\ Projectile\ represents\ a\ moving\ projectile\ fired\ by\ a\ unit\ in\ the\ world.\ \r\n\ <p>\r\n\ Projectiles\ move\ at\ a\ given\ speed\ and\ angle,\ deal\ damage\ to\ targets,\ \r\n\ and\ interact\ with\ both\ Fences\ and\ opposing\ units\ depending\ on\ the\ owner.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=speed\ angle\ damage\ owner
 comment1.target=Projectile(double,\ double,\ int,\ Projectile.Owner)
+comment1.text=\r\n\ Constructor\ for\ Projectile\ that\ creates\ a\ new\ Projectile.\ \r\n\r\n\ @param\ speed\ \ Movement\ speed\ of\ the\ projectile.\ \r\n\ @param\ angle\ \ Direction\ of\ movement.\ \r\n\ @param\ damage\ Amount\ of\ damage\ to\ deal\ on\ hit.\ \r\n\ @param\ owner\ \ The\ entity\ that\ fired\ this\ projectile.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Moves\ the\ projectile\ and\ checks\ for\ collision\ while\ also\ \r\n\ checking\ if\ it\ leaves\ the\ screen\ edges.\ \r\n
 comment3.params=
 comment3.target=void\ moveProjectile()
+comment3.text=\r\n\ Moves\ the\ projectile\ in\ the\ direction\ of\ its\ angle\ at\ its\ speed.\ \r\n
 comment4.params=
 comment4.target=void\ checkCollision()
+comment4.text=\r\n\ Handles\ collision\ detection.\ \r\n\ Removes\ the\ projectile\ after\ collision.\ \r\n
 comment5.params=
 comment5.target=void\ checkEdges()
+comment5.text=\r\n\ Removes\ the\ projectile\ if\ it\ leaves\ the\ boundaries\ of\ the\ world.\ \r\n
 comment6.params=
 comment6.target=void\ removeBullet()
+comment6.text=\r\n\ Safely\ removes\ the\ projectile\ from\ the\ world.\ \r\n
 numComments=7

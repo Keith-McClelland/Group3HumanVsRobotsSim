@@ -1,20 +1,27 @@
 #BlueJ class context
 comment0.target=ExplodingRobot
+comment0.text=\r\n\ ExplodingRobot\ is\ a\ subclass\ of\ Robot\ that\ rushes\ toward\ Humans\ and\ explodes\ \r\n\ when\ close,\ dealing\ area-of-effect\ damage.\ \r\n\ <p>\r\n\ This\ class\ handles\:\ \r\n\ -\ Walking\ animation\ \r\n\ -\ Detection\ and\ rush\ behavior\ \r\n\ -\ Explosion\ on\ contact\ with\ Humans\ or\ Fences\ \r\n\ -\ Damage\ in\ a\ radius\ around\ itself\ \r\n\ \r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value
 comment1.target=ExplodingRobot(int,\ double,\ int,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructs\ a\ new\ ExplodingRobot.\ \r\n\r\n\ @param\ health\ \ Initial\ health\ points.\ \r\n\ @param\ speed\ \ \ Base\ movement\ speed.\ \r\n\ @param\ range\ \ \ Base\ attack\ range\ (also\ used\ to\ calculate\ detectionRange).\ \r\n\ @param\ damage\ \ Damage\ dealt\ by\ the\ explosion.\ \r\n\ @param\ delay\ \ \ Cooldown\ between\ attacks\ (unused\ here\ but\ required\ by\ superclass).\ \r\n\ @param\ value\ \ \ Resource\ value\ granted\ to\ Humans\ when\ destroyed.\ \r\n
 comment2.params=
 comment2.target=void\ loadWalkingFrames()
+comment2.text=Loads\ walking\ animation\ frames
 comment3.params=
 comment3.target=void\ act()
+comment3.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Handles\ walking\ animation\ and\ calls\ superclass\ act\ method\ for\ movement/health.\ \r\n
 comment4.params=
 comment4.target=void\ attackBehavior()
+comment4.text=\r\n\ Attack\ behavior\ for\ ExplodingRobot.\ \r\n\ <p>\r\n\ -\ Explodes\ when\ within\ explosion\ radius\ of\ a\ Human\ \r\n\ -\ Rushes\ toward\ closest\ Human\ if\ within\ detection\ range\ \r\n\ -\ Explodes\ when\ touching\ a\ Fence\ \r\n
 comment5.params=target\ distance
 comment5.target=void\ rushToward(greenfoot.Actor,\ double)
 comment5.text=Rush\ toward\ target
 comment6.params=
 comment6.target=void\ animateWalking()
+comment6.text=\r\n\ Animates\ walking\ frames\ \r\n
 comment7.params=
 comment7.target=void\ explode()
+comment7.text=\r\n\ Explodes,\ dealing\ damage\ to\ Humans\ in\ radius\ and\ showing\ visual\ effect\ \r\n
 comment8.params=
 comment8.target=Buildings\ getClosestEnemyBuilding()
 comment8.text=Find\ closest\ enemy\ building\ (isHumanSide\ \=\=\ true)

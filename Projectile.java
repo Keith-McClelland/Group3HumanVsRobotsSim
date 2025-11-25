@@ -1,16 +1,35 @@
 import greenfoot.*;
-
+/**
+ * Projectile represents a moving projectile fired by a unit in the world. 
+ * <p>
+ * Projectiles move at a given speed and angle, deal damage to targets, 
+ * and interact with both Fences and opposing units depending on the owner. 
+ *
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public class Projectile extends SuperSmoothMover
 {
     //controls movement / damage info
     private double speed;
     private double angle;
     private int damage;
-
-    //who fired this projectile (ensures it only damages the oppostion side)
-    public enum Owner { HUMAN, ROBOT, CANON }
+    
+    /**
+     * Enum representing who fired the projectile. 
+     * Determines which targets it can damage. 
+     */
+    public enum Owner { HUMAN, ROBOT }
     private Owner owner;
 
+    /**
+     * Constructor for Projectile that creates a new Projectile. 
+     *
+     * @param speed  Movement speed of the projectile. 
+     * @param angle  Direction of movement. 
+     * @param damage Amount of damage to deal on hit. 
+     * @param owner  The entity that fired this projectile. 
+     */
     public Projectile(double speed, double angle, int damage, Owner owner)
     {
         this.speed = speed;
@@ -20,23 +39,13 @@ public class Projectile extends SuperSmoothMover
 
         //face direction of travel
         setRotation((int)angle);
-
-        /*
-        //set correct image based on owner
-        if (owner == Owner.HUMAN) 
-        {
-            setImage("laser.png");
-        }
-        else if (owner == Owner.ROBOT) 
-        {
-            setImage("ray.png");
-        }
-        else 
-        {
-            setImage("canonBall.png");
-        }*/
     }
 
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Moves the projectile and checks for collision while also 
+     * checking if it leaves the screen edges. 
+     */
     public void act()
     {
         if (getWorld() == null) return;
@@ -46,8 +55,9 @@ public class Projectile extends SuperSmoothMover
         checkEdges();
     }
 
-    //moves the projectile depending on angle/speed 
-    //(info is given by object shot from)
+    /**
+     * Moves the projectile in the direction of its angle at its speed. 
+     */ 
     private void moveProjectile()
     {
         double rad = Math.toRadians(angle);
@@ -56,7 +66,10 @@ public class Projectile extends SuperSmoothMover
         setLocation(getX() + dx, getY() + dy);
     }
 
-    //handles all hit detection
+    /**
+     * Handles collision detection. 
+     * Removes the projectile after collision. 
+     */
     private void checkCollision()
     {
         if (getWorld() == null) return;
@@ -73,7 +86,7 @@ public class Projectile extends SuperSmoothMover
         }
 
         //human + canon bullets can damage robots
-        if (owner == Owner.HUMAN || owner == Owner.CANON) {
+        if (owner == Owner.HUMAN) {
             Robot robot = (Robot)getOneIntersectingObject(Robot.class);
             if (robot != null) {
                 robot.takeDamage(damage);
@@ -82,7 +95,9 @@ public class Projectile extends SuperSmoothMover
         }
     }
 
-    //removes bullet when leaving the world bounds
+    /**
+     * Removes the projectile if it leaves the boundaries of the world. 
+     */
     private void checkEdges()
     {
         if (getWorld() == null) return;
@@ -99,7 +114,9 @@ public class Projectile extends SuperSmoothMover
             removeBullet();
     }
 
-    //safe removal helper
+    /**
+     * Safely removes the projectile from the world. 
+     */
     private void removeBullet()
     {
         if (getWorld() != null)

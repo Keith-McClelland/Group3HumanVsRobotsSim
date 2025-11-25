@@ -1,11 +1,24 @@
 import greenfoot.GreenfootImage;
 import greenfoot.Actor;
 import greenfoot.Font;
-
+/**
+ * ValueBox is a rectangular box that displays and allows adjusting a units stats in game setting. 
+ * <p>
+ * It can increment or decrement the value, and automatically updates both its display and 
+ * the corresponding property in GameSettings. 
+ * <p>
+ * Supports properties like humanHP, humanSpeed, robotHP, robotSpeed, spawn rates, and cash per kill. 
+ * 
+ * @author Jonathan Shi
+ * @version November 2025
+ */
 public class ValueBox extends Actor {
     private int value;
     private String property; // e.g. "humanHP", "robotSpeed"
-
+    /**
+     * Constructs a ValueBox for a specific game property. 
+     * @param property The name of the property this box controls. 
+     */
     public ValueBox(String property) {
         this.property = property;
         // Initialize value from GameSettings
@@ -21,20 +34,27 @@ public class ValueBox extends Actor {
         }
         updateImage();
     }
-
+    
+    /** 
+      * Increase the value by 1 and update display and setting 
+      */
     public void increment() {
         value += 1; // increment by 1
         updateImage();
         updateSetting();
     }
-
+    
+    /** 
+     * Decrease the value by 1 (not below 0) and update display and setting 
+     */
     public void decrement() {
         value -= 1; // decrement by 1
         if (value < 0) value = 0;
         updateImage();
         updateSetting();
     }
-
+    
+    /** Updates the visual representation of the ValueBox */    
     private void updateImage() {
         GreenfootImage img = new GreenfootImage(140, 40);
         img.setColor(greenfoot.Color.WHITE);  // background
@@ -52,7 +72,8 @@ public class ValueBox extends Actor {
         img.drawString(displayText, 50, 28);
         setImage(img);
     }
-
+    
+    /** Updates the corresponding property in GameSettings */   
     private void updateSetting() {
          switch(property) {
             case "humanHP": GameSettings.humanHP = value; break;
@@ -65,7 +86,8 @@ public class ValueBox extends Actor {
             case "robotCash": GameSettings.robotCashPerKill = value; break;
         }
     }
-
+    
+    /** Returns the current value displayed in this box */  
     public int getValue() {
         return value;
     }

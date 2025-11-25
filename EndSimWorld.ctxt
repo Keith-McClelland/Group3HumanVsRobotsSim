@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=EndSimWorld
+comment0.text=\r\n\ EndSimWorld\ is\ a\ Greenfoot\ World\ that\ displays\ the\ end\ results\ of\ the\ simulation.\ \r\n\ It\ shows\ the\ winning\ side,\ the\ total\ simulation\ time,\ and\ summary\ statistics\ \r\n\ for\ both\ Humans\ and\ Robots\ \r\n\ <p>\ \r\n\ It\ reads\ static\ data\ from\ Units,\ Robots,\ and\ Human\ classes\ to\ display\ final\ results\ \r\n\ \r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=winner
 comment1.target=EndSimWorld(java.lang.String)
+comment1.text=\r\n\ This\ simple\ constructor\ creates\ a\ new\ EndSimWorld\ instance\ and\ displays\ the\ winner\ and\ stats.\ \r\n\ @param\ winner\ The\ winner\ of\ the\ simulation.\ Should\ be\ "Human"\ or\ "Robot".\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ determines\ which\ background\ image\ is\ shown.\ \r\n
 numComments=2

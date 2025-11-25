@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=RobotSpeech
+comment0.text=\r\n\ RobotSpeech\ is\ a\ Greenfoot\ Actor\ that\ represents\ a\ speech\ bubble\ or\ message\ popup\ used\ by\ robot\ units\ \r\n\ or\ during\ the\ IntroWorld\ where\ the\ story\ begins.\ \r\n\ <p>\r\n\ This\ actor\ simply\ displays\ the\ image\ robotSpeech1.png.\ Other\ classes\ can\ add\ or\ remove\ this\ actor\ \r\n\ to\ show\ temporary\ speech\ messages\ on\ screen.\ \r\n\ <p>\r\n\ This\ class\ handles\ only\ the\ visual\ appearance\ of\ the\ speech\ bubble.\ \r\n\ \r\n\ @author\ veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=RobotSpeech()
+comment1.text=\r\n\ Constructor\ for\ RobotSpeech\ that\ creates\ a\ RobotSpeech\ object\ and\ scales\ both\ available\ speech\ bubble\ images.\ \r\n\ The\ initial\ displayed\ bubble\ is\ speech1.\ \r\n\ Then\ the\ second\ displayed\ bubble\ is\ speech2.\ \r\n
 comment2.params=
 comment2.target=void\ showSpeech1()
+comment2.text=\r\n\ Displays\ the\ first\ robot\ speech\ bubble\ image.\r\n
 comment3.params=
 comment3.target=void\ showSpeech2()
+comment3.text=\r\n\ Displays\ the\ second\ robot\ speech\ bubble\ image.\r\n
 numComments=4

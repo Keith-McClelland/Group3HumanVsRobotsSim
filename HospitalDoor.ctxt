@@ -1,13 +1,19 @@
 #BlueJ class context
 comment0.target=HospitalDoor
+comment0.text=\r\n\ HospitalDoor\ represents\ an\ automated\ door\ that\ opens\ and\ closes\ \r\n\ with\ an\ animation.\ \r\n\ <p>\r\n\ The\ door\ opens\ automatically\ after\ a\ fixed\ interval,\ remains\ open\ \r\n\ for\ a\ short\ period,\ then\ closes\ again.\ It\ uses\ an\ array\ of\ images\ \r\n\ for\ the\ animation\ frames.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=
 comment1.target=HospitalDoor()
+comment1.text=\r\n\ Constructor\ for\ HospitalDoor\ that\ creates\ a\ HospitalDoor\ object\ and\ loads\ its\ animation\ frames.\ \r\n\ The\ door\ starts\ in\ the\ closed\ state.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Plays\ opening\ or\ closing\ animation.\ \r\n
 comment3.params=
 comment3.target=void\ autoOpenLogic()
+comment3.text=\r\n\ Controls\ automatic\ opening\ of\ the\ door.\ \r\n\ <p>\r\n\ Increments\ a\ counter\ each\ frame,\ and\ triggers\ the\ opening\ \r\n\ animation\ once\ the\ interval\ is\ reached.\ \r\n
 comment4.params=
 comment4.target=void\ animateOpening()
+comment4.text=\r\n\ Animates\ the\ door\ opening\ by\ cycling\ forward\ through\ the\ frames.\ \r\n\ Once\ fully\ opened,\ triggers\ the\ closing\ animation.\ \r\n
 comment5.params=
 comment5.target=void\ animateClosing()
+comment5.text=\r\n\ Animates\ the\ door\ closing\ by\ cycling\ backward\ through\ the\ frames.\ \r\n\ Once\ fully\ closed,\ stops\ the\ animation.\ \r\n
 numComments=6

@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=StatBoard
+comment0.text=\r\n\ StatBoard\ represents\ a\ visual\ scoreboard\ for\ a\ team\ in\ the\ world.\ \r\n\ <p>\r\n\ It\ displays\ either\ a\ human\ or\ robot\ scoreboard.\ \r\n\ \r\n\ @author\ Veznu\ Premathas\ \r\n\ @version\ Novemrber\ 2025\r\n
 comment1.params=type
 comment1.target=StatBoard(java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ StatBoard\ that\ creates\ a\ StatBoard\ for\ the\ specified\ team\ type.\ \r\n\ The\ constructor\ loads\ the\ corresponding\ image\ and\ scales\ it\ to\ a\ fixed\ size.\ \r\n\ \r\n\ @param\ type\ \ \ \ \ \ The\ type\ of\ scoreboard\:\ "human"\ or\ any\ other\ string\ for\ robot.\ \r\n
 numComments=2

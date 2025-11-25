@@ -1,6 +1,19 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * ExplodingRobot is a subclass of Robot that rushes toward Humans and explodes 
+ * when close, dealing area-of-effect damage. 
+ * <p>
+ * This class handles: 
+ * - Walking animation 
+ * - Detection and rush behavior 
+ * - Explosion on contact with Humans or Fences 
+ * - Damage in a radius around itself 
+ * 
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public class ExplodingRobot extends Robot {
 
     private int explosionRadius = 50;
@@ -13,6 +26,16 @@ public class ExplodingRobot extends Robot {
     private int frameDelay = 5;
     private int frameCounter = 0;
 
+    /**
+     * Constructs a new ExplodingRobot. 
+     *
+     * @param health  Initial health points. 
+     * @param speed   Base movement speed. 
+     * @param range   Base attack range (also used to calculate detectionRange). 
+     * @param damage  Damage dealt by the explosion. 
+     * @param delay   Cooldown between attacks (unused here but required by superclass). 
+     * @param value   Resource value granted to Humans when destroyed. 
+     */
     public ExplodingRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
@@ -23,6 +46,7 @@ public class ExplodingRobot extends Robot {
         setImage(walkFrames[0]);
     }
 
+    /** Loads walking animation frames */
     private void loadWalkingFrames() {
         walkFrames = new GreenfootImage[8];
         for (int i = 0; i < 8; i++) {
@@ -31,6 +55,10 @@ public class ExplodingRobot extends Robot {
         }
     }
 
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Handles walking animation and calls superclass act method for movement/health. 
+     */
     @Override
     public void act() {
         if (getWorld() == null) return;
@@ -41,6 +69,13 @@ public class ExplodingRobot extends Robot {
         }
     }
 
+    /**
+     * Attack behavior for ExplodingRobot. 
+     * <p>
+     * - Explodes when within explosion radius of a Human 
+     * - Rushes toward closest Human if within detection range 
+     * - Explodes when touching a Fence 
+     */
     @Override
     protected void attackBehavior() {
 
@@ -78,6 +113,9 @@ public class ExplodingRobot extends Robot {
         );
     }
 
+    /**
+     * Animates walking frames 
+     */
     private void animateWalking() {
         frameCounter++;
         if (frameCounter >= frameDelay) {
@@ -87,6 +125,9 @@ public class ExplodingRobot extends Robot {
         }
     }
 
+    /**
+     * Explodes, dealing damage to Humans in radius and showing visual effect 
+     */
     private void explode() {
         if (getWorld() == null) return;
 

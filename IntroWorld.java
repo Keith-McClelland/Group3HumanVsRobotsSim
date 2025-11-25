@@ -1,10 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+/**
+ * IntroWorld is a Greenfoot World that displays the introductory scene of the game simulation. 
+ * It shows a start background with the title NEXUS, a continue button right under it. 
+ * When Continue button is clicked, the story of the game will begin and a robot from the robot side (left) 
+ * will attempt to retrieve a gem that sits on the human side (right), while the human rejects the robot 
+ * leading to a battle 
+ * <p>
+ * It displays the front page when the user opens the game
+ * 
+ * @author Veznu Premathas
+ * @version November 2025
+ */
 public class IntroWorld extends World
 {
     private ContinueButton button;
     public static boolean doneScanning = false;
-    
+    /**
+     * Constructor for IntroWorld. 
+     * Initializes the world dimensions to 1240x700 pixels, sets the initial 
+     * background image to "introworld.png", and places the continue button.  
+     */
     public IntroWorld()
     {           
         super(1240, 700, 1);
@@ -15,7 +30,12 @@ public class IntroWorld extends World
     
 
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * - Checks if the continue button is clicked to transition the scene. 
+     * - Checks if doneScanning is true to spawn a human. 
+     */
     public void act() {
         // Check if the user clicks the ContinueButton
         if (Greenfoot.mouseClicked(button)) {
@@ -36,6 +56,9 @@ public class IntroWorld extends World
         }
     }
     
+    /**
+     * Spawns a StoryWorldHuman at a specific position on the right side of the world. 
+     */
     public void spawnHuman() 
     {
         StoryWorldHuman human = new StoryWorldHuman();
@@ -43,5 +66,6 @@ public class IntroWorld extends World
     }
 
 }
+
 
 

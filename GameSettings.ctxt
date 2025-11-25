@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=GameSettings
+comment0.text=\r\n\ The\ GameSettings\ class\ stores\ all\ customizable\ gameplay\ variables\ for\ both\ the\ \r\n\ Human\ and\ Robot\ sides.\ These\ values\ are\ read\ by\ units,\ spawners,\ and\ \r\n\ buildings\ during\ gameplay.\ These\ settings\ can\ be\ modified\ from\ the\ settings\ menu\ \r\n\ to\ adjust\ gameplay\ balance,\ speed,\ and\ difficulty.\ \r\n\ <p>\r\n\ This\ class\ uses\ static\ variables\ so\ that\ all\ worlds\ and\ classes\ can\ access\ \r\n\ the\ active\ settings.\ \r\n\ @author\ Jonathan\ Shi\ \r\n\ @version\ November\ 2025\ \r\n
 comment1.params=
 comment1.target=void\ reset()
 numComments=2

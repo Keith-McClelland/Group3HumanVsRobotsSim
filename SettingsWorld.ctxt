@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=SettingsWorld
+comment0.text=\r\n\ SettingsWorld\ is\ a\ Greenfoot\ World\ that\ displays\ the\ settings\ menu\ of\ the\ game\ simulation.\ \r\n\ It\ shows\ two\ sides\ Human\ (left)\ and\ Robots\ (right)\ with\ four\ options\ of\ settings\ {Spawn\ rate,\ starting\ hp,\ speed,\ cash\ earned\ per\ kill}.\ \ \r\n\ These\ settings\ only\ affect\ how\ the\ units\ behave.\ \r\n\ The\ white\ text\ values\ are\ the\ base\ settings\ applied\ for\ the\ units.\ \r\n\ <p>\r\n\ Clicking\ the\ left\ arrow\ button\ will\ decrease\ the\ value\ inside\ the\ middle\ box\ by\ 1.\ \r\n\ Clicking\ the\ right\ arrow\ button\ will\ increase\ the\ value\ inside\ the\ middle\ box\ by\ 1.\ \r\n\ @author\ Jonathan\ Shi\ \r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=SettingsWorld()
+comment1.text=\r\n\ Creates\ the\ settings\ menu\ world,\ initializes\ default\ settings,\ \r\n\ draws\ the\ layout,\ and\ places\ all\ UI\ components.\r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Handles\ UI\ interaction\ such\ as\ clicking\ the\ Continue\ button.\ \r\n
 comment3.params=
 comment3.target=void\ handleContinueButton()
+comment3.text=\r\n\ Checks\ if\ the\ Continue\ button\ is\ clicked.\r\n\ If\ clicked,\ transitions\ into\ the\ main\ gameplay\ world.\r\n
 comment4.params=
 comment4.target=void\ setupRobotColumn()
+comment4.text=\r\n\ Creates\ and\ positions\ the\ right\ column\ of\ settings\ for\ Robot\ units.\r\n\ <p>\r\n\ Settings\ included\:\r\n\ \ \ \ \ SpawnRate\r\n\ \ \ \ \ Starting\ HP\r\n\ \ \ \ \ Speed\r\n\ \ \ \ \ Cash\r\n
 comment5.params=
 comment5.target=void\ setupHumanColumn()
+comment5.text=\r\n\ Creates\ and\ positions\ the\ left\ column\ of\ settings\ for\ Human\ units.\r\n\ <p>\r\n\ Settings\ included\:\r\n\ \ \ \ \ SpawnRate\r\n\ \ \ \ \ Starting\ HP\r\n\ \ \ \ \ Speed\r\n\ \ \ \ \ Cash\r\n
 comment6.params=
 comment6.target=void\ setupLabels()
+comment6.text=\r\n\ Draws\ all\ title\ labels\ and\ row\ labels\ for\ both\ Human\ and\ Robot\ columns.\ \r\n\ <p>\r\n\ Title\ labels\ include\:\r\n\ \ \ \ \ Humans,\ Robots\r\n\ Small\ row\ labels\ include\:\r\n\ \ \ \ \ SpawnRate\r\n\ \ \ \ \ Starting\ HP\r\n\ \ \ \ \ Speed\r\n\ \ \ \ \ Cash\ gained\ per\ kill\r\n
 numComments=7

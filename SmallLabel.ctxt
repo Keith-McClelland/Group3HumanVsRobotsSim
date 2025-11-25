@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=SmallLabel
+comment0.text=\r\n\ SmallLabel\ is\ a\ Greenfoot\ Actor\ used\ for\ displaying\ short\ text\ labels\ \r\n\ in\ the\ settings\ menu.\ It\ creates\ a\ simple\ text\ image\ using\ GreenfootImage.\ \r\n\ <p>\r\n\ This\ class\ is\ used\ in\ settings\ menus,\ including\ SettingsWorld,\ to\ label\ \r\n\ each\ row\ such\ as\ "Spawn\ rate",\ "Starting\ HP",\ "Speed",\ and\ "Cash\ gained\ per\ kill".\ \r\n\ \r\n\ @author\ Jonathan\ Shi\ \r\n\ @version\ November\ 2025\ \r\n
 comment1.params=text
 comment1.target=SmallLabel(java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ SmallLabel\ that\ creates\ a\ SmallLabel\ object\ containing\ the\ given\ text.\ \r\n\r\n\ @param\ text\ \ The\ text\ to\ display\ in\ the\ label.\ \r\n
 numComments=2

@@ -1,11 +1,16 @@
 #BlueJ class context
 comment0.target=Effect
+comment0.text=\r\n\ Effect\ is\ an\ abstract\ class\ for\ visual\ effects\ in\ the\ world.\ \r\n\ <p>\r\n\ Effects\ have\ a\ width,\ height,\ color,\ and\ a\ timer\ that\ tracks\ \r\n\ how\ long\ the\ effect\ has\ been\ active.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=width\ height\ baseColor
 comment1.target=Effect(int,\ int,\ greenfoot.Color)
+comment1.text=\r\n\ Constructor\ for\ Effect\ creates\ a\ new\ Effect\ with\ specified\ dimensions\ and\ base\ color.\ \r\n\r\n\ @param\ width\ \ \ \ \ Width\ of\ the\ effect.\ \r\n\ @param\ height\ \ \ \ Height\ of\ the\ effect.\ \r\n\ @param\ baseColor\ Initial\ color\ of\ the\ effect.\ \r\n\r\n\ The\ constructor\ creates\ a\ filled\ rectangle\ of\ the\ specified\ size\ \r\n\ and\ color\ and\ sets\ it\ as\ the\ effect's\ image.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Updates\ the\ effect's\ behavior,\ and\ redraws\ its\ appearance.\ \r\n
 comment3.params=
 comment3.target=void\ updateEffect()
+comment3.text=\r\n\ Updates\ the\ behavior\ of\ the\ effect.\ \r\n\ <p>\r\n\ Subclasses\ must\ define\ this\ method\ to\ specify\ how\ the\ effect\ changes\ \r\n\ over\ time.\ \r\n
 comment4.params=
 comment4.target=void\ drawEffect()
+comment4.text=\r\n\ Draws\ the\ appearance\ of\ the\ effect.\ \r\n\ <p>\r\n\ Subclasses\ must\ define\ this\ method\ to\ customize\ the\ visual\ \r\n\ representation.\ \r\n
 numComments=5
