@@ -282,22 +282,87 @@ public abstract class Units extends SuperSmoothMover {
     }
     
     
+      /**
+     * Setter method for healthbar.
+     * @param hp    sets the health to hp.
+     */
     public void setHealth(int hp) {
         this.health = hp;
         updateHealthBar();
     }
     
+    /**
+     * Getter method for hp.
+     * @return    gets the health.
+     */
     public int getHealth() { return health; }
+    
+    /**
+     * Boolean method for determining team side.
+     * @return    true or false if isRobot.  
+     */
     public boolean isRobot() { return isRobot; }
+    
+    /**
+     * Getter method for speed.
+     * @return    gets the speed as a double.  
+     */
     public double getSpeed() { return speed; }
+    
+    /**
+     * Getter method for range.
+     * @return    gets the range.
+     */
     public int getRange() { return range; }
+    
+    /**
+     * Getter method for human cash.
+     * @return    gets the human cash.  
+     */
     public static int getHumanCash() { return humanCash; }
+    
+    /**
+     * Getter method for robot cash.
+     * @return    gets the robot cash.
+     */
     public static int getRobotCash() { return robotCash; }
+    
+    /**
+     * Setter method for human cash.
+     * @param a    sets the humanCash.
+     */
     public static void setHumanCash(int a) { humanCash = a; }
+    
+    /**
+     * Setter method for robot cash.
+     * @param a    sets the robotCash.
+     */
     public static void setRobotCash(int a) { robotCash = a; }
+    
+    /**
+     * Setter method for determining how many robots are alive.
+     * @param a    sets the robotsAlive.
+     */
     public static void setRobotsAlive(int a) { robotsAlive = a; }
+    
+    /**
+     * Setter method for determining how many robots are dead.
+     * @param a    sets the robotsDead.
+     */
     public static void setRobotsDead(int a) { robotsDead = a; }
+    
+    /**
+     * Setter method for determining how many humans are alive.
+     * @param a    sets the humansAlive.
+     */
     public static void setHumansAlive(int a) { humansAlive = a; }
+    
+    /**
+     * Setter method for determining how many humans are dead.
+     * @param a    sets the humansDead.
+     */
     public static void setHumansDead(int a) { humansDead = a; }
 }
+
+
 
