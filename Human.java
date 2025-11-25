@@ -14,7 +14,6 @@ public abstract class Human extends Units {
         this.animationType = animType;
     }
 
-    @Override
     public void act() {
         super.act();
         attackBehavior();
