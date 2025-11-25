@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * TerritoryBar is a UI element displayed at the top of the screen. 
  * <p>
@@ -113,7 +113,7 @@ public class TerritoryBar extends Actor {
     private int getFurthestHumanX() {
         //loops through list of all humans within the world and by process of
         //elimination, it will identify the human closest to the robot side
-        List<Human> humans = getWorld().getObjects(Human.class);
+        ArrayList<Human> humans = new ArrayList<>( getWorld().getObjects(Human.class) );
         if (humans.isEmpty()) return 0;
 
         int x = getWorld().getWidth(); // humans start on right side
@@ -134,7 +134,7 @@ public class TerritoryBar extends Actor {
     private int getFurthestRobotX() {
         //loops through list of all robot within the world and by process of
         //elimination, it will identify the human closest to the human side
-        List<Robot> robots = getWorld().getObjects(Robot.class);
+        ArrayList<Robot> robots = new ArrayList<>( getWorld().getObjects(Robot.class) );
         if (robots.isEmpty()) 
         {
             return 0;
@@ -150,7 +150,3 @@ public class TerritoryBar extends Actor {
         return x;
     }
 }
-
-
-
-

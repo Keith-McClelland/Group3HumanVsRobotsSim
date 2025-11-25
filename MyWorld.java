@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  *  This simulation represents an ongoing conflict between Humans and Robots,
  *  where both sides fight for territorial control in order to obtain the

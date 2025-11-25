@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Buildings is an abstract class that represents any stationary building placed on the battlefield, 
  * such as Cannons, Turrets, Hospitals, or Factories. Buildings may belong to either 

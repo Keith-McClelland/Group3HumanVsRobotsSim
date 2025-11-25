@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * ExplodingRobot is a subclass of Robot that rushes toward Humans and explodes 
  * when close, dealing area-of-effect damage. 
@@ -142,12 +142,12 @@ public class ExplodingRobot extends Robot {
         getWorld().addObject(explosion, getX(), getY());
 
         // Damage all humans and enemy buildings in radius
-        List<Human> humans = getObjectsInRange(explosionRadius, Human.class);
+        ArrayList<Human> humans = new ArrayList<>( getObjectsInRange(explosionRadius, Human.class) );
         for (Human h : humans) {
             h.takeDamage(damage);
         }
 
-        List<Buildings> buildings = getObjectsInRange(explosionRadius, Buildings.class);
+        ArrayList<Buildings> buildings = new ArrayList<>( getObjectsInRange(explosionRadius, Buildings.class) );
         for (Buildings b : buildings) {
             if (!b.isRobotSide()) { // only damage enemy buildings
                 b.takeDamage(damage);
@@ -162,7 +162,7 @@ public class ExplodingRobot extends Robot {
     private Buildings getClosestEnemyBuilding() {
         if (getWorld() == null) return null;
 
-        List<Buildings> buildings = getWorld().getObjects(Buildings.class);
+        ArrayList<Buildings> buildings = new ArrayList<>( getWorld().getObjects(Buildings.class) );
         Buildings closest = null;
         double minDist = Double.MAX_VALUE;
 

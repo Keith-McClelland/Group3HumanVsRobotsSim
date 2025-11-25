@@ -1,5 +1,4 @@
 import greenfoot.*;
-import java.util.List;
 import java.util.ArrayList;
 /**
  * GiantHuman is a subclass of Human with larger size, slower speed, and animations. 

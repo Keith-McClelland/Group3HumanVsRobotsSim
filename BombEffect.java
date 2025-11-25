@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * BombEffect is subclass for visual effects in the world. 
  * Represents a explosion. 
@@ -41,18 +41,21 @@ public class BombEffect extends Effect
      * then damages all Humans within radius and starts fade-out. 
      */
     protected void updateEffect() {
-        //increase timer
+        // increase timer
         timer++;
-        
+    
         if (!exploded && timer >= 180) 
-        { // explode after 1.5 seconds
+        { 
+            // explode after 1.5 seconds
             exploded = true;
             timer = 0; // reset timer for fade out
+    
             // damage humans in range
-            List<Human> humans = getObjectsInRange(radius, Human.class);
+            ArrayList<Human> humans = new ArrayList<>( getObjectsInRange(radius, Human.class) );
+            
             for (Human h : humans) 
             {
-                getWorld().removeObject(h); // or remove if instant kill
+                getWorld().removeObject(h); // or handle damage instead
             }
         }
     }

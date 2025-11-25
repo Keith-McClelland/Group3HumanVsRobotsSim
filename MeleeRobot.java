@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class MeleeRobot extends Robot {
 
@@ -148,16 +148,17 @@ public class MeleeRobot extends Robot {
     @Override
     protected Human getClosestHuman() {
         if (getWorld() == null) return null;
-
-        List<Human> humans = getWorld().getObjects(Human.class);
+    
+        // Get humans
+        ArrayList<Human> humans = new ArrayList<>( getWorld().getObjects(Human.class) );
         Human closest = null;
         double minDist = Double.MAX_VALUE;
-
+    
         for (Human h : humans) {
             if (h.getHealth() <= 0) continue;
-
+    
             double dist = getDistanceTo(h);
-
+    
             if (dist < minDist) {
                 minDist = dist;
                 closest = h;

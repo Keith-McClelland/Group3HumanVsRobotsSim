@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.ArrayList;
 import greenfoot.*;
 /**
  * StoryWorldHuman represents a human character in the story sequence. 
@@ -73,7 +73,7 @@ public class StoryWorldHuman extends SuperSmoothMover
     private void moveTowardCrystal() {
         //find the crystal on first update
         if (target == null) {
-            List<Crystal> crystals = getWorld().getObjects(Crystal.class);
+            ArrayList<Crystal> crystals = new ArrayList<>( getWorld().getObjects(Crystal.class) );
             if (!crystals.isEmpty()) target = crystals.get(0);
             return;
         }
@@ -90,7 +90,7 @@ public class StoryWorldHuman extends SuperSmoothMover
         }
 
         //remove robot speech bubbles, no overlapping
-        List<RobotSpeech> robotSpeeches = getWorld().getObjects(RobotSpeech.class);
+        ArrayList<RobotSpeech> robotSpeeches = new ArrayList<>( getWorld().getObjects(RobotSpeech.class) );
         if (!robotSpeeches.isEmpty()) 
         {
             getWorld().removeObject(robotSpeeches.get(0));
@@ -113,7 +113,7 @@ public class StoryWorldHuman extends SuperSmoothMover
         speechDone = true;
 
         //choose drone to chase
-        List<Drone> drones = getWorld().getObjects(Drone.class);
+        ArrayList<Drone> drones = new ArrayList<>( getWorld().getObjects(Drone.class) );
         if (!drones.isEmpty()) droneTarget = drones.get(0);
     }
     
@@ -189,6 +189,3 @@ public class StoryWorldHuman extends SuperSmoothMover
         }
     }
 }
-
-
-

@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * The Turret class is a subclass of Buildings. 
  * Robot-side defensive/offensive building that automatically scans for nearby Human units 
@@ -132,14 +132,16 @@ public class Turret extends Buildings
      */
     private Human getClosestHuman() 
     {
-        List<Human> humans = getWorld().getObjects(Human.class);
+        ArrayList<Human> humans = new ArrayList<>( getWorld().getObjects(Human.class) );
         Human closest = null;
         double best = Double.MAX_VALUE;
-
+    
         for (Human h : humans) 
         {
-            if (h.getHealth() <= 0) continue; // ignore dead humans
+            if (h.getHealth() <= 0) continue;  // ignore dead humans
+            
             double d = getDistance(h);         // calculate distance
+            
             if (d < best) 
             {
                 best = d;
