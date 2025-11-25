@@ -13,6 +13,7 @@ public class LevelUpIndicator extends Actor
         levelUp = new GreenfootImage("levelUp.png");
         levelUp.scale(180, 40); // scales the image
         setImage(levelUp); // sets the image
+        levelUpSound.setVolume(50);
         levelUpSound.play();
     }
 
