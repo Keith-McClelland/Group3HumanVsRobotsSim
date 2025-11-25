@@ -7,11 +7,13 @@ public class LevelUpIndicator extends Actor
     private final int duration = 240; // 4 seconds at 60 FPS
     private final int blinkInterval = 15; // frames between visibility toggle
 
+    GreenfootSound levelUpSound = new GreenfootSound("levelUpSound.mp3");
     public LevelUpIndicator()
     {
         levelUp = new GreenfootImage("levelUp.png");
         levelUp.scale(180, 40); // scales the image
         setImage(levelUp); // sets the image
+        levelUpSound.play();
     }
 
     public void act()

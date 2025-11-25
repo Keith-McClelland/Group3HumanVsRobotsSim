@@ -121,6 +121,8 @@ public class MyWorld extends World {
             Fences.class,
             Robot.class
         );
+        
+        evolutionStage = 1;
 
         setBackground(background);
 
