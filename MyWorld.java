@@ -123,7 +123,6 @@ public class MyWorld extends World {
             Robot.class
         );
         
-        
         humanEvolutionStage = 1;
         robotEvolutionStage = 1;
 
@@ -285,7 +284,7 @@ public class MyWorld extends World {
     
         // Stage 4: Caveman + Archer + Giant + Cannons
         if (humanEvolutionStage == 4) {
-            int choice = Greenfoot.getRandomNumber(10); // 0–9
+            int choice = Greenfoot.getRandomNumber(11); // 0–9
             if (choice <= 4) // 50% chance
                 addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else if (choice <= 8) // 40% chance

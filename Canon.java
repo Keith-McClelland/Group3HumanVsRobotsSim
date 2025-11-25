@@ -2,6 +2,8 @@ import greenfoot.*;
 import java.util.List;
 
 public class Canon extends Buildings {
+    private GreenfootSound[] attackSounds;
+    private int attackSoundsIndex;
 
     GreenfootSound fire = new GreenfootSound("cannon.mp3");
     // controls the shot fire rate
@@ -19,6 +21,11 @@ public class Canon extends Buildings {
     private int frameCounter = 0;
     private int frameSpeed = 5;
 
+    // cannon sound array
+    private GreenfootSound[] cannonSounds;
+    private int soundIndex = 0;
+    private final int NUM_SOUNDS = 20; // number of sound copies for overlap
+
     public Canon(boolean isHumanSide) {
         super(200, isHumanSide);
 
@@ -32,6 +39,12 @@ public class Canon extends Buildings {
         for (int i = 0; i < 5; i++) {
             shootFrames[i] = new GreenfootImage("canon00" + (i + 1) + ".png");
             shootFrames[i].scale(70, 80);
+        }
+
+        // initialize sound array
+        cannonSounds = new GreenfootSound[NUM_SOUNDS];
+        for (int i = 0; i < NUM_SOUNDS; i++) {
+            cannonSounds[i] = new GreenfootSound("cannon.mp3");
         }
     }
 
@@ -84,7 +97,24 @@ public class Canon extends Buildings {
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.CANON);
         shot.setImage("canonBall.png");
         getWorld().addObject(shot, getX(), getY());
+
         fire.play();
+
+        
+        attackSoundsIndex = 0; 
+        attackSounds = new GreenfootSound[20];
+        for (int i = 0; i < attackSounds.length; i++){
+            attackSounds[i] = new GreenfootSound("cannon.mp3");
+        }
+        attackSounds[attackSoundsIndex].play();
+        attackSoundsIndex++;
+        if(attackSoundsIndex > attackSounds.length - 1){
+            attackSoundsIndex = 0;
+        }
+
+        // play cannon sound
+        cannonSounds[soundIndex].play();
+        soundIndex = (soundIndex + 1) % NUM_SOUNDS; // cycle through sounds
     }
 
     private void animate() {
@@ -102,4 +132,3 @@ public class Canon extends Buildings {
         }
     }
 }
-

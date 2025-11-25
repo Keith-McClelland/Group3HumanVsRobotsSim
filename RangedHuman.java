@@ -2,7 +2,8 @@ import greenfoot.*;
 import java.util.List;
 
 public class RangedHuman extends Human {
-    private GreenfootSound attackSound;
+    private GreenfootSound[] attackSounds;
+    private int attackSoundsIndex;
     
     private GreenfootImage idleImage;
     private GreenfootImage[] walkFrames;
@@ -26,9 +27,11 @@ public class RangedHuman extends Human {
 
     /** Load animations */
     private void loadAnimations() {
+
         if (animationType != null && animationType.equalsIgnoreCase("archer")) {
             walkFrames = new GreenfootImage[4];
             attackFrames = new GreenfootImage[4];
+    
 
             for (int i = 0; i < 4; i++) {
                 GreenfootImage walkImg = new GreenfootImage("ArcherWalk" + (i + 1) + ".png");
@@ -41,7 +44,6 @@ public class RangedHuman extends Human {
                 attackImg.scale(attackImg.getWidth() * 2, attackImg.getHeight() * 2);
                 attackFrames[i] = attackImg;
             }
-            attackSound = new GreenfootSound("arrow.mp3");
         } else {
             // Gunner type
             walkFrames = new GreenfootImage[6];
@@ -52,7 +54,6 @@ public class RangedHuman extends Human {
                 walkFrames[i] = img;
             }
             attackFrames = null; // Gunner doesn’t animate while attacking
-            attackSound = new GreenfootSound("gun.mp3");
         }
     }
 
@@ -90,6 +91,8 @@ public class RangedHuman extends Human {
     }
 
     private void attack(Robot target) {
+        attackSoundsIndex = 0;
+        attackSounds = new GreenfootSound[20];
         if (animationType.equalsIgnoreCase("archer")) {
             // Archers animate while attacking
             attackCounter++;
@@ -102,9 +105,6 @@ public class RangedHuman extends Human {
             // Gunner stops moving while attacking
             setImage(walkFrames[5]);
         }
-        if (attackSound != null) {
-                attackSound.play();
-            }
 
 
         if (cooldown == 0 && target != null) {
@@ -115,8 +115,21 @@ public class RangedHuman extends Human {
             Projectile p = new Projectile(10, angle, damage, Projectile.Owner.HUMAN);
             if (animationType.equalsIgnoreCase("archer")) {
                 p.setImage("Arrow.png");
+                for (int i = 0; i < attackSounds.length; i++){
+                    attackSounds[i] = new GreenfootSound("arrow.mp3");
+                }
+                attackSounds[attackSoundsIndex].play();
+                attackSoundsIndex++;
             } else {
                 p.setImage("laser.png");
+                for (int i = 0; i < attackSounds.length; i++){
+                    attackSounds[i] = new GreenfootSound("gun.mp3");
+                }
+                attackSounds[attackSoundsIndex].play();
+                attackSoundsIndex++;
+                if(attackSoundsIndex > attackSounds.length - 1){
+                    attackSoundsIndex = 0;
+                }
             }
             getWorld().addObject(p, getX(), getY());
             cooldown = delay;

@@ -9,6 +9,8 @@ public class Turret extends Buildings {
     private double projectileSpeed = 10;
     private int projectileDamage = 30;
     private int range = 500;
+    private GreenfootSound[] attackSounds;
+    private int attackSoundsIndex;
 
     private GreenfootImage turretImage;
 
@@ -48,6 +50,13 @@ public class Turret extends Buildings {
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
     
+        attackSoundsIndex = 0; 
+        attackSounds = new GreenfootSound[20];
+        for (int i = 0; i < attackSounds.length; i++){
+            attackSounds[i] = new GreenfootSound("laser.mp3");
+        }
+        attackSounds[attackSoundsIndex].play();
+        attackSoundsIndex++;
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.ROBOT);
     
         // ⭐ Set projectile image to ray.png

@@ -2,10 +2,10 @@ import greenfoot.*;
 import java.util.List;
 
 public class MeleeHuman extends Human {
-    private GreenfootSound attackSound;
+    private GreenfootSound[] attackSounds;
+    private int attackSoundsIndex;
 
     private GreenfootImage idleImage;
-
     private GreenfootImage[] walkFrames;
     private GreenfootImage[] attackFrames;
 
@@ -27,6 +27,9 @@ public class MeleeHuman extends Human {
 
     /** Load animation sets based on animationType */
     private void loadAnimations() {
+        attackSoundsIndex = 0; 
+        attackSounds = new GreenfootSound[20]; // keep pool at 20
+
         if (animationType.equalsIgnoreCase("caveman")) {
             // Caveman Walking (1–6)
             walkFrames = new GreenfootImage[6];
@@ -36,7 +39,8 @@ public class MeleeHuman extends Human {
                 img.scale(img.getWidth() * 2, img.getHeight() * 2);
                 walkFrames[i] = img;
             }
-    
+
+            // Caveman Attack (1–4)
             attackFrames = new GreenfootImage[4];
             for (int i = 0; i < 4; i++) {
                 GreenfootImage img = new GreenfootImage("CavemanAttack" + (i + 1) + ".png");
@@ -44,8 +48,11 @@ public class MeleeHuman extends Human {
                 img.scale(img.getWidth() * 2, img.getHeight() * 2);
                 attackFrames[i] = img;
             }
-            attackSound = new GreenfootSound("sword.mp3");
-    
+
+            for (int i = 0; i < attackSounds.length; i++) {
+                attackSounds[i] = new GreenfootSound("sword.mp3");
+            }
+
         } else {
             // Cyborg Walking (1–6)
             walkFrames = new GreenfootImage[6];
@@ -55,7 +62,7 @@ public class MeleeHuman extends Human {
                 img.scale(40,50);
                 walkFrames[i] = img;
             }
-    
+
             // Cyborg Attack (1–6)
             attackFrames = new GreenfootImage[6];
             for (int i = 0; i < 6; i++) {
@@ -64,8 +71,10 @@ public class MeleeHuman extends Human {
                 img.scale(40, 45);
                 attackFrames[i] = img;
             }
-            attackSound = new GreenfootSound("punch.mp3");
-    
+
+            for (int i = 0; i < attackSounds.length; i++) {
+                attackSounds[i] = new GreenfootSound("punch.mp3");
+            }
         }
     }
 
@@ -76,7 +85,6 @@ public class MeleeHuman extends Human {
         Robot target = getClosestRobot();
 
         if (target == null) {
-            // Move forward if no target
             attacking = false;
             setImage(idleImage);
             moveForward();
@@ -87,11 +95,9 @@ public class MeleeHuman extends Human {
         double distance = getDistanceTo(target);
 
         if (distance <= range) {
-            // Attack
             attacking = true;
             animateAttack(target);
         } else {
-            // Walk toward enemy
             attacking = false;
             moveTowardRobot(target);
             animateWalk();
@@ -105,22 +111,23 @@ public class MeleeHuman extends Human {
         walkCounter++;
     }
 
-    /** Attack animation logic */
+    /** Attack animation logic with sound pool */
     private void animateAttack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
-    
+
         if (cooldown == 0) {
             target.takeDamage(damage);
-    
-            if (attackSound != null) {
-                attackSound.play();
-            }
-    
+
+            // Play attack sound from pool
+            attackSounds[attackSoundsIndex].stop(); // stop if still playing
+            attackSounds[attackSoundsIndex].play();
+            attackSoundsIndex = (attackSoundsIndex + 1) % attackSounds.length;
+
             cooldown = delay;
         }
-    
+
         attackCounter++;
-    
+
         if (attackCounter >= attackSpeed) {
             attackCounter = 0;
             attackFrameIndex = (attackFrameIndex + 1) % attackFrames.length;

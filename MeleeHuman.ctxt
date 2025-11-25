@@ -12,5 +12,5 @@ comment4.target=void\ animateWalk()
 comment4.text=Walking\ animation\ logic
 comment5.params=target
 comment5.target=void\ animateAttack(Robot)
-comment5.text=Attack\ animation\ logic
+comment5.text=Attack\ animation\ logic\ with\ sound\ pool
 numComments=6

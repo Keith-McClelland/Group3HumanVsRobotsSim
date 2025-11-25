@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class GiantHuman extends Human {
 
     private GreenfootImage idleImage;
-
     private GreenfootImage[] walkFrames;
     private GreenfootImage[] attackFrames;
 
@@ -17,56 +16,69 @@ public class GiantHuman extends Human {
 
     private boolean attacking = false;
 
+    // Attack sound pool
+    private GreenfootSound[] attackSounds;
+    private int attackSoundsIndex;
+
     public GiantHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
         super(health, speed, range, damage, delay, value, animType);
         loadAnimations();
+        loadSounds();
 
         idleImage = walkFrames[0];
         setImage(idleImage);
     }
 
     /** Load animation sets based on animationType ("giant" or "tank") */
-private void loadAnimations() {
-    if (animationType.equalsIgnoreCase("giant")) {
-        // Giant Walking (1–6)
-        walkFrames = new GreenfootImage[6];
-        for (int i = 0; i < 6; i++) {
-            GreenfootImage img = new GreenfootImage("GiantWalk" + (i + 1) + ".png");
-            img.mirrorHorizontally();
-            img.scale(img.getWidth() * 3, img.getHeight() * 3);
-            walkFrames[i] = img;
-        }
+    private void loadAnimations() {
+        if (animationType.equalsIgnoreCase("giant")) {
+            // Giant Walking (1–6)
+            walkFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("GiantWalk" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 3, img.getHeight() * 3);
+                walkFrames[i] = img;
+            }
 
-        // Giant Attack (1–6)
-        attackFrames = new GreenfootImage[4];
-        for (int i = 0; i < 4; i++) {
-            GreenfootImage img = new GreenfootImage("GiantAttack" + (i + 1) + ".png");
-            img.mirrorHorizontally();
-            img.scale(img.getWidth() * 3, img.getHeight() * 3);
-            attackFrames[i] = img;
-        }
+            // Giant Attack (1–4)
+            attackFrames = new GreenfootImage[4];
+            for (int i = 0; i < 4; i++) {
+                GreenfootImage img = new GreenfootImage("GiantAttack" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 3, img.getHeight() * 3);
+                attackFrames[i] = img;
+            }
 
-    } else {
-        // Tank Walking (1–6)
-        walkFrames = new GreenfootImage[6];
-        for (int i = 0; i < 6; i++) {
-            GreenfootImage img = new GreenfootImage("TankRun" + (i + 1) + ".png");
-            img.mirrorHorizontally();
-            img.scale(img.getWidth() * 3, img.getHeight() * 3);
-            walkFrames[i] = img;
-        }
+        } else { // tank
+            // Tank Walking (1–6)
+            walkFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("TankRun" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 3, img.getHeight() * 3);
+                walkFrames[i] = img;
+            }
 
-        // Tank Attack (1–6)
-        attackFrames = new GreenfootImage[6];
-        for (int i = 0; i < 6; i++) {
-            GreenfootImage img = new GreenfootImage("TankAttack" + (i + 1) + ".png");
-            img.mirrorHorizontally();
-            img.scale(img.getWidth() * 3, img.getHeight() * 3);
-            attackFrames[i] = img;
+            // Tank Attack (1–6)
+            attackFrames = new GreenfootImage[6];
+            for (int i = 0; i < 6; i++) {
+                GreenfootImage img = new GreenfootImage("TankAttack" + (i + 1) + ".png");
+                img.mirrorHorizontally();
+                img.scale(img.getWidth() * 3, img.getHeight() * 3);
+                attackFrames[i] = img;
+            }
         }
     }
-}
 
+    /** Load attack sounds pool */
+    private void loadSounds() {
+        attackSoundsIndex = 0;
+        attackSounds = new GreenfootSound[20];
+        for (int i = 0; i < attackSounds.length; i++) {
+            attackSounds[i] = new GreenfootSound("punch.mp3");
+        }
+    }
 
     @Override
     public void act() {
@@ -76,11 +88,10 @@ private void loadAnimations() {
 
     @Override
     protected void attackBehavior() {
-    
         if (cooldown > 0) cooldown--;
-    
+
         Buildings target = getClosestEnemyBuilding();
-    
+
         // No target → idle + walk forward
         if (target == null) {
             attacking = false;
@@ -89,20 +100,26 @@ private void loadAnimations() {
             animateWalk();
             return;
         }
-    
+
         double dist = getDistanceTo(target);
-    
+
         // IN RANGE → ATTACK
         if (dist <= range) {
             attacking = true;
             animateAttack(target);
-    
+
             if (cooldown == 0) {
                 target.takeDamage(damage);
+
+                // Play attack sound
+                attackSounds[attackSoundsIndex].stop();
+                attackSounds[attackSoundsIndex].play();
+                attackSoundsIndex = (attackSoundsIndex + 1) % attackSounds.length;
+
                 cooldown = delay;
             }
         }
-    
+
         // NOT IN RANGE → MOVE TOWARD + WALK ANIMATION
         else {
             attacking = false;
@@ -110,7 +127,6 @@ private void loadAnimations() {
             animateWalk();
         }
     }
-
 
     /** Walking animation logic */
     private void animateWalk() {
@@ -123,11 +139,6 @@ private void loadAnimations() {
     private void animateAttack(Buildings target) {
         setImage(attackFrames[attackFrameIndex]);
 
-        if (cooldown == 0) {
-            target.takeDamage(damage);
-            cooldown = delay;
-        }
-
         attackCounter++;
         if (attackCounter >= attackSpeed) {
             attackCounter = 0;
@@ -138,24 +149,22 @@ private void loadAnimations() {
     /** Move toward a target building */
     private void moveTowardBuilding(Buildings target) {
         if (target == null) return;
-    
-    
+
         double dx = target.getX() - getPreciseX();
         double dy = target.getY() - getPreciseY();
         double distance = Math.hypot(dx, dy);
-    
+
         if (distance == 0) return;
-    
+
         double stepX = dx / distance * speed;
         double stepY = dy / distance * speed;
-    
+
         setLocation(getPreciseX() + stepX, getPreciseY() + stepY);
     }
 
-
     /** Find closest enemy building (isHumanSide == false) */
     private Buildings getClosestEnemyBuilding() {
-        ArrayList<Buildings> buildings = 
+        ArrayList<Buildings> buildings =
             (ArrayList<Buildings>) getObjectsInRange(1500, Buildings.class);
 
         Buildings closest = null;

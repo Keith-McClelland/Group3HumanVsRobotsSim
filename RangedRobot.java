@@ -15,6 +15,11 @@ public class RangedRobot extends Robot {
 
     private int stopDistance = 150; // stop 150 px away from fence
 
+    // Sound array for overlapping firing sounds
+    private GreenfootSound[] laserSounds;
+    private int soundIndex = 0;
+    private final int NUM_SOUNDS = 3; // number of copies for overlap
+
     public RangedRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
@@ -29,6 +34,12 @@ public class RangedRobot extends Robot {
         shootFrame.scale(40,45);
 
         setImage(walkFrames[0]);
+
+        // Initialize sound array
+        laserSounds = new GreenfootSound[NUM_SOUNDS];
+        for (int i = 0; i < NUM_SOUNDS; i++) {
+            laserSounds[i] = new GreenfootSound("laser.mp3");
+        }
     }
 
     @Override
@@ -84,21 +95,23 @@ public class RangedRobot extends Robot {
             lastShotTime = now;
         }
     }
-    
+
     private void shootAt(Human target) {
-        Greenfoot.playSound("laser.mp3");
-    
+        // Play the next laser sound in the array
+        laserSounds[soundIndex].play();
+        soundIndex = (soundIndex + 1) % NUM_SOUNDS;
+
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
-    
+
         Projectile shot = new Projectile(projectileSpeed, angle, damage, Projectile.Owner.ROBOT);
-    
-        // ⭐ Set the projectile image to ray.png
+
+        // Set the projectile image
         GreenfootImage ray = new GreenfootImage("ray.png");
-        ray.scale(40, 6); // size tweak (optional)
+        ray.scale(40, 6);
         shot.setImage(ray);
-    
+
         getWorld().addObject(shot, getX(), getY());
     }
 
@@ -129,12 +142,15 @@ public class RangedRobot extends Robot {
         return closest;
     }
 
-    /** New method: explicitly attacks a fence */
     protected void attackFence(Fences fence) {
         setImage(shootFrame);
         long now = System.currentTimeMillis();
         if (fence != null && now - lastShotTime >= cooldownTime) {
-            Fences.damage(damage); // call static damage method
+            // Play laser sound when attacking fence
+            laserSounds[soundIndex].play();
+            soundIndex = (soundIndex + 1) % NUM_SOUNDS;
+
+            Fences.damage(damage);
             lastShotTime = now;
         }
     }
