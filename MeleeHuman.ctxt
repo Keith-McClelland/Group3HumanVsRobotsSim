@@ -1,12 +1,15 @@
 #BlueJ class context
 comment0.target=MeleeHuman
+comment0.text=\r\n\ MeleeHuman\ is\ a\ subclass\ of\ Human.\ \r\n\ Type\ of\ Human\ that\ specializes\ in\ close-range\ combat.\ \r\n\ <p>\r\n\ Supports\ multiple\ animation\ types(as\ the\ evolve\ they\ change)\:\ \r\n\ -\ "caveman"\:\ slower,\ larger,\ with\ sword\ attack\ sound.\ \r\n\ -\ "cyborg"\:\ faster,\ smaller,\ with\ punch\ attack\ sound.\ \r\n\ <p>\r\n\ This\ class\ handles\:\ \r\n\ -\ Walking\ animation\ \r\n\ -\ Attack\ animation\ \r\n\ -\ Damage\ application\ to\ enemy\ robots\ \r\n\ -\ Sound\ effects\ for\ attacks\ \r\n\r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n\ \r\n\ @version\ November\ 2025\ \r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
 comment1.target=MeleeHuman(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructs\ a\ new\ MeleeHuman\ unit.\ \r\n\r\n\ @param\ health\ Health\ points\ of\ the\ unit.\ \r\n\ @param\ speed\ Movement\ speed.\ \r\n\ @param\ range\ Attack\ range.\ \r\n\ @param\ damage\ Damage\ dealt\ per\ attack.\ \r\n\ @param\ delay\ Cooldown\ between\ attacks.\ \r\n\ @param\ value\ Resource\ value\ awarded\ when\ destroyed.\ \r\n\ @param\ animType\ Animation\ type\ (e.g.,\ "caveman"\ or\ "cyborg").\ \r\n
 comment2.params=
 comment2.target=void\ loadAnimations()
 comment2.text=Load\ animation\ sets\ based\ on\ animationType
 comment3.params=
 comment3.target=void\ attackBehavior()
+comment3.text=\r\n\ Implements\ the\ attack\ behavior\ for\ MeleeHuman.\ \r\n
 comment4.params=
 comment4.target=void\ animateWalk()
 comment4.text=Walking\ animation\ logic

@@ -1,6 +1,18 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * RangedRobot is a type of Robot that attacks humans and fences from range. 
+ * <p>
+ * This class handles: 
+ * - Moves toward targets (humans or fences) while animating. 
+ * - Stops at a set distance to shoot projectiles. 
+ * - Uses a cooldown between shots. 
+ * 
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * 
+ * @version November 2025 
+ */
 public class RangedRobot extends Robot {
 
     private long lastShotTime = 0;
@@ -19,7 +31,17 @@ public class RangedRobot extends Robot {
     private GreenfootSound[] laserSounds;
     private int soundIndex = 0;
     private final int NUM_SOUNDS = 3; // number of copies for overlap
-
+    
+    /**
+     * Constructs a new RangedRobot. 
+     *
+     * @param health  Initial health points. 
+     * @param speed   Movement speed. 
+     * @param range   Attack range. 
+     * @param damage  Damage per projectile. 
+     * @param delay   Frames between attacks (unused here; handled with cooldownTime). 
+     * @param value   Resource value granted when defeated. 
+     */
     public RangedRobot(int health, double speed, int range, int damage, int delay, int value) {
         super(health, speed, range, damage, delay, value);
 
@@ -41,7 +63,17 @@ public class RangedRobot extends Robot {
             laserSounds[i] = new GreenfootSound("laser.mp3");
         }
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * 
+     * Controls the RangedRobot's behavior: 
+     * - Moves toward humans or fences. 
+     * - Stops at the correct shooting distance. 
+     * - Fires projectiles with cooldown. 
+     * - Animates walking. 
+     * - Handles death and fade-out. 
+     */
     @Override
     public void act() {
         if (getHealth() <= 0) {
@@ -65,7 +97,8 @@ public class RangedRobot extends Robot {
         }
         checkEdges();
     }
-
+    
+    /** Walking animation logic */  
     private void animateWalk() {
         frameCount++;
         if (frameCount % frameDelay == 0) {
@@ -73,7 +106,12 @@ public class RangedRobot extends Robot {
             setImage(walkFrames[currentFrame]);
         }
     }
-
+    
+    /**
+     * Shoots at the given human if the cooldown has passed. 
+     *
+     * @param target The human to attack. 
+     */
     private void shootIfReady(Human target) {
         long now = System.currentTimeMillis();
         if (now - lastShotTime >= cooldownTime) {
@@ -81,7 +119,12 @@ public class RangedRobot extends Robot {
             lastShotTime = now;
         }
     }
-
+    
+    /**
+     * Creates a projectile aimed at the specified human. 
+     *
+     * @param target The human to shoot at. 
+     */
     private void shootAt(Human target) {
         // Play the next laser sound in the array
         laserSounds[soundIndex].play();
@@ -100,7 +143,12 @@ public class RangedRobot extends Robot {
 
         getWorld().addObject(shot, getX(), getY());
     }
-
+    
+    /**
+     * Moves the robot toward the specified actor. 
+     *
+     * @param target The actor to move toward. 
+     */
     private void moveToward(Actor target) {
         if (target == null) return;
         double dx = target.getX() - getX();
@@ -112,7 +160,9 @@ public class RangedRobot extends Robot {
         }
     }
 
-
+    /**
+     * Defines the specific attack behaviour for this unit. 
+     */
     @Override
     protected void attackBehavior() {
     }

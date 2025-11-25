@@ -1,17 +1,25 @@
 #BlueJ class context
 comment0.target=RangedRobot
+comment0.text=\r\n\ RangedRobot\ is\ a\ type\ of\ Robot\ that\ attacks\ humans\ and\ fences\ from\ range.\ \r\n\ <p>\r\n\ This\ class\ handles\:\ \r\n\ -\ Moves\ toward\ targets\ (humans\ or\ fences)\ while\ animating.\ \r\n\ -\ Stops\ at\ a\ set\ distance\ to\ shoot\ projectiles.\ \r\n\ -\ Uses\ a\ cooldown\ between\ shots.\ \r\n\ \r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n\ \r\n\ @version\ November\ 2025\ \r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value
 comment1.target=RangedRobot(int,\ double,\ int,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructs\ a\ new\ RangedRobot.\ \r\n\r\n\ @param\ health\ \ Initial\ health\ points.\ \r\n\ @param\ speed\ \ \ Movement\ speed.\ \r\n\ @param\ range\ \ \ Attack\ range.\ \r\n\ @param\ damage\ \ Damage\ per\ projectile.\ \r\n\ @param\ delay\ \ \ Frames\ between\ attacks\ (unused\ here;\ handled\ with\ cooldownTime).\ \r\n\ @param\ value\ \ \ Resource\ value\ granted\ when\ defeated.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ \r\n\ Controls\ the\ RangedRobot's\ behavior\:\ \r\n\ -\ Moves\ toward\ humans\ or\ fences.\ \r\n\ -\ Stops\ at\ the\ correct\ shooting\ distance.\ \r\n\ -\ Fires\ projectiles\ with\ cooldown.\ \r\n\ -\ Animates\ walking.\ \r\n\ -\ Handles\ death\ and\ fade-out.\ \r\n
 comment3.params=
 comment3.target=void\ animateWalk()
+comment3.text=Walking\ animation\ logic
 comment4.params=target
 comment4.target=void\ shootIfReady(Human)
+comment4.text=\r\n\ Shoots\ at\ the\ given\ human\ if\ the\ cooldown\ has\ passed.\ \r\n\r\n\ @param\ target\ The\ human\ to\ attack.\ \r\n
 comment5.params=target
 comment5.target=void\ shootAt(Human)
+comment5.text=\r\n\ Creates\ a\ projectile\ aimed\ at\ the\ specified\ human.\ \r\n\r\n\ @param\ target\ The\ human\ to\ shoot\ at.\ \r\n
 comment6.params=target
 comment6.target=void\ moveToward(greenfoot.Actor)
+comment6.text=\r\n\ Moves\ the\ robot\ toward\ the\ specified\ actor.\ \r\n\r\n\ @param\ target\ The\ actor\ to\ move\ toward.\ \r\n
 comment7.params=
 comment7.target=void\ attackBehavior()
+comment7.text=\r\n\ Defines\ the\ specific\ attack\ behaviour\ for\ this\ unit.\ \r\n
 numComments=8

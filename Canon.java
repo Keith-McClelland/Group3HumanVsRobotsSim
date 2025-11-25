@@ -1,6 +1,25 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * The Canon class is a subclass of Buildings. 
+ * Human-side defensive/offensive building that automatically scans for nearby Robot units 
+ * and fires cannonball projectiles using 
+ * a cooldown-based firing system. 
+ *
+ * The Canon includes: 
+ * - Automatic targeting of the closest Robot 
+ * - Cooldown-limited firing (default 4000 ms) 
+ * - 5-frame cannon shooting animation 
+ * - High-speed, high-damage projectile 
+ * - Overlapping sound pool for cannon audio 
+ * <p>
+ * The Canon inherits HP, destruction logic, and health bar behavior from 
+ * Buildings. Its behavior is executed through completeTask(). 
+ * 
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public class Canon extends Buildings {
     // controls the shot fire rate
     private long lastShotTime = 0;
@@ -21,7 +40,13 @@ public class Canon extends Buildings {
     private GreenfootSound[] cannonSounds;
     private int soundIndex = 0;
     private final int NUM_SOUNDS = 20; // number of sound copies for overlap
-
+    
+    /**
+     * Constructs a Canon building with preset HP and assigns its side. 
+     *
+     * @param isHumanSide       true if the Canon belongs to the Human side, 
+     *                          otherwise false if it belongs to the Robot side (which it doesn't). 
+     */
     public Canon(boolean isHumanSide) 
     {
         super(200, isHumanSide);
@@ -44,7 +69,14 @@ public class Canon extends Buildings {
             cannonSounds[i] = new GreenfootSound("cannon.mp3");
         }
     }
-
+    
+    /**
+     * Performs the Canon's automated targeting and firing behavior. 
+     * 
+     * If not Human-owned, exits immediately. 
+     * If currently firing, plays animation. 
+     * Otherwise, finds closest Robot and attempts to fire. 
+     */
     public void completeTask() 
     {
         if (!isHumanSide()) return;
@@ -60,8 +92,12 @@ public class Canon extends Buildings {
             attemptShoot(target);
         }
     }
-
-    // find closest robot
+    
+    /**
+     * Finds the nearest living Robot unit in the world. 
+     *
+     * @return the closest Robot, or null if none exist 
+     */
     private Robot getClosestRobot() 
     {
         List<Robot> robots = getWorld().getObjects(Robot.class);
@@ -78,8 +114,13 @@ public class Canon extends Buildings {
         }
         return closest;
     }
-
-    // attempt shooting if cooldown passed
+    
+    /**
+     * Attempts to fire at the target Robot. 
+     * Fires only if the firing cooldown has fully passed. 
+     *
+     * @param target the Robot to shoot at 
+     */
     private void attemptShoot(Robot target) 
     {
         long now = System.currentTimeMillis();
@@ -93,8 +134,13 @@ public class Canon extends Buildings {
             lastShotTime = now;
         }
     }
-
-    // fire cannon projectile
+    
+    /**
+     * Fires a cannonball projectile toward the Robot. 
+     * Also plays a cannon sound effect. 
+     *
+     * @param target the Robot to shoot at 
+     */
     private void fire(Robot target) 
     {
         int dx = target.getX() - getX();
@@ -109,8 +155,11 @@ public class Canon extends Buildings {
         cannonSounds[soundIndex].play();
         soundIndex = (soundIndex + 1) % NUM_SOUNDS;
     }
-
-    // animate shooting frames
+    
+    /**
+     * Plays the shooting animation frame-by-frame. 
+     * Returns to the idle frame once the animation finishes. 
+     */
     private void animate() 
     {
         setImage(shootFrames[frameIndex]);

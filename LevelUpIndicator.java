@@ -1,5 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+/**
+ * The LevelUpIndicator class represents a temporary on-screen visual 
+ * notification that displays when the player levels up. 
+ * <p>
+ * The indicator appears, plays a sound effect, blinks for a set duration, and then automatically 
+ * disappears. 
+ *
+ * @author Veznu Premathas
+ * @version November 2025
+ */
 public class LevelUpIndicator extends Actor
 {
     private GreenfootImage levelUp; // initializes image
@@ -8,6 +17,12 @@ public class LevelUpIndicator extends Actor
     private final int blinkInterval = 15; // frames between visibility toggle
 
     GreenfootSound levelUpSound = new GreenfootSound("levelUpSound.mp3");
+    
+    /**
+     * Creates a new LevelUpIndicator, loads its image, 
+     * Handles blinking animation and 
+     * automatically removes the object after a duration. 
+     */
     public LevelUpIndicator()
     {
         levelUp = new GreenfootImage("levelUp.png");
@@ -16,7 +31,11 @@ public class LevelUpIndicator extends Actor
         levelUpSound.setVolume(50);
         levelUpSound.play();
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Runs the behaviour to complete the buildings task. 
+     */
     public void act()
     {
         timer++;

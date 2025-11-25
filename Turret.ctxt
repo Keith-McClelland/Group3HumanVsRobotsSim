@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=Turret
+comment0.text=\r\n\ The\ Turret\ class\ is\ a\ subclass\ of\ Buildings.\ \r\n\ Robot-side\ defensive/offensive\ building\ that\ automatically\ scans\ for\ nearby\ Human\ units\ \r\n\ and\ fires\ projectiles\ using\ \r\n\ a\ cooldown-based\ firing\ system.\ \r\n\r\n\ The\ Turret\ includes\:\ \r\n\ -\ Automatic\ targeting\ of\ the\ closest\ Human\ \ \r\n\ -\ Fires\ projectiles\ at\ a\ fixed\ cooldown\ interval\ \r\n\ -\ Laser\ sound\ effects\ \r\n\ \r\n\ <p>\r\n\ The\ Turret\ inherits\ HP,\ destruction\ logic,\ and\ health\ bar\ behavior\ from\ \r\n\ Buildings.\ Its\ behavior\ is\ executed\ through\ completeTask().\ \r\n\ \r\n\ @author\ Veznu\ Premathas\r\n\ @author\ Keith\ McClelland\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=isHumanSide
 comment1.target=Turret(boolean)
+comment1.text=\r\n\ Constructs\ a\ Turret\ building\ with\ preset\ HP\ and\ assigns\ its\ team\ side.\ \r\n\r\n\ @param\ isHumanSide\ \ \ \ \ \ \ false\ if\ the\ Turret\ belongs\ to\ the\ Robot\ side,\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherwise\ True\ if\ it\ belongs\ to\ the\ Human\ side\ (which\ it\ doesn't).\ \r\n
 comment2.params=
 comment2.target=void\ completeTask()
+comment2.text=\r\n\ Performs\ the\ turret\u2019s\ automated\ targeting\ and\ firing\ behavior.\ \r\n\ \r\n\ <p>\r\n\ The\ turret\ only\ attacks\ opposing\ units.\ If\ on\ the\ robot\ side,\ it\ \r\n\ finds\ the\ closest\ human\ within\ range\ and\ attempts\ to\ fire\ if\ the\ \r\n\ cooldown\ allows.\ \r\n
 comment3.params=target
 comment3.target=void\ shootIfReady(Human)
+comment3.text=\r\n\ Fires\ a\ projectile\ toward\ the\ specified\ target\ if\ the\ cooldown\ timer\ \r\n\ has\ expired.\ \r\n\r\n\ @param\ target\ the\ human\ unit\ to\ attack\ \r\n
 comment4.params=target
 comment4.target=void\ fire(Human)
+comment4.text=\r\n\ Creates\ and\ launches\ a\ projectile\ toward\ the\ specified\ human\ unit.\ \r\n\r\n\ Calculates\ the\ angle\ to\ the\ target,\ playing\ a\ sound\ \r\n\ effect,\ and\ spawning\ a\ projectile.\ \r\n\r\n\ @param\ target\ the\ human\ the\ turret\ will\ shoot\ at\ \r\n
 comment5.params=
 comment5.target=Human\ getClosestHuman()
+comment5.text=\r\n\ Finds\ the\ nearest\ living\ Human\ unit\ in\ the\ world.\ \r\n\r\n\ @return\ the\ closest\ Human,\ or\ null\ if\ none\ exist\ \r\n
 comment6.params=a
 comment6.target=double\ getDistance(greenfoot.Actor)
+comment6.text=\r\n\ Calculates\ the\ distance\ from\ this\ turret\ to\ another\ actor.\ \r\n\r\n\ @param\ a\ the\ actor\ to\ measure\ distance\ to\ \r\n\ @return\ the\ straight-line\ distance\ between\ the\ turret\ and\ actor\ \r\n
 numComments=7

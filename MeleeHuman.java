@@ -1,6 +1,24 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * MeleeHuman is a subclass of Human. 
+ * Type of Human that specializes in close-range combat. 
+ * <p>
+ * Supports multiple animation types(as the evolve they change): 
+ * - "caveman": slower, larger, with sword attack sound. 
+ * - "cyborg": faster, smaller, with punch attack sound. 
+ * <p>
+ * This class handles: 
+ * - Walking animation 
+ * - Attack animation 
+ * - Damage application to enemy robots 
+ * - Sound effects for attacks 
+ *
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * 
+ * @version November 2025 
+ */
 public class MeleeHuman extends Human {
     private GreenfootSound[] attackSounds;
     private int attackSoundsIndex;
@@ -16,7 +34,17 @@ public class MeleeHuman extends Human {
     private int attackFrameIndex = 0;
 
     private boolean attacking = false;
-
+    /**
+     * Constructs a new MeleeHuman unit. 
+     *
+     * @param health Health points of the unit. 
+     * @param speed Movement speed. 
+     * @param range Attack range. 
+     * @param damage Damage dealt per attack. 
+     * @param delay Cooldown between attacks. 
+     * @param value Resource value awarded when destroyed. 
+     * @param animType Animation type (e.g., "caveman" or "cyborg"). 
+     */
     public MeleeHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
         super(health, speed, range, damage, delay, value, animType);
         loadAnimations();
@@ -25,7 +53,7 @@ public class MeleeHuman extends Human {
         setImage(idleImage);
     }
 
-    /** Load animation sets based on animationType */
+    /** Load animation sets based on animationType */   
     private void loadAnimations() {
         attackSoundsIndex = 0; 
         attackSounds = new GreenfootSound[20]; // keep pool at 20
@@ -77,7 +105,9 @@ public class MeleeHuman extends Human {
             }
         }
     }
-
+    /**
+     * Implements the attack behavior for MeleeHuman. 
+     */
     @Override
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;
@@ -104,14 +134,14 @@ public class MeleeHuman extends Human {
         }
     }
 
-    /** Walking animation logic */
+    /** Walking animation logic */  
     private void animateWalk() {
         int frame = (walkCounter / walkSpeed) % walkFrames.length;
         setImage(walkFrames[frame]);
         walkCounter++;
     }
 
-    /** Attack animation logic with sound pool */
+    /** Attack animation logic with sound pool */   
     private void animateAttack(Robot target) {
         setImage(attackFrames[attackFrameIndex]);
 

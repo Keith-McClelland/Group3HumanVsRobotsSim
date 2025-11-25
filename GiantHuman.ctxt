@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=GiantHuman
+comment0.text=\r\n\ GiantHuman\ is\ a\ subclass\ of\ Human\ with\ larger\ size,\ slower\ speed,\ and\ animations.\ \r\n\ <p>\r\n\ This\ class\ handles\ walking,\ attacking\ enemy\ buildings,\ and\ selecting\ targets\ based\ on\ proximity.\ \r\n\ It\ supports\ two\ animation\ types\:\ "giant"\ and\ "tank".\ \r\n\r\n\ @author\ Keith\ McClelland\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
 comment1.target=GiantHuman(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructs\ a\ new\ GiantHuman\ unit.\r\n\r\n\ @param\ health\ Health\ points\ of\ the\ giant\ human.\ \r\n\ @param\ speed\ Movement\ speed.\ \r\n\ @param\ range\ Attack\ range.\ \r\n\ @param\ damage\ Damage\ dealt\ per\ attack.\ \r\n\ @param\ delay\ Cooldown\ delay\ between\ attacks.\ \r\n\ @param\ value\ Resource\ value\ awarded\ when\ destroyed.\ \r\n\ @param\ animType\ Animation\ type\ ("giant"\ or\ "tank").\ \r\n
 comment2.params=
 comment2.target=void\ loadAnimations()
 comment2.text=Load\ animation\ sets\ based\ on\ animationType\ ("giant"\ or\ "tank")
@@ -10,8 +12,10 @@ comment3.target=void\ loadSounds()
 comment3.text=Load\ attack\ sounds\ pool
 comment4.params=
 comment4.target=void\ act()
+comment4.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Does\ the\ giants\ attack\ behaviour.\ \r\n
 comment5.params=
 comment5.target=void\ attackBehavior()
+comment5.text=\r\n\ Implements\ the\ attack\ behavior\ for\ the\ GiantHuman.\ \r\n\ <p>\r\n\ -\ Moves\ toward\ enemy\ buildings.\ \r\n\ -\ Attacks\ when\ within\ range.\ \r\n\ -\ Updates\ walking\ and\ attack\ animations.\ \r\n
 comment6.params=
 comment6.target=void\ animateWalk()
 comment6.text=Walking\ animation\ logic

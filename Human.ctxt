@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=Human
+comment0.text=\r\n\ Abstract\ subclass\ for\ human\ units\ in\ the\ simulation.\ \r\n\ <p>\r\n\ Extends\ the\ Units\ class\ and\ provides\ human-specific\ behavior.\ \r\n\ Humans\ move\ forward,\ attack\ robots,\ and\ maintain\ their\ own\ cooldowns\ and\ animations.\ \r\n\ @author\ Keith\ McClelland\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
 comment1.target=Human(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructs\ a\ new\ Human\ unit.\ \r\n\r\n\ @param\ health\ Health\ points\ of\ the\ human.\ \r\n\ @param\ speed\ Movement\ speed\ of\ the\ human.\ \r\n\ @param\ range\ Attack\ range\ of\ the\ human.\ \r\n\ @param\ damage\ Damage\ dealt\ per\ attack.\ \r\n\ @param\ delay\ Delay\ between\ actions.\ \r\n\ @param\ value\ Resource\ value\ awarded\ when\ destroyed.\ \r\n\ @param\ animType\ Type\ of\ animation\ for\ the\ human\ unit.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Executes\ attack\ behavior.\ \r\n
 comment3.params=
 comment3.target=void\ attackBehavior()
+comment3.text=\r\n\ Defines\ the\ attack\ behavior\ for\ the\ human.\ \r\n\ <p>\r\n\ This\ is\ abstract\ and\ must\ be\ implemented\ by\ subclasses\ to\ define\ specific\ human\ attacks.\ \r\n
 comment4.params=
 comment4.target=void\ moveForward()
+comment4.text=\r\n\ Moves\ the\ human\ forward\ (to\ the\ left\ side)\ by\ its\ current\ speed.\ \r\n
 comment5.params=target
 comment5.target=void\ moveTowardRobot(Robot)
+comment5.text=\r\n\ Moves\ the\ human\ toward\ a\ robot\ target.\ \r\n\r\n\ @param\ target\ The\ Robot\ unit\ to\ move\ toward.\ \r\n
 comment6.params=amount
 comment6.target=void\ setTotalHumansSpawned(int)
+comment6.text=\r\n\ Sets\ the\ total\ number\ of\ humans\ spawned.\ \r\n\r\n\ @param\ amount\ The\ new\ total\ humans\ spawned.\ \r\n
 numComments=7

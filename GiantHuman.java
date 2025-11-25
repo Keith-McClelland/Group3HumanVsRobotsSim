@@ -1,7 +1,15 @@
 import greenfoot.*;
 import java.util.List;
 import java.util.ArrayList;
-
+/**
+ * GiantHuman is a subclass of Human with larger size, slower speed, and animations. 
+ * <p>
+ * This class handles walking, attacking enemy buildings, and selecting targets based on proximity. 
+ * It supports two animation types: "giant" and "tank". 
+ *
+ * @author Keith McClelland
+ * @version November 2025 
+ */
 public class GiantHuman extends Human {
 
     private GreenfootImage idleImage;
@@ -19,7 +27,18 @@ public class GiantHuman extends Human {
     // Attack sound pool
     private GreenfootSound[] attackSounds;
     private int attackSoundsIndex;
-
+    
+    /**
+     * Constructs a new GiantHuman unit.
+     *
+     * @param health Health points of the giant human. 
+     * @param speed Movement speed. 
+     * @param range Attack range. 
+     * @param damage Damage dealt per attack. 
+     * @param delay Cooldown delay between attacks. 
+     * @param value Resource value awarded when destroyed. 
+     * @param animType Animation type ("giant" or "tank"). 
+     */
     public GiantHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
         super(health, speed, range, damage, delay, value, animType);
         loadAnimations();
@@ -29,7 +48,7 @@ public class GiantHuman extends Human {
         setImage(idleImage);
     }
 
-    /** Load animation sets based on animationType ("giant" or "tank") */
+    /** Load animation sets based on animationType ("giant" or "tank") */   
     private void loadAnimations() {
         if (animationType.equalsIgnoreCase("giant")) {
             // Giant Walking (1–6)
@@ -71,7 +90,7 @@ public class GiantHuman extends Human {
         }
     }
 
-    /** Load attack sounds pool */
+    /** Load attack sounds pool */  
     private void loadSounds() {
         attackSoundsIndex = 0;
         attackSounds = new GreenfootSound[20];
@@ -79,13 +98,24 @@ public class GiantHuman extends Human {
             attackSounds[i] = new GreenfootSound("punch.mp3");
         }
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Does the giants attack behaviour. 
+     */
     @Override
     public void act() {
         super.act();
         attackBehavior();
     }
-
+    
+    /**
+     * Implements the attack behavior for the GiantHuman. 
+     * <p>
+     * - Moves toward enemy buildings. 
+     * - Attacks when within range. 
+     * - Updates walking and attack animations. 
+     */
     @Override
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;
@@ -128,14 +158,14 @@ public class GiantHuman extends Human {
         }
     }
 
-    /** Walking animation logic */
+    /** Walking animation logic */  
     private void animateWalk() {
         int frame = (walkCounter / walkSpeed) % walkFrames.length;
         setImage(walkFrames[frame]);
         walkCounter++;
     }
 
-    /** Attack animation logic */
+    /** Attack animation logic */   
     private void animateAttack(Buildings target) {
         setImage(attackFrames[attackFrameIndex]);
 
@@ -146,7 +176,7 @@ public class GiantHuman extends Human {
         }
     }
 
-    /** Move toward a target building */
+    /** Move toward a target building */    
     private void moveTowardBuilding(Buildings target) {
         if (target == null) return;
 
@@ -162,7 +192,7 @@ public class GiantHuman extends Human {
         setLocation(getPreciseX() + stepX, getPreciseY() + stepY);
     }
 
-    /** Find closest enemy building (isHumanSide == false) */
+    /** Find closest enemy building (isHumanSide == false) */   
     private Buildings getClosestEnemyBuilding() {
         ArrayList<Buildings> buildings =
             (ArrayList<Buildings>) getObjectsInRange(1500, Buildings.class);
@@ -182,4 +212,5 @@ public class GiantHuman extends Human {
 
         return closest;
     }
+   
 }

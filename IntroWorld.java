@@ -14,7 +14,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class IntroWorld extends World
 {
     private ContinueButton button;
+    // checks if robot is done scanning
     public static boolean doneScanning = false;
+    // ?import background music
+    private GreenfootSound bgMusic = new GreenfootSound("introWorld.mp3");
     /**
      * Constructor for IntroWorld. 
      * Initializes the world dimensions to 1240x700 pixels, sets the initial 
@@ -55,6 +58,7 @@ public class IntroWorld extends World
             doneScanning = false;
         }
     }
+
     
     /**
      * Spawns a StoryWorldHuman at a specific position on the right side of the world. 

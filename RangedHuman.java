@@ -1,6 +1,22 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * RangedHuman is a subclass of Human. 
+ * Type of Human that specializes in ranged combat. 
+ * <p>
+ * Supports multiple animation types: 
+ * - "archer": fires arrows, animates while walking and attacking. 
+ * - "gunner": fires projectiles, does not animate while attacking. 
+ * <p>
+ * This class handles: 
+ * - Walking animation 
+ * - Attack animation 
+ * - Projectile creation 
+ * - Sound effects 
+ *
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ */
 public class RangedHuman extends Human {
     private GreenfootSound[] attackSounds;
     private int attackSoundsIndex;
@@ -16,7 +32,17 @@ public class RangedHuman extends Human {
     private int attackSpeed = 12;
     private int attackFrameIndex = 0;
     private boolean attacking;
-
+    /**
+     * Constructs a new RangedHuman unit.
+     *
+     * @param health    The initial health points of the human. 
+     * @param speed     The movement speed of the human. 
+     * @param range     The attack range of the human. 
+     * @param damage    The damage this human deals per attack. 
+     * @param delay     The cooldown (in frames) between attacks. 
+     * @param value     The resource value granted when this unit is defeated. 
+     * @param animType  The type of animation ("archer" or "gunner"). 
+     */
     public RangedHuman(int health, double speed, int range, int damage, int delay, int value, String animType) {
         super(health, speed, range, damage, delay, value, animType);
         loadAnimations();
@@ -25,7 +51,7 @@ public class RangedHuman extends Human {
         setImage(idleImage);
     }
 
-    /** Load animations */
+    /** Load animations */  
     private void loadAnimations() {
 
         if (animationType != null && animationType.equalsIgnoreCase("archer")) {
@@ -56,7 +82,10 @@ public class RangedHuman extends Human {
             attackFrames = null; // Gunner doesn’t animate while attacking
         }
     }
-
+    
+    /**
+     * Controls the attack behavior of the RangedHuman each frame. 
+     */
     @Override
     protected void attackBehavior() {
         if (cooldown > 0) cooldown--;
@@ -81,7 +110,7 @@ public class RangedHuman extends Human {
         }
     }
 
-    /** Walking animation */
+    /** Walking animation */    
     private void animateWalk() {
         if (walkFrames != null && walkFrames.length > 0) {
             int frame = (walkCounter / walkSpeed) % walkFrames.length;
@@ -89,7 +118,12 @@ public class RangedHuman extends Human {
             walkCounter++;
         }
     }
-
+    
+    /**
+     * Handles ranged attack logic. 
+     *
+     * @param target The Robot being targeted by this RangedHuman. 
+     */
     private void attack(Robot target) {
         attackSoundsIndex = 0;
         attackSounds = new GreenfootSound[20];

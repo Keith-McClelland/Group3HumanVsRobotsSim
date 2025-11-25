@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=Canon
+comment0.text=\r\n\ The\ Canon\ class\ is\ a\ subclass\ of\ Buildings.\ \r\n\ Human-side\ defensive/offensive\ building\ that\ automatically\ scans\ for\ nearby\ Robot\ units\ \r\n\ and\ fires\ cannonball\ projectiles\ using\ \r\n\ a\ cooldown-based\ firing\ system.\ \r\n\r\n\ The\ Canon\ includes\:\ \r\n\ -\ Automatic\ targeting\ of\ the\ closest\ Robot\ \r\n\ -\ Cooldown-limited\ firing\ (default\ 4000\ ms)\ \r\n\ -\ 5-frame\ cannon\ shooting\ animation\ \r\n\ -\ High-speed,\ high-damage\ projectile\ \r\n\ -\ Overlapping\ sound\ pool\ for\ cannon\ audio\ \r\n\ <p>\r\n\ The\ Canon\ inherits\ HP,\ destruction\ logic,\ and\ health\ bar\ behavior\ from\ \r\n\ Buildings.\ Its\ behavior\ is\ executed\ through\ completeTask().\ \r\n\ \r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=isHumanSide
 comment1.target=Canon(boolean)
+comment1.text=\r\n\ Constructs\ a\ Canon\ building\ with\ preset\ HP\ and\ assigns\ its\ side.\ \r\n\r\n\ @param\ isHumanSide\ \ \ \ \ \ \ true\ if\ the\ Canon\ belongs\ to\ the\ Human\ side,\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherwise\ false\ if\ it\ belongs\ to\ the\ Robot\ side\ (which\ it\ doesn't).\ \r\n
 comment2.params=
 comment2.target=void\ completeTask()
+comment2.text=\r\n\ Performs\ the\ Canon's\ automated\ targeting\ and\ firing\ behavior.\ \r\n\ \r\n\ If\ not\ Human-owned,\ exits\ immediately.\ \r\n\ If\ currently\ firing,\ plays\ animation.\ \r\n\ Otherwise,\ finds\ closest\ Robot\ and\ attempts\ to\ fire.\ \r\n
 comment3.params=
 comment3.target=Robot\ getClosestRobot()
+comment3.text=\r\n\ Finds\ the\ nearest\ living\ Robot\ unit\ in\ the\ world.\ \r\n\r\n\ @return\ the\ closest\ Robot,\ or\ null\ if\ none\ exist\ \r\n
 comment4.params=target
 comment4.target=void\ attemptShoot(Robot)
+comment4.text=\r\n\ Attempts\ to\ fire\ at\ the\ target\ Robot.\ \r\n\ Fires\ only\ if\ the\ firing\ cooldown\ has\ fully\ passed.\ \r\n\r\n\ @param\ target\ the\ Robot\ to\ shoot\ at\ \r\n
 comment5.params=target
 comment5.target=void\ fire(Robot)
+comment5.text=\r\n\ Fires\ a\ cannonball\ projectile\ toward\ the\ Robot.\ \r\n\ Also\ plays\ a\ cannon\ sound\ effect.\ \r\n\r\n\ @param\ target\ the\ Robot\ to\ shoot\ at\ \r\n
 comment6.params=
 comment6.target=void\ animate()
+comment6.text=\r\n\ Plays\ the\ shooting\ animation\ frame-by-frame.\ \r\n\ Returns\ to\ the\ idle\ frame\ once\ the\ animation\ finishes.\ \r\n
 numComments=7

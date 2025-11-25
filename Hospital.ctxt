@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=Hospital
+comment0.text=\r\n\ The\ Hospital\ class\ is\ a\ subclass\ of\ Buildings.\ \r\n\ Human-side\ supportive\ building\ that\ automatically\ heals\ all\ humans\ when\ low\ on\ hp\ \r\n\ every\ cooldown\ cycle.\ \r\n\r\n\ The\ Factory\ includes\:\ \r\n\ -\ Heals\ all\ human\ units\ on\ the\ screen\ at\ a\ fixed\ interval.\ \r\n\ -\ Restores\ a\ configurable\ amount\ of\ health\ per\ cycle.\ \r\n\ <p>\r\n\ The\ Hospital\ inherits\ HP,\ destruction\ logic,\ and\ health\ bar\ behavior\ from\ \r\n\ Buildings.\ Its\ behavior\ is\ executed\ through\ completeTask().\ \r\n\ \r\n\ @author\ Jonathan\ Shi\ \r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=
 comment1.target=Hospital()
+comment1.text=\r\n\ Constructs\ a\ new\ Hospital\ building.\r\n\r\n\ <p>\r\n\ The\ Hospital\ begins\ with\ 1000\ maximum\ HP\ and\ belongs\ to\ the\ human\ side.\ \r\n\ The\ hospital\ sprite\ is\ loaded.\ \r\n
 comment2.params=
 comment2.target=void\ completeTask()
+comment2.text=\r\n\ Performs\ this\ Hospital's\ automated\ behavior\ each\ act\ cycle.\ \r\n\r\n\ <p>\r\n\ This\ method\ runs\ a\ timer.\ Once\ the\ timer\ reaches\ \r\n\ the\ cooldown\ threshold,\ the\ Hospital\ heals\ all\ humans\ by\ running\ \r\n\ healHumans()\ and\ then\ resets\ the\ timer.\ \r\n
 comment3.params=
 comment3.target=void\ healHumans()
+comment3.text=\r\n\ Heals\ all\ human\ units\ currently\ present\ in\ the\ world.\ \r\n\ Each\ human\ is\ healed\ by\ healAmount\ HP.\ \r\n
 numComments=4

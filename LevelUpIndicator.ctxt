@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=LevelUpIndicator
+comment0.text=\r\n\ The\ LevelUpIndicator\ class\ represents\ a\ temporary\ on-screen\ visual\ \r\n\ notification\ that\ displays\ when\ the\ player\ levels\ up.\ \r\n\ <p>\r\n\ The\ indicator\ appears,\ plays\ a\ sound\ effect,\ blinks\ for\ a\ set\ duration,\ and\ then\ automatically\ \r\n\ disappears.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=LevelUpIndicator()
+comment1.text=\r\n\ Creates\ a\ new\ LevelUpIndicator,\ loads\ its\ image,\ \r\n\ Handles\ blinking\ animation\ and\ \r\n\ automatically\ removes\ the\ object\ after\ a\ duration.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Runs\ the\ behaviour\ to\ complete\ the\ buildings\ task.\ \r\n
 numComments=3

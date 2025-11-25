@@ -12,6 +12,7 @@ import java.util.List;
  * 
  * @author Keith McClelland
  * @author Veznu Premathas
+ * 
  * @version November 2025 
  */
 public class ExplodingRobot extends Robot {
@@ -25,7 +26,7 @@ public class ExplodingRobot extends Robot {
     private int frameIndex = 0;
     private int frameDelay = 5;
     private int frameCounter = 0;
-
+    
     /**
      * Constructs a new ExplodingRobot. 
      *
@@ -45,8 +46,8 @@ public class ExplodingRobot extends Robot {
         loadWalkingFrames();
         setImage(walkFrames[0]);
     }
-
-    /** Loads walking animation frames */
+    
+    /** Loads walking animation frames */   
     private void loadWalkingFrames() {
         walkFrames = new GreenfootImage[8];
         for (int i = 0; i < 8; i++) {
@@ -54,7 +55,7 @@ public class ExplodingRobot extends Robot {
             walkFrames[i].scale(20, 50);
         }
     }
-
+    
     /**
      * The act method is called repeatedly by Greenfoot. 
      * Handles walking animation and calls superclass act method for movement/health. 
@@ -68,7 +69,7 @@ public class ExplodingRobot extends Robot {
             animateWalking();
         }
     }
-
+    
     /**
      * Attack behavior for ExplodingRobot. 
      * <p>
@@ -100,7 +101,7 @@ public class ExplodingRobot extends Robot {
         }
     }
 
-    /** Rush toward target */
+    /** Rush toward target */   
     private void rushToward(Actor target, double distance) {
         if (target == null || distance == 0) return;
 
@@ -112,7 +113,7 @@ public class ExplodingRobot extends Robot {
             getY() + (int)(dy / distance * rushSpeed)
         );
     }
-
+    
     /**
      * Animates walking frames 
      */
@@ -124,7 +125,7 @@ public class ExplodingRobot extends Robot {
             setImage(walkFrames[frameIndex]);
         }
     }
-
+    
     /**
      * Explodes, dealing damage to Humans in radius and showing visual effect 
      */
@@ -155,7 +156,7 @@ public class ExplodingRobot extends Robot {
         getWorld().removeObject(this);
     }
 
-    /** Find closest enemy building (isHumanSide == true) */
+    /** Find closest enemy building (isHumanSide == true) */    
     private Buildings getClosestEnemyBuilding() {
         if (getWorld() == null) return null;
 

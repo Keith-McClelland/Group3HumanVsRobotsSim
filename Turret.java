@@ -1,6 +1,24 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * The Turret class is a subclass of Buildings. 
+ * Robot-side defensive/offensive building that automatically scans for nearby Human units 
+ * and fires projectiles using 
+ * a cooldown-based firing system. 
+ *
+ * The Turret includes: 
+ * - Automatic targeting of the closest Human  
+ * - Fires projectiles at a fixed cooldown interval 
+ * - Laser sound effects 
+ * 
+ * <p>
+ * The Turret inherits HP, destruction logic, and health bar behavior from 
+ * Buildings. Its behavior is executed through completeTask(). 
+ * 
+ * @author Veznu Premathas
+ * @author Keith McClelland
+ * @version November 2025 
+ */
 public class Turret extends Buildings 
 {
     private long lastShotTime = 0;          // tracks last time turret fired
@@ -14,8 +32,13 @@ public class Turret extends Buildings
     private final int NUM_SOUNDS = 20;      // number of sound copies for overlap
 
     private GreenfootImage turretImage;     // image representing turret
-
-    // constructor takes team side
+    
+    /**
+     * Constructs a Turret building with preset HP and assigns its team side. 
+     *
+     * @param isHumanSide       false if the Turret belongs to the Robot side, 
+     *                          otherwise True if it belongs to the Human side (which it doesn't). 
+     */
     public Turret(boolean isHumanSide) 
     {
         super(300, isHumanSide); // robot turret = false
@@ -32,8 +55,15 @@ public class Turret extends Buildings
             attackSounds[i] = new GreenfootSound("laser.mp3");
         }
     }
-
-    // main method to control turret behavior
+    
+    /**
+     * Performs the turret’s automated targeting and firing behavior. 
+     * 
+     * <p>
+     * The turret only attacks opposing units. If on the robot side, it 
+     * finds the closest human within range and attempts to fire if the 
+     * cooldown allows. 
+     */
     public void completeTask() 
     {
         // turret only shoots enemies
@@ -46,8 +76,13 @@ public class Turret extends Buildings
             }
         }
     }
-
-    // check cooldown and fire if ready
+    
+    /**
+     * Fires a projectile toward the specified target if the cooldown timer 
+     * has expired. 
+     *
+     * @param target the human unit to attack 
+     */ 
     private void shootIfReady(Human target) 
     {
         long now = System.currentTimeMillis();
@@ -57,8 +92,15 @@ public class Turret extends Buildings
             lastShotTime = now;     // reset cooldown timer
         }
     }
-
-    // creates and fires projectile toward target
+    
+    /**
+     * Creates and launches a projectile toward the specified human unit. 
+     *
+     * Calculates the angle to the target, playing a sound 
+     * effect, and spawning a projectile. 
+     *
+     * @param target the human the turret will shoot at 
+     */
     private void fire(Human target) 
     {
         Greenfoot.playSound("laser.mp3");     // quick visual feedback sound
@@ -81,8 +123,12 @@ public class Turret extends Buildings
         // add projectile to world slightly offset for visual alignment
         getWorld().addObject(shot, getX() + 40, getY() - 40);
     }
-
-    // find closest human to turret
+    
+    /**
+     * Finds the nearest living Human unit in the world. 
+     *
+     * @return the closest Human, or null if none exist 
+     */
     private Human getClosestHuman() 
     {
         List<Human> humans = getWorld().getObjects(Human.class);
@@ -101,12 +147,16 @@ public class Turret extends Buildings
         }
         return closest;
     }
-
-    // calculate distance from turret to any actor
+    
+    /**
+     * Calculates the distance from this turret to another actor. 
+     *
+     * @param a the actor to measure distance to 
+     * @return the straight-line distance between the turret and actor 
+     */
     private double getDistance(Actor a) 
     {
         return Math.hypot(a.getX() - getX(), a.getY() - getY());
     }
 }
-
 

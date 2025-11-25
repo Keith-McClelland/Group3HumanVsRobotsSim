@@ -1,6 +1,16 @@
 import greenfoot.*;
 import java.util.ArrayList;
-
+/**
+ * Units is an abstract class representing a fighting unit in the simulation. 
+ * <p>
+ * Units can be either human or robot, have health, speed, attack range, and damage. 
+ * They interact with other units, projectiles, and the simulation world. 
+ * Each unit maintains a health bar and can earn cash for the team when destroying enemies. 
+ * 
+ * @author Keith McClelland
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public abstract class Units extends SuperSmoothMover {
     //keeps track of the units current and starting health 
     protected int health;
@@ -38,7 +48,17 @@ public abstract class Units extends SuperSmoothMover {
 
 
     public static final int MIN_PLAYABLE_Y = 175;
-
+    /**
+     * Constructor for Units that creates a new unit. 
+     *
+     * @param health Health points of the unit. 
+     * @param speed Movement speed of the unit. 
+     * @param range Attack range. 
+     * @param damage Damage dealt per attack. 
+     * @param delay Attack/movement delay. 
+     * @param value Resource value when destroyed. 
+     * @param isRobot True if the unit belongs to the robot team. 
+     */
     public Units(int health, double speed, int range, int damage, int delay, int value, boolean isRobot) {
 
         this.health = health;
@@ -57,29 +77,50 @@ public abstract class Units extends SuperSmoothMover {
         else humansAlive++;
     }
     
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Updates hp bar, checks for boundaries, and restricts them going out off the screen. 
+     */
     public void act() {
         if (getWorld() == null) return;
         updateHealthBar();
         checkEdges();
         restrictPlayableArea();
     }
-
+    
+    /**
+     * Called when unit is added to the world. 
+     * Adds a health bar above the unit. 
+     */
     protected void addedToWorld(World world) {
         healthBar = new SuperStatBar(maxHealth, health, this, 40, 6, 30,
                 Color.GREEN, Color.RED, true, Color.BLACK, 1);
         world.addObject(healthBar, getX(), getY() - 20);
     }
-
+    
+    /**
+     * Adds cash to the human side.  
+     */
      public static void addHumanCash(int amount) {
         humanCash += amount;
         if (humanCash < 0) humanCash = 0;
     }
-
+    
+    /**
+     * Adds cash to the robot side. 
+     */
     public static void addRobotCash(int amount) {
         robotCash += amount;
         if (robotCash < 0) robotCash = 0;
     }
-
+    
+    /**
+     * Applies damage to the unit and handles death. 
+     * <p>
+     * Updates health bar and removes the unit from the world if health reaches 0. 
+     *
+     * @param dmg Damage to apply.  
+     */
     public void takeDamage(int dmg) {
         health -= dmg;
         updateHealthBar();
@@ -101,7 +142,10 @@ public abstract class Units extends SuperSmoothMover {
             getWorld().removeObject(this);
         }
     }
-
+    
+    /**
+     * Updates the health bar to reflect current health. 
+     */
     protected void updateHealthBar() {
         if (healthBar != null) {
             healthBar.update(health);
@@ -109,14 +153,20 @@ public abstract class Units extends SuperSmoothMover {
                 healthBar.setLocation(getX(), getY() - 20);
         }
     }
-
+    
+    /**
+     * Removes the health bar from the world. 
+     */
     protected void removeHealthBar() {
         if (healthBar != null && getWorld() != null) {
             getWorld().removeObject(healthBar);
             healthBar = null;
         }
     }
-
+    
+    /**
+     * Checks world boundaries and triggers win conditions. 
+     */
     protected void checkEdges() {
         if (getWorld() == null) return;
 
@@ -148,8 +198,9 @@ public abstract class Units extends SuperSmoothMover {
 
 
 
-
-    // Restrict humans to playable vertical area
+    /**
+     * Restricts human units to a minimum vertical area. 
+     */
     protected void restrictPlayableArea() {
         if (!isRobot && getWorld() != null) {
             int y = getY();
@@ -159,7 +210,10 @@ public abstract class Units extends SuperSmoothMover {
             if (y > maxY) setLocation(getX(), maxY);
         }
     }
-
+    
+    /**
+     * Finds the closest human unit to this unit. 
+     */
     protected Human getClosestHuman() {
         if (getWorld() == null) return null;
 
@@ -176,7 +230,10 @@ public abstract class Units extends SuperSmoothMover {
         }
         return closest;
     }
-
+    
+    /**
+     * Finds the closest robot unit to this unit. 
+     */
     protected Robot getClosestRobot() {
         if (getWorld() == null) return null;
 
@@ -194,6 +251,12 @@ public abstract class Units extends SuperSmoothMover {
         return closest;
     }
     
+    /**
+     * Moves the unit toward a target Actor until within stopRange. 
+     *
+     * @param target The Actor to move toward. 
+     * @param stopRange Distance to stop at. 
+     */
         protected void moveToward(Actor target, double stopRange) {
         double dx = target.getX() - getX();
         double dy = target.getY() - getY();
@@ -206,17 +269,25 @@ public abstract class Units extends SuperSmoothMover {
             );
         }
     }
-
+    
+    /**
+     * Returns the distance to another Actor. 
+     *
+     * @param a Target Actor. 
+     * @return Distance to the actor. 
+     */
     protected double getDistanceTo(Actor a) {
         double dx = getPreciseX() - ((SuperSmoothMover)a).getPreciseX();
         double dy = getPreciseY() - ((SuperSmoothMover)a).getPreciseY();
         return Math.hypot(dx, dy);
     }
-    //getters and setters 
+    
+    
     public void setHealth(int hp) {
         this.health = hp;
         updateHealthBar();
     }
+    
     public int getHealth() { return health; }
     public boolean isRobot() { return isRobot; }
     public double getSpeed() { return speed; }

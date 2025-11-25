@@ -1,15 +1,19 @@
 #BlueJ class context
 comment0.target=RangedHuman
+comment0.text=\r\n\ RangedHuman\ is\ a\ subclass\ of\ Human.\ \r\n\ Type\ of\ Human\ that\ specializes\ in\ ranged\ combat.\ \r\n\ <p>\r\n\ Supports\ multiple\ animation\ types\:\ \r\n\ -\ "archer"\:\ fires\ arrows,\ animates\ while\ walking\ and\ attacking.\ \r\n\ -\ "gunner"\:\ fires\ projectiles,\ does\ not\ animate\ while\ attacking.\ \r\n\ <p>\r\n\ This\ class\ handles\:\ \r\n\ -\ Walking\ animation\ \r\n\ -\ Attack\ animation\ \r\n\ -\ Projectile\ creation\ \r\n\ -\ Sound\ effects\ \r\n\r\n\ @author\ Keith\ McClelland\r\n\ @author\ Veznu\ Premathas\r\n
 comment1.params=health\ speed\ range\ damage\ delay\ value\ animType
 comment1.target=RangedHuman(int,\ double,\ int,\ int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructs\ a\ new\ RangedHuman\ unit.\r\n\r\n\ @param\ health\ \ \ \ The\ initial\ health\ points\ of\ the\ human.\ \r\n\ @param\ speed\ \ \ \ \ The\ movement\ speed\ of\ the\ human.\ \r\n\ @param\ range\ \ \ \ \ The\ attack\ range\ of\ the\ human.\ \r\n\ @param\ damage\ \ \ \ The\ damage\ this\ human\ deals\ per\ attack.\ \r\n\ @param\ delay\ \ \ \ \ The\ cooldown\ (in\ frames)\ between\ attacks.\ \r\n\ @param\ value\ \ \ \ \ The\ resource\ value\ granted\ when\ this\ unit\ is\ defeated.\ \r\n\ @param\ animType\ \ The\ type\ of\ animation\ ("archer"\ or\ "gunner").\ \r\n
 comment2.params=
 comment2.target=void\ loadAnimations()
 comment2.text=Load\ animations
 comment3.params=
 comment3.target=void\ attackBehavior()
+comment3.text=\r\n\ Controls\ the\ attack\ behavior\ of\ the\ RangedHuman\ each\ frame.\ \r\n
 comment4.params=
 comment4.target=void\ animateWalk()
 comment4.text=Walking\ animation
 comment5.params=target
 comment5.target=void\ attack(Robot)
+comment5.text=\r\n\ Handles\ ranged\ attack\ logic.\ \r\n\r\n\ @param\ target\ The\ Robot\ being\ targeted\ by\ this\ RangedHuman.\ \r\n
 numComments=6

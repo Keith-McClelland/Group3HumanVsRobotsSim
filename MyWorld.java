@@ -11,6 +11,9 @@ import java.util.List;
  *  specific cash thresholds are met, new evolution stages unlock. These
  *  stages change which units are spawned, increase overall combat strength, 
  *  and unlock structures such as cannons, turrets, hospitals, and factories.
+ *  
+ *  Known Bugs: 
+ *  - There is no known bugs.
  *
  *  Human Progression:
  *  Stage 1: Caveman (melee)
@@ -78,6 +81,7 @@ import java.util.List;
  *   - Arrow Swish — https://pixabay.com/sound-effects/arrow-swish-03-306040
  *   - Gun Shot — https://pixabay.com/sound-effects/gun-shot-350315
  *   - Explosion — https://pixabay.com/sound-effects/explosion-312361
+ *   - Battle March Action Loop — https://pixabay.com/sound-effects/battle-march-action-loop-6935
  **/
 
 
@@ -148,6 +152,7 @@ public class MyWorld extends World {
         Robot.setRobotsDead(0);
 
         frameCount = 0;
+        playMusic();
     }
     
 
@@ -185,7 +190,7 @@ public class MyWorld extends World {
         }
 
         updateEvolutionStage();
-        playMusic();
+        
     }
     
     public void playMusic()
