@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Fences
+comment1.params=
+comment1.target=Fences()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ damageRobotsOnBreak()
+comment4.params=
+comment4.target=void\ removeAllFences()
+comment5.params=amount
+comment5.target=void\ damage(int)
+comment6.params=world
+comment6.target=void\ buildComplete(greenfoot.World)
+comment7.params=
+comment7.target=boolean\ isFencesUp()
+numComments=8
