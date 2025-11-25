@@ -85,7 +85,7 @@ import java.util.List;
 public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
-    GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.mp3");
+    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.mp3");
     public static int frameCount = 0;
 
     private int humanSpawnTimer = 0;
@@ -195,9 +195,8 @@ public class MyWorld extends World {
         backgroundMusic.setVolume(20);
         backgroundMusic.playLoop();
     }
-    
-    @Override 
-    public void stopped()
+   
+    public static void stopMusic()
     {
         backgroundMusic.stop();
     }
@@ -423,6 +422,9 @@ public class MyWorld extends World {
     {
         return robotEvolutionStage;
     }
+    
+    
+
 }
 
 
