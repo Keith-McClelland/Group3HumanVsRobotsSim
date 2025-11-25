@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * RangedRobot is a type of Robot that attacks humans and fences from range. 
  * <p>

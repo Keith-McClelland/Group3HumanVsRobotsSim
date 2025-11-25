@@ -1,5 +1,5 @@
 import greenfoot.*;
-import java.util.List;
+import java.util.ArrayList;
 /**
  * The Canon class is a subclass of Buildings. 
  * Human-side defensive/offensive building that automatically scans for nearby Robot units 
@@ -100,18 +100,21 @@ public class Canon extends Buildings {
      */
     private Robot getClosestRobot() 
     {
-        List<Robot> robots = getWorld().getObjects(Robot.class);
+        ArrayList<Robot> robots = new ArrayList<>( getWorld().getObjects(Robot.class) );
         Robot closest = null;
         double best = Double.MAX_VALUE;
-
+    
         for (Robot r : robots) {
             if (r.getHealth() <= 0) continue;
+    
             double d = Math.hypot(r.getX() - getX(), r.getY() - getY());
+    
             if (d < best) {
                 best = d;
                 closest = r;
             }
         }
+    
         return closest;
     }
     
