@@ -13,8 +13,14 @@ import greenfoot.*;
 public class EndSimWorld extends World {
 
     public static int totalTimeElapsed = 0;
+    private String winner ;
     GreenfootImage humanWin = new GreenfootImage("humanWinBackground.png");
     GreenfootImage robotWin = new GreenfootImage("robotWinBackground.png");
+    
+    
+    GreenfootSound humanWinSound = new GreenfootSound("humanWin.mp3");
+    GreenfootSound robotWinSound = new GreenfootSound("robotWin.mp3");
+    
     
     /**
      * This simple constructor creates a new EndSimWorld instance and displays the winner and stats. 
@@ -23,11 +29,17 @@ public class EndSimWorld extends World {
      */
     public EndSimWorld(String winner) {
         super(1240, 700, 1);
-
+        this.winner = winner;
+        
+        humanWinSound.setVolume(70);
+        robotWinSound.setVolume(70);
+        
         if (winner.equals("Human")) {
             setBackground(humanWin);
+            humanWinSound.playLoop();
         } else {
             setBackground(robotWin);
+            robotWinSound.playLoop();
         }
 
         // Convert frames to seconds
@@ -78,6 +90,46 @@ public class EndSimWorld extends World {
         showText("Number of Humans killed: " + humansKilled, rightBoxCenterX, robotStartY + robotLineSpacing*2);
         showText("Robot Cash Earned: $" + robotCash, rightBoxCenterX, robotStartY + robotLineSpacing * 3);
     }
+    
+    /**
+     * Plays background music
+     */
+    public void playMusic()
+    {
+        if (winner.equals("Human")) {
+            if (!humanWinSound.isPlaying()) 
+            {
+                humanWinSound.setVolume(30);
+                humanWinSound.playLoop();
+            }
+        } else {
+            if (!robotWinSound.isPlaying()) 
+            {
+                robotWinSound.setVolume(30);
+                robotWinSound.playLoop();
+            }
+        }
+                
+    }
+    
+    /**
+     * Starts playing the music
+     */
+    @Override
+    public void started() {
+        playMusic(); // resumes loop if not already playing
+    }
+
+    /**
+     * Stops the music
+     */
+    @Override
+    public void stopped()
+    {
+        humanWinSound.stop();
+        robotWinSound.stop();
+    }
+
 }
 
 

@@ -30,7 +30,6 @@ public abstract class Units extends SuperSmoothMover {
     protected boolean isRobot;
     protected static int numUnits;
     
-    
     public static int humansAlive = 0;
     public static int robotsAlive = 0;
 

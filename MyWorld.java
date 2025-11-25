@@ -153,6 +153,7 @@ public class MyWorld extends World {
         Robot.setRobotsDead(0);
 
         frameCount = 0;
+        playMusic();
     }
    
 
@@ -202,7 +203,7 @@ public class MyWorld extends World {
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
-            backgroundMusic.setVolume(30);
+            backgroundMusic.setVolume(50);
             backgroundMusic.playLoop();
         }
     }
