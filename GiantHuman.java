@@ -96,6 +96,7 @@ public class GiantHuman extends Human {
         attackSounds = new GreenfootSound[20];
         for (int i = 0; i < attackSounds.length; i++) {
             attackSounds[i] = new GreenfootSound("punch.mp3");
+            attackSounds[i].setVolume(40);
         }
     }
     

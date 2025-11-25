@@ -53,6 +53,7 @@ public class Turret extends Buildings
         attackSounds = new GreenfootSound[NUM_SOUNDS];
         for (int i = 0; i < NUM_SOUNDS; i++) {
             attackSounds[i] = new GreenfootSound("laser.mp3");
+            attackSounds[i].setVolume(40);
         }
     }
     

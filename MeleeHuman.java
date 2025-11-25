@@ -79,6 +79,7 @@ public class MeleeHuman extends Human {
 
             for (int i = 0; i < attackSounds.length; i++) {
                 attackSounds[i] = new GreenfootSound("sword.mp3");
+                attackSounds[i].setVolume(60);
             }
 
         } else {
@@ -102,6 +103,7 @@ public class MeleeHuman extends Human {
 
             for (int i = 0; i < attackSounds.length; i++) {
                 attackSounds[i] = new GreenfootSound("punch.mp3");
+                attackSounds[i].setVolume(60);
             }
         }
     }

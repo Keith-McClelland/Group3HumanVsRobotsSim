@@ -151,6 +151,7 @@ public class RangedHuman extends Human {
                 p.setImage("Arrow.png");
                 for (int i = 0; i < attackSounds.length; i++){
                     attackSounds[i] = new GreenfootSound("arrow.mp3");
+                    attackSounds[i].setVolume(50);
                 }
                 attackSounds[attackSoundsIndex].play();
                 attackSoundsIndex++;
@@ -158,6 +159,7 @@ public class RangedHuman extends Human {
                 p.setImage("laser.png");
                 for (int i = 0; i < attackSounds.length; i++){
                     attackSounds[i] = new GreenfootSound("gun.mp3");
+                    attackSounds[i].setVolume(50);
                 }
                 attackSounds[attackSoundsIndex].play();
                 attackSoundsIndex++;

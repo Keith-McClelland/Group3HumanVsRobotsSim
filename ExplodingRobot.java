@@ -18,6 +18,7 @@ import java.util.List;
 public class ExplodingRobot extends Robot {
 
     private int explosionRadius = 50;
+    private GreenfootSound explosion = new GreenfootSound("explosion.mp3");
     private int detectionRange;
     private double rushSpeed;
 
@@ -133,7 +134,8 @@ public class ExplodingRobot extends Robot {
         if (getWorld() == null) return;
 
         // Play explosion sound
-        Greenfoot.playSound("explosion.mp3");
+        explosion.setVolume(90);
+        explosion.play();
 
         // Visual explosion effect
         BombEffect explosion = new BombEffect(100);
