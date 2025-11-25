@@ -153,7 +153,6 @@ public class MyWorld extends World {
         Robot.setRobotsDead(0);
 
         frameCount = 0;
-        playMusic();
     }
    
 
