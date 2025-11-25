@@ -18,6 +18,8 @@ import java.util.ArrayList;
  *  owned by the robot.At certain times it would punch and damage the building however 
  *  visually it doesn't look that appealing. However, the Giant will perfectly lands hit 
  *  touching the building making it look more realistic.
+ *  - Background music may occasionally fail to play or behave inconsistently; this issue has 
+ *  currently been stopped.
  *
  *  Human Progression:
  *  Stage 1: Caveman (melee)
