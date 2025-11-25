@@ -12,7 +12,7 @@ public class Canon extends Buildings {
     private long cooldown = 4000; // ms
 
     private double projectileSpeed = 8;
-    private int projectileDamage = 80;
+    private int projectileDamage = 150;
 
     // animation
     private GreenfootImage idleImage;
