@@ -73,7 +73,7 @@ public class SettingsWorld extends World
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
-            backgroundMusic.setVolume(50);
+            backgroundMusic.setVolume(40);
             backgroundMusic.playLoop();
         }
     }

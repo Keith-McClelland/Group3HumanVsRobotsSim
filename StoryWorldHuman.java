@@ -101,7 +101,7 @@ public class StoryWorldHuman extends SuperSmoothMover
         getWorld().addObject(speech, getX() - 105, getY() - 105);
 
         //hold speech on screen for 5 seconds for people to read
-        Greenfoot.delay(300);
+        Greenfoot.delay(400);
 
         //remove the speech bubble
         if (speech != null && speech.getWorld() != null)

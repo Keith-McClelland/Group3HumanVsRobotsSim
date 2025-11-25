@@ -68,7 +68,7 @@ public class IntroWorld extends World
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
-            backgroundMusic.setVolume(30);
+            backgroundMusic.setVolume(20);
             backgroundMusic.playLoop();
         }
     }

@@ -13,7 +13,11 @@ import java.util.ArrayList;
  *  and unlock structures such as cannons, turrets, hospitals, and factories.
  *  
  *  Known Bugs:
- *  - There is no known bugs yet.
+ *  - The only fix we werent able to do is the interaction between the Giant Human and 
+ *  structures because we didn't have enough time. The Giant moves until touching an structure 
+ *  owned by the robot.At certain times it would punch and damage the building however 
+ *  visually it doesn't look that appealing. However, the Giant will perfectly lands hit 
+ *  touching the building making it look more realistic.
  *
  *  Human Progression:
  *  Stage 1: Caveman (melee)
