@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Canon extends Buildings {
 
+    GreenfootSound fire = new GreenfootSound("cannon.mp3");
     // controls the shot fire rate
     private long lastShotTime = 0;
     private boolean shooting = false;
@@ -83,6 +84,7 @@ public class Canon extends Buildings {
         Projectile shot = new Projectile(projectileSpeed, angle, projectileDamage, Projectile.Owner.CANON);
         shot.setImage("canonBall.png");
         getWorld().addObject(shot, getX(), getY());
+        fire.play();
     }
 
     private void animate() {
