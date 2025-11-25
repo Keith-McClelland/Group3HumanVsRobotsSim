@@ -99,7 +99,9 @@ public class MyWorld extends World {
     private int robotFactoryInterval = 1500;
     private int modernMultiplier = 2; 
 
-    private static int  evolutionStage = 1; // stage 1
+    private int humanEvolutionStage = 1;
+    private int robotEvolutionStage = 1;
+    
     private int maxHumans = 10;
     private int maxRobots = 10;
 
@@ -160,16 +162,16 @@ public class MyWorld extends World {
             robotSpawnTimer = 0;
             if (getObjects(Robot.class).size() < maxRobots) spawnRobots();
         }
-
-        if (evolutionStage >= 3) { 
+        
+        if (humanEvolutionStage >= 3) { 
             humanCannonTimer++;
             if (humanCannonTimer >= humanCannonInterval) {
                 humanCannonTimer = 0;
                 spawnHumanCanon();
             }
         }
-
-        if (evolutionStage >= 3) {
+        
+        if (robotEvolutionStage >= 3) {
             robotTurretTimer++;
             if (robotTurretTimer >= robotTurretInterval) {
                 robotTurretTimer = 0;
@@ -183,50 +185,51 @@ public class MyWorld extends World {
     private void updateEvolutionStage() {
         int humanCash = Units.getHumanCash();
         int robotCash = Units.getRobotCash();
-
-        // ----------------- Human upgrades -----------------
-        if (evolutionStage == 1 && humanCash >= 25) {
+    
+        // Human upgrades
+        if (humanEvolutionStage == 1 && humanCash >= 25) {
             Units.addHumanCash(-25);
-            evolutionStage = 2;
+            humanEvolutionStage = 2;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
-        } else if (evolutionStage == 2 && humanCash >= 50) {
+        } else if (humanEvolutionStage == 2 && humanCash >= 50) {
             Units.addHumanCash(-50);
-            evolutionStage = 3;
+            humanEvolutionStage = 3;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
-        } else if (evolutionStage == 3 && humanCash >= 75) {
+        } else if (humanEvolutionStage == 3 && humanCash >= 75) {
             Units.addHumanCash(-75);
-            evolutionStage = 4;
+            humanEvolutionStage = 4;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
             if (getObjects(Canon.class).isEmpty()) {
                 addObject(new Canon(true), getWidth() - 100, getHeight() / 2);
             }
-        } else if (evolutionStage == 4 && humanCash >= 100) {
+        } else if (humanEvolutionStage == 4 && humanCash >= 100) {
             Units.addHumanCash(-100);
-            evolutionStage = 5;
+            humanEvolutionStage = 5;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
             if (getObjects(Hospital.class).isEmpty()) {
                 spawnHumanHospital();
             }
         }
-
-        // ----------------- Robot upgrades -----------------
-        if (evolutionStage == 1 && robotCash >= 25) {
+        
+        // Robot upgrades
+        if (robotEvolutionStage == 1 && robotCash >= 25) {
             Units.addRobotCash(-25);
-            evolutionStage = 2;
+            robotEvolutionStage = 2;
             addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
-        } else if (evolutionStage == 2 && robotCash >= 50) {
+        } else if (robotEvolutionStage == 2 && robotCash >= 50) {
             Units.addRobotCash(-50);
-            evolutionStage = 3;
+            robotEvolutionStage = 3;
             addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
+
             if (getObjects(Turret.class).isEmpty()) {
                 addObject(new Turret(false), 100, getHeight() / 2);
             }
-        } else if (evolutionStage == 3 && robotCash >= 75) {
+        } else if (robotEvolutionStage == 3 && robotCash >= 75) {
             Units.addRobotCash(-75);
-            evolutionStage = 4;
+            robotEvolutionStage = 4;
             addObject(new LevelUpIndicator(), robotStatboard.getX(), robotStatboard.getY() + 90);
             if (getObjects(Factory.class).isEmpty()) {
-                spawnRobotFactory();
+                spawnRobotFactory(); 
             }
         }
     }
@@ -238,13 +241,13 @@ public class MyWorld extends World {
         int cash = GameSettings.humanCashPerKill;
     
         // Stage 1: Caveman only
-        if (evolutionStage == 1) {
+        if (humanEvolutionStage == 1) {
             addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             return;
         }
     
         // Stage 2: Caveman + Archer
-        if (evolutionStage == 2) {
+        if (humanEvolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
                 addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else
@@ -253,32 +256,32 @@ public class MyWorld extends World {
         }
     
         // Stage 3: Caveman + Archer + Cannon (spawn handled separately)
-        if (evolutionStage == 3) {
+        if (humanEvolutionStage == 3) {
             if (Greenfoot.getRandomNumber(2) == 0)
                 addObject(new MeleeHuman(hp, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 20, cash, "archer"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 25, 100, cash, "archer"), getWidth() - 50, y);
             return;
         }
     
         // Stage 4: Caveman + Archer + Giant + Cannons
-        if (evolutionStage == 4) {
+        if (humanEvolutionStage == 4) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
             if (choice <= 4) // 50% chance
                 addObject(new MeleeHuman(hp * 2, speed, 40, 30, 20, cash, "caveman"), getWidth() - 50, y);
             else if (choice <= 8) // 40% chance
-                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 20, cash, "archer"), getWidth() - 50, y);
+                addObject(new RangedHuman(hp / 2, speed * 0.8, 300, 30, 100, cash, "archer"), getWidth() - 50, y);
             else
                 addObject(new GiantHuman(hp * 5, 0.5, 100, 50, 30, cash * 10, "giant"), getWidth() - 50, y);
         }
     
         // Stage 5+: Cyborg + Gunner + Tank + Hospital + Cannon
-        if (evolutionStage >= 5) {
+        if (humanEvolutionStage >= 5) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
             if (choice <= 4) // 50% chance
                 addObject(new MeleeHuman(hp* modernMultiplier, speed * 1.1, 50, 40, 25, cash, "cyborg"), getWidth() - 50, y);
             else if (choice <= 8) // 40% chance
-                addObject(new RangedHuman((hp / 2)* modernMultiplier, speed * 0.9, 350, 40, 25, cash, "gunner"), getWidth() - 50, y);
+                addObject(new RangedHuman((hp / 2)* modernMultiplier, speed * 0.9, 350, 40, 20, cash, "gunner"), getWidth() - 50, y);
             else // 10% chance
                 addObject(new GiantHuman((hp * 5)* modernMultiplier, 0.7, 100, 50, 30, cash * 20, "tank"), getWidth() - 50, y);
         }
@@ -293,13 +296,13 @@ public class MyWorld extends World {
         // --------------------------
         // Stage 1: Melee Robot
         // --------------------------
-        if (evolutionStage == 1) {
+        if (robotEvolutionStage == 1) {
             addObject(new MeleeRobot(hp, speed, 40, 30, 20, cash), 50, y);
         } 
         // --------------------------
         // Stage 2: Melee Robot + Ranged Robot + Turret
         // --------------------------
-        else if (evolutionStage == 2) {
+        else if (robotEvolutionStage == 2) {
             if (Greenfoot.getRandomNumber(2) == 0)
                 addObject(new MeleeRobot(hp + 50, speed, 35, 45, 20, cash), 50, y);
             else
@@ -308,7 +311,7 @@ public class MyWorld extends World {
         // --------------------------
         // Stage 3: Melee Robot + Ranged Robot + Turret + Factory
         // --------------------------
-        else if (evolutionStage >= 3) {
+        else if (robotEvolutionStage >= 3) {
             int choice = Greenfoot.getRandomNumber(10); // 0–9
             if (choice == 0) {
                 addObject(new ExplodingRobot(hp * 5, speed * 0.8, 50, 40, 20, cash * 2), 50, y);
@@ -321,8 +324,8 @@ public class MyWorld extends World {
     }
     
     private void spawnHumanCanon() {
-        if (Units.getHumanCash() > 100 && evolutionStage >= 3) return;
-        Units.addHumanCash(-100);
+        if (Units.getHumanCash() > 25 && humanEvolutionStage >= 3) return;
+        Units.addHumanCash(-25);
     
         int x = getWidth() - 120;
         int y = 0;
@@ -346,8 +349,8 @@ public class MyWorld extends World {
     }
     
     private void spawnRobotTurret() {
-        if (Units.getRobotCash() > 100 && evolutionStage >= 3) return;
-        Units.addRobotCash(-100);
+        if (Units.getRobotCash() > 25 && robotEvolutionStage >= 3) return;
+        Units.addRobotCash(-25);
     
         int x = 120;
         int y = 0;
@@ -372,8 +375,8 @@ public class MyWorld extends World {
     
     private void spawnHumanHospital() {
         // Cost check
-        if (Units.getHumanCash() < 200) return;
-        Units.addHumanCash(-200);
+        if (Units.getHumanCash() > 100) return;
+        Units.addHumanCash(-100);
     
         int x = getWidth() - 350; // fixed right side
         int y = 175 ;
@@ -383,22 +386,22 @@ public class MyWorld extends World {
     
     private void spawnRobotFactory() {
         // Cost check
-        if (Units.getRobotCash() < 200) return;
-        Units.addRobotCash(-200);
+        if (Units.getRobotCash() > 100) return; // corrected
+        Units.addRobotCash(-100);
     
         int x = 350; // fixed left side
         int y = 175 ;
         addObject(new Factory(), x, y);
     }
     
-    public static int getHumanLevel()
+    public int getHumanLevel()
     {
-        return evolutionStage;
+        return humanEvolutionStage;
     }
     
-    public static int getRobotLevel()
+    public int getRobotLevel()
     {
-        return evolutionStage;
+        return robotEvolutionStage;
     }
 }
 
