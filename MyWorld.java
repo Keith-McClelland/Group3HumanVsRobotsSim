@@ -24,7 +24,7 @@ import java.util.ArrayList;
  *      - Features: Cannons have slow fire rate, but high damage to enemy units
  *  Stage 4: Unlocks Giant Human; Cannons, Cavemen, and Archers continue spawning
  *      - Features: Giant moves slowly, very high HP, deals high damage to buildings
- *  Stage 5+: Unit evolution and Hospital spawns
+ *  Stage 5: Unit evolution and Hospital spawns
  *      - CaveMan evolves into Cyborg (futuristic melee unit; faster, higher damage)
  *      - Archers evolve into Futuristic Gunner (ranged unit; faster, higher damage)
  *      - Giant evolves into Tank (heavy unit; extremely high HP, high damage)
