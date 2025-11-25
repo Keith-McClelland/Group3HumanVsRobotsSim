@@ -222,14 +222,14 @@ public class MyWorld extends World {
             Units.addHumanCash(-50);
             humanEvolutionStage = 3;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
-        } else if (humanEvolutionStage == 3 && humanCash >= 75) {
+        } else if (humanEvolutionStage == 3 && humanCash >= 60) {
             Units.addHumanCash(-75);
             humanEvolutionStage = 4;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);
             if (getObjects(Canon.class).isEmpty()) {
                 addObject(new Canon(true), getWidth() - 100, getHeight() / 2);
             }
-        } else if (humanEvolutionStage == 4 && humanCash >= 100) {
+        } else if (humanEvolutionStage == 4 && humanCash >= 75) {
             Units.addHumanCash(-100);
             humanEvolutionStage = 5;
             addObject(new LevelUpIndicator(), humanStatboard.getX(), humanStatboard.getY() + 90);

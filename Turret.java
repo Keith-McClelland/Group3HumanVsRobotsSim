@@ -1,7 +1,8 @@
 import greenfoot.*;
 import java.util.List;
 
-public class Turret extends Buildings {
+public class Turret extends Buildings 
+{
 
     private long lastShotTime = 0;
     private long cooldown = 300; // ms between shots
@@ -15,7 +16,8 @@ public class Turret extends Buildings {
     private GreenfootImage turretImage;
 
     // constructor takes team side
-    public Turret(boolean isHumanSide) {
+    public Turret(boolean isHumanSide) 
+    {
         super(300, isHumanSide); // robot turret = false
 
         // load turret image
@@ -25,7 +27,8 @@ public class Turret extends Buildings {
         setImage(turretImage);
     }
 
-    public void act() {
+    public void act() 
+    {
         // only shoot opposite team
         if (isRobotSide()) {
             Human target = getClosestHuman();
@@ -35,15 +38,18 @@ public class Turret extends Buildings {
         }
     }
 
-    private void shootIfReady(Human target) {
+    private void shootIfReady(Human target) 
+    {
         long now = System.currentTimeMillis();
-        if (now - lastShotTime >= cooldown) {
+        if (now - lastShotTime >= cooldown) 
+        {
             fire(target);
             lastShotTime = now;
         }
     }
         
-    private void fire(Human target) {
+    private void fire(Human target) 
+    {
         Greenfoot.playSound("laser.mp3");
     
         int dx = target.getX() - getX();
@@ -52,7 +58,8 @@ public class Turret extends Buildings {
     
         attackSoundsIndex = 0; 
         attackSounds = new GreenfootSound[20];
-        for (int i = 0; i < attackSounds.length; i++){
+        for (int i = 0; i < attackSounds.length; i++)
+        {
             attackSounds[i] = new GreenfootSound("laser.mp3");
         }
         attackSounds[attackSoundsIndex].play();
@@ -67,15 +74,18 @@ public class Turret extends Buildings {
         getWorld().addObject(shot, getX() + 40, getY() - 40);
     }
 
-    private Human getClosestHuman() {
+    private Human getClosestHuman() 
+    {
         List<Human> humans = getWorld().getObjects(Human.class);
         Human closest = null;
         double best = Double.MAX_VALUE;
 
-        for (Human h : humans) {
+        for (Human h : humans) 
+        {
             if (h.getHealth() <= 0) continue; // skip dead humans
             double d = getDistance(h);
-            if (d < best) {
+            if (d < best) 
+            {
                 best = d;
                 closest = h;
             }
@@ -83,7 +93,8 @@ public class Turret extends Buildings {
         return closest;
     }
 
-    private double getDistance(Actor a) {
+    private double getDistance(Actor a) 
+    {
         return Math.hypot(a.getX() - getX(), a.getY() - getY());
     }
 }

@@ -9,13 +9,15 @@ public class Hospital extends Buildings
     private boolean doorConstructed = false;
     GreenfootImage hospital = new GreenfootImage("hospital.png");
     
-    public Hospital() {
+    public Hospital() 
+    {
         super(1000, true);
         setImage(hospital);
     }
 
     
-    public void act() {
+    public void act() 
+    {
         timer++;
         
         if(!doorConstructed)
@@ -23,15 +25,19 @@ public class Hospital extends Buildings
             getWorld().addObject(new HospitalDoor(), getX(), getY()+20);
             doorConstructed = true;
         }
-        if (timer >= cooldown) {
+        if (timer >= cooldown) 
+        {
             healHumans();
             timer = 0;
         }
     }
 
-    private void healHumans() {
-        for (Human h : getWorld().getObjects(Human.class)) {
-            if (h.getHealth() < h.maxHealth) {
+    private void healHumans() 
+    {
+        for (Human h : getWorld().getObjects(Human.class)) 
+        {
+            if (h.getHealth() < h.maxHealth) 
+            {
                 int newHealth = Math.min(h.getHealth() + healAmount, h.maxHealth);
                 h.setHealth(newHealth);
             }

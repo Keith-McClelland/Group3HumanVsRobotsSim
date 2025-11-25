@@ -26,7 +26,8 @@ public class Canon extends Buildings {
     private int soundIndex = 0;
     private final int NUM_SOUNDS = 20; // number of sound copies for overlap
 
-    public Canon(boolean isHumanSide) {
+    public Canon(boolean isHumanSide) 
+    {
         super(200, isHumanSide);
 
         // idle frame
@@ -48,19 +49,24 @@ public class Canon extends Buildings {
         }
     }
 
-    public void act() {
+    public void act() 
+    {
         if (!isHumanSide()) return;
 
         Robot target = getClosestRobot();
 
-        if (shooting) {
+        if (shooting) 
+        {
             animate();
-        } else if (target != null) {
+        } 
+        else if (target != null) 
+        {
             attemptShoot(target);
         }
     }
 
-    private Robot getClosestRobot() {
+    private Robot getClosestRobot() 
+    {
         List<Robot> robots = getWorld().getObjects(Robot.class);
         Robot closest = null;
         double best = Double.MAX_VALUE;
@@ -76,7 +82,8 @@ public class Canon extends Buildings {
         return closest;
     }
 
-    private void attemptShoot(Robot target) {
+    private void attemptShoot(Robot target) 
+    {
         long now = System.currentTimeMillis();
 
         if (now - lastShotTime >= cooldown) {
@@ -89,7 +96,8 @@ public class Canon extends Buildings {
         }
     }
 
-    private void fire(Robot target) {
+    private void fire(Robot target) 
+    {
         int dx = target.getX() - getX();
         int dy = target.getY() - getY();
         double angle = Math.toDegrees(Math.atan2(dy, dx));
@@ -117,7 +125,8 @@ public class Canon extends Buildings {
         soundIndex = (soundIndex + 1) % NUM_SOUNDS; // cycle through sounds
     }
 
-    private void animate() {
+    private void animate() 
+    {
         setImage(shootFrames[frameIndex]);
         frameCounter++;
 

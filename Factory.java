@@ -7,7 +7,8 @@ public class Factory extends Buildings
     private int cooldown = 50;
     private int timer = 0;
 
-    public Factory() {
+    public Factory() 
+    {
         super(400, false);
 
         // set image
@@ -27,16 +28,20 @@ public class Factory extends Buildings
         }
     }
 
-    private void repairRobots() {
+    private void repairRobots() 
+    {
         // loop through robots and heal them
-        for (Robot r : getWorld().getObjects(Robot.class)) {
-            if (r.getHealth() < r.maxHealth) {
+        for (Robot r : getWorld().getObjects(Robot.class)) 
+        {
+            if (r.getHealth() < r.maxHealth) 
+            {
                 r.setHealth(Math.min(r.getHealth() + repairAmount, r.maxHealth));
             }
         }
     }
 
-    public void takeDamage(int dmg) {
+    public void takeDamage(int dmg) 
+    {
         super.takeDamage(dmg);
     }
 }

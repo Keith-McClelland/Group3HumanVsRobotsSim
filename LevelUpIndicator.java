@@ -21,16 +21,20 @@ public class LevelUpIndicator extends Actor
     {
         timer++;
 
-        // Make it blink by toggling visibility
-        if ((timer / blinkInterval) % 2 == 0) {
+        // make it blink by toggling visibility
+        if ((timer / blinkInterval) % 2 == 0) 
+        {
             setImage(levelUp);
-        } else {
+        } else 
+        {
             setImage((GreenfootImage) null); // hide image
         }
 
-        // Remove after duration
-        if (timer >= duration) {
-            if (getWorld() != null) {
+        // remove after certain period of time
+        if (timer >= duration) 
+        {
+            if (getWorld() != null) 
+            {
                 getWorld().removeObject(this);
             }
         }

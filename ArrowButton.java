@@ -10,7 +10,8 @@ public class ArrowButton extends Actor
     private ValueBox targetBox;
 
     // Creates the image of the arrow
-    public ArrowButton(boolean right, ValueBox targetBox) {
+    public ArrowButton(boolean right, ValueBox targetBox) 
+    {
         this.right = right;
         this.targetBox = targetBox;
 
@@ -35,12 +36,18 @@ public class ArrowButton extends Actor
     // Checks for if the arrow is clicked by the mouse
     // If the left arrow is clicked then it will decrement the value in the box
     // If the right arrow is clicked then it will increment the value in the box
-    public void act() {
-        if (Greenfoot.mouseClicked(this)) {
-            if (targetBox != null) {
-                if (right) {
+    public void act() 
+    {
+        if (Greenfoot.mouseClicked(this)) 
+        {
+            if (targetBox != null) 
+            {
+                if (right) 
+                {
                     targetBox.increment();
-                } else {
+                } 
+                else 
+                {
                     targetBox.decrement();
                 }
             }

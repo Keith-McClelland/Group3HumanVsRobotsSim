@@ -66,7 +66,8 @@ public abstract class Buildings extends SuperSmoothMover
 
     //if building is destroyed it would remove the healthbar
     protected void removeHealthBar() {
-        if (healthBar != null && getWorld() != null) {
+        if (healthBar != null && getWorld() != null) 
+        {
             getWorld().removeObject(healthBar);
             healthBar = null;
         }
@@ -74,11 +75,13 @@ public abstract class Buildings extends SuperSmoothMover
 
     //can be called by any object or character that wants to damage the 
     //building (remove if the building cannot withstand any more damage)
-    public void takeDamage(int dmg) {
+    public void takeDamage(int dmg) 
+    {
         health -= dmg;
         updateHealthBar();
 
-        if (health <= 0 && getWorld() != null) {
+        if (health <= 0 && getWorld() != null) 
+        {
             removeHealthBar();
             getWorld().removeObject(this);
         }

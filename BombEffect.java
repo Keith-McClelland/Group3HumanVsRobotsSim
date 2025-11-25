@@ -7,7 +7,8 @@ public class BombEffect extends Effect
     private int explosionDuration = 50; // frames to fade out
     private boolean exploded = false;
     
-    public BombEffect(int radius) {
+    public BombEffect(int radius) 
+    {
         super(radius * 2, radius * 2, new Color(255, 0, 0, 180));
         this.radius = radius;
         
@@ -22,12 +23,14 @@ public class BombEffect extends Effect
         //increase timer
         timer++;
         
-        if (!exploded && timer >= 180) { // explode after 1.5 seconds
+        if (!exploded && timer >= 180) 
+        { // explode after 1.5 seconds
             exploded = true;
             timer = 0; // reset timer for fade out
             // damage humans in range
             List<Human> humans = getObjectsInRange(radius, Human.class);
-            for (Human h : humans) {
+            for (Human h : humans) 
+            {
                 getWorld().removeObject(h); // or remove if instant kill
             }
             Fences.damage(3000); // optional
@@ -35,7 +38,8 @@ public class BombEffect extends Effect
     }
 
     protected void drawEffect() {
-        if (exploded) {
+        if (exploded) 
+        {
             int alpha = Math.max(0, 180 - (180 / explosionDuration) * timer);
             
             GreenfootImage fadeCircle = new GreenfootImage(radius * 2, radius * 2);
@@ -43,7 +47,8 @@ public class BombEffect extends Effect
             fadeCircle.fillOval(0, 0, radius * 2, radius * 2);
             setImage(fadeCircle);
 
-            if (alpha <= 0 && getWorld() != null) {
+            if (alpha <= 0 && getWorld() != null) 
+            {
                 getWorld().removeObject(this);
             }
         }

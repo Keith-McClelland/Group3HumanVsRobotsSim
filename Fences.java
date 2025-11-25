@@ -1,7 +1,7 @@
 import greenfoot.*;
 import java.util.List;
 
-
+//NOT USING ANYMORE
 public class Fences extends SuperSmoothMover {
 
     private static SuperStatBar fenceHPBar;
