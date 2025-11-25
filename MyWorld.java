@@ -202,7 +202,7 @@ public class MyWorld extends World {
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
-            backgroundMusic.setVolume(20);
+            backgroundMusic.setVolume(30);
             backgroundMusic.playLoop();
         }
     }
