@@ -543,6 +543,6 @@ target9.x=0
 target9.y=0
 version=3.1.0
 width=1936
-world.lastInstantiated=IntroWorld
+world.lastInstantiated=SettingsWorld
 xPosition=0
 yPosition=0

@@ -174,17 +174,16 @@ public abstract class Units extends SuperSmoothMover {
 
         // Human reaches left edge, humans win
         if (!isRobot && x <= 5) {
-            Greenfoot.setWorld(new EndSimWorld("Human"));
             MyWorld.stopMusic();
+            Greenfoot.setWorld(new EndSimWorld("Human"));
             return;
         }
     
  
         // Robot reaches right edge, robots win
         if (isRobot && x >= worldWidth - 5) {
-            Greenfoot.setWorld(new EndSimWorld("Robots"));
             MyWorld.stopMusic();
-            
+            Greenfoot.setWorld(new EndSimWorld("Robots"));
             return;
         }
         

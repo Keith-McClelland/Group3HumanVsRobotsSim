@@ -86,7 +86,7 @@ import java.util.ArrayList;
 public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
-    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.wav");
+    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.mp3");
     public static int frameCount = 0;
 
     private int humanSpawnTimer = 0;
