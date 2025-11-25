@@ -1,14 +1,29 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * BombEffect is subclass for visual effects in the world. 
+ * Represents a explosion. 
+ * <p>
+ * It displays a red warning circle. After a few seconds, 
+ * the bomb explodes, applies damage to nearby Humans, and 
+ * fades out gradually. 
+ *
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public class BombEffect extends Effect
 {
     private int radius; //explosion radius
     private int explosionDuration = 50; // frames to fade out
-    private boolean exploded = false;
-    
-    public BombEffect(int radius) 
-    {
+    private boolean exploded = false; //tracks if the bomb has exploded
+    /**
+     * Constructor for BombEffect creates a new BombEffect with a radius. 
+     * <p>
+     * Draws the initial warning circle in red. 
+     *
+     * @param radius    the radius of the explosion in pixels 
+     */
+    public BombEffect(int radius) {
         super(radius * 2, radius * 2, new Color(255, 0, 0, 180));
         this.radius = radius;
         
@@ -18,7 +33,13 @@ public class BombEffect extends Effect
         circle.fillOval(0, 0, radius * 2, radius * 2);
         setImage(circle);
     }
-
+    
+    /**
+     * Updates the bomb effect each frame. 
+     * <p>
+     * Waits for 180 frames (~1.5 seconds) before exploding, 
+     * then damages all Humans within radius and starts fade-out. 
+     */
     protected void updateEffect() {
         //increase timer
         timer++;
@@ -36,6 +57,12 @@ public class BombEffect extends Effect
         }
     }
 
+    /**
+     * Draws the bomb effect each frame. 
+     * <p> 
+     * After explosion, gradually fades out the red circle 
+     * until it's fully gone and removes itself from the world. 
+     */
     protected void drawEffect() {
         if (exploded) 
         {

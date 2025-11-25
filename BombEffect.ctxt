@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=BombEffect
+comment0.text=\r\n\ BombEffect\ is\ subclass\ for\ visual\ effects\ in\ the\ world.\ \r\n\ Represents\ a\ explosion.\ \r\n\ <p>\r\n\ It\ displays\ a\ red\ warning\ circle.\ After\ a\ few\ seconds,\ \r\n\ the\ bomb\ explodes,\ applies\ damage\ to\ nearby\ Humans,\ and\ \r\n\ fades\ out\ gradually.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=radius
 comment1.target=BombEffect(int)
+comment1.text=\r\n\ Constructor\ for\ BombEffect\ creates\ a\ new\ BombEffect\ with\ a\ radius.\ \r\n\ <p>\r\n\ Draws\ the\ initial\ warning\ circle\ in\ red.\ \r\n\r\n\ @param\ radius\ \ \ \ the\ radius\ of\ the\ explosion\ in\ pixels\ \r\n
 comment2.params=
 comment2.target=void\ updateEffect()
+comment2.text=\r\n\ Updates\ the\ bomb\ effect\ each\ frame.\ \r\n\ <p>\r\n\ Waits\ for\ 180\ frames\ (~1.5\ seconds)\ before\ exploding,\ \r\n\ then\ damages\ all\ Humans\ within\ radius\ and\ starts\ fade-out.\ \r\n
 comment3.params=
 comment3.target=void\ drawEffect()
+comment3.text=\r\n\ Draws\ the\ bomb\ effect\ each\ frame.\ \r\n\ <p>\ \r\n\ After\ explosion,\ gradually\ fades\ out\ the\ red\ circle\ \r\n\ until\ it's\ fully\ gone\ and\ removes\ itself\ from\ the\ world.\ \r\n
 numComments=4

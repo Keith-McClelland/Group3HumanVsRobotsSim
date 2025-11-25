@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=ContinueButton
+comment0.text=\r\n\ ContinueButton\ is\ a\ Greenfoot\ Actor\ that\ represents\ simple\ clickable\ UI\ element\ used\ in\ menus\ or\ transition\ screens.\ \r\n\ <p>\r\n\ It\ displays\ a\ scaled\ image\ (button.jpg)\ that\ acts\ as\ a\ button.\ \r\n\ Other\ classes\ (such\ as\ IntroWorld)\ detect\ when\ this\ button\ is\ clicked\ \r\n\ using\ Greenfoot.mouseClicked()\ and\ then\ perform\ actions\ such\ as\ switching\ worlds.\ \r\n\ <p>\r\n\ This\ class\ only\ handles\ how\ the\ button\ looks\ \u2014\ not\ what\ happens\ when\ it\ is\ clicked.\ \r\n\ \r\n\ @author\ Veznu\ Premathas\ \r\n\ @version\ November\ 2025\r\n
 comment1.params=
 comment1.target=ContinueButton()
+comment1.text=\r\n\ Constructor\ for\ ContinueButton\ that\ creates\ a\ ContinueButton\ and\ scales\ the\ button\ image\ to\ a\ readable\ size\ \r\n\ (300x100),\ then\ sets\ it\ as\ the\ actor's\ image.\ \r\n
 numComments=2

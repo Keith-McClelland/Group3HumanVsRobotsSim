@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=Crystal
+comment0.text=\r\n\ Crystal\ is\ an\ animated\ object\ that\ displays\ the\ crystal\ energy\ \r\n\ that\ is\ on\ the\ human\ side\ in\ the\ IntroWorld.\ \r\n\ <p>\r\n\ The\ crystal\ begins\ with\ a\ static\ base\ image,\ then\ cycles\ through\ \r\n\ 6\ animated\ frames\ to\ create\ a\ smooth\ rotation\ effect.\ \r\n\r\n\ @author\ Veznu\ Premathas\r\n\ @version\ November\ 2025\ \r\n
 comment1.params=
 comment1.target=Crystal()
+comment1.text=\r\n\ Constructor\ for\ Crystal\ that\ creates\ a\ new\ Crystal\ object.\ \r\n\ Loads\ both\ the\ base\ image\ and\ all\ animated\ revolving\ frames.\ \r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Updates\ the\ crystal's\ animation\ cycle.\ \r\n
 comment3.params=
 comment3.target=void\ animateRevolution()
+comment3.text=\r\n\ Handles\ the\ revolving\ animation\:\ \r\n\ Displays\ the\ current\ frame\ \ \r\n\ Advances\ frames\ after\ a\ timed\ delay\ \r\n\ Loops\ back\ to\ frame\ 0\ after\ the\ last\ frame\ \r\n
 numComments=4

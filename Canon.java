@@ -2,10 +2,6 @@ import greenfoot.*;
 import java.util.List;
 
 public class Canon extends Buildings {
-    private GreenfootSound[] attackSounds;
-    private int attackSoundsIndex;
-
-    GreenfootSound fire = new GreenfootSound("cannon.mp3");
     // controls the shot fire rate
     private long lastShotTime = 0;
     private boolean shooting = false;
@@ -49,7 +45,7 @@ public class Canon extends Buildings {
         }
     }
 
-    public void act() 
+    public void completeTask() 
     {
         if (!isHumanSide()) return;
 
@@ -65,6 +61,7 @@ public class Canon extends Buildings {
         }
     }
 
+    // find closest robot
     private Robot getClosestRobot() 
     {
         List<Robot> robots = getWorld().getObjects(Robot.class);
@@ -82,6 +79,7 @@ public class Canon extends Buildings {
         return closest;
     }
 
+    // attempt shooting if cooldown passed
     private void attemptShoot(Robot target) 
     {
         long now = System.currentTimeMillis();
@@ -96,6 +94,7 @@ public class Canon extends Buildings {
         }
     }
 
+    // fire cannon projectile
     private void fire(Robot target) 
     {
         int dx = target.getX() - getX();
@@ -106,25 +105,12 @@ public class Canon extends Buildings {
         shot.setImage("canonBall.png");
         getWorld().addObject(shot, getX(), getY());
 
-        fire.play();
-
-        
-        attackSoundsIndex = 0; 
-        attackSounds = new GreenfootSound[20];
-        for (int i = 0; i < attackSounds.length; i++){
-            attackSounds[i] = new GreenfootSound("cannon.mp3");
-        }
-        attackSounds[attackSoundsIndex].play();
-        attackSoundsIndex++;
-        if(attackSoundsIndex > attackSounds.length - 1){
-            attackSoundsIndex = 0;
-        }
-
-        // play cannon sound
+        // play sound from pool
         cannonSounds[soundIndex].play();
-        soundIndex = (soundIndex + 1) % NUM_SOUNDS; // cycle through sounds
+        soundIndex = (soundIndex + 1) % NUM_SOUNDS;
     }
 
+    // animate shooting frames
     private void animate() 
     {
         setImage(shootFrames[frameIndex]);
@@ -141,3 +127,4 @@ public class Canon extends Buildings {
         }
     }
 }
+

@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=ArrowButton
+comment0.text=\r\n\ SettingsWorld\ is\ a\ Greenfoot\ Actor\ that\ represents\ a\ clickable\ arrow\ in\ the\ settings\ menu.\ \r\n\ Each\ arrow\ is\ linked\ to\ a\ ValueBox,\ and\ clicking\ it\ will\ either\ increase\ \r\n\ or\ decrease\ the\ value\ displayed\ inside\ that\ box.\ \r\n\ <p>\r\n\ Clicking\ the\ left\ arrow\ button\ will\ decrease\ the\ value\ inside\ the\ middle\ box\ by\ 1.\ \r\n\ Clicking\ the\ right\ arrow\ button\ will\ increase\ the\ value\ inside\ the\ middle\ box\ by\ 1.\ \r\n\ \r\n\ The\ arrow\ is\ drawn\ as\ a\ simple\ filled\ triangle\ using\ a\ GreenfootImage.\ \r\n\ <p>\r\n\ This\ ArrowButton\ is\ used\ in\ the\ SettingsWorld\ to\ modify\ gameplay\ settings\ before\ \r\n\ the\ simulation\ starts.\ \r\n\ @author\ Jonathan\ Shi\ \r\n\ @version\ November\ 2025\r\n
 comment1.params=right\ targetBox
 comment1.target=ArrowButton(boolean,\ ValueBox)
+comment1.text=\r\n\ Constructor\ for\ ArrowButton\ that\ creates\ an\ arrow\ button\ that\ points\ either\ left\ or\ right,\ \r\n\ and\ attaches\ it\ to\ the\ ValueBox.\ \r\n\r\n\ @param\ right\ \ \ \ true\ if\ the\ arrow\ points\ right\ (increase\ value),\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ false\ if\ the\ arrow\ points\ left\ (decrease\ value),\r\n\r\n\ @param\ targetBox\ \ \ \ \ the\ ValueBox\ to\ modify\ when\ the\ arrow\ is\ clicked\r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ The\ act\ method\ is\ called\ repeatedly\ by\ Greenfoot.\ \r\n\ Detects\ when\ this\ arrow\ is\ clicked,\ and\ updates\ the\ attatched\ ValueBox.\ \r\n
 numComments=3

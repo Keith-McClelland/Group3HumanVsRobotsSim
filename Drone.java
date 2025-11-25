@@ -1,6 +1,16 @@
 import greenfoot.*;
 import java.util.List;
-
+/**
+ * Drone is an animated object that locates and scans Crystal objects 
+ * in the world. It can move toward a crystal, display speech bubbles, and perform 
+ * scanning animations. 
+ * <p>
+ * The Drone works with the RobotSpeech, which visually 
+ * follows it and updates depending on its state. 
+ *
+ * @author Veznu Premathas
+ * @version November 2025 
+ */
 public class Drone extends SuperSmoothMover
 {
     //initalizes image and object
@@ -11,14 +21,22 @@ public class Drone extends SuperSmoothMover
     private boolean isScanning = false;
     private boolean flippedOnce = false;
 
-
+    /**
+     * Constructor for Drone that creates a new Drone object. 
+     */
     public Drone()
     {
         //scales and sets image
         drone.scale(50,40);
         setImage(drone);
     }
-
+    
+    /**
+     * The act method is called repeatedly by Greenfoot. 
+     * Creates a speech bubble, then it scans for the closest 
+     * crystal and moves towards it if the crystal hasn't yet 
+     * been scanned. 
+     */
     public void act()
     {
         // create speech after drone is added to world
@@ -35,7 +53,12 @@ public class Drone extends SuperSmoothMover
         }
     }
 
-
+    /**
+     * Moves the drone toward the Crystal object. 
+     * When close enough, triggers the scanning animation and updates speech. 
+     *
+     * @param crystal       The Crystal object to approach. 
+     */
     private void moveTowardCrystal(Crystal crystal) 
     {
         double dx = crystal.getX() - getX();
@@ -64,7 +87,10 @@ public class Drone extends SuperSmoothMover
             }
         }
     }
-
+    
+    /**
+     * Finds the closest Crystal within 1000 pixels and moves toward it. 
+     */
     private void getClosestCrystal() 
     {
         //finds the crystal
@@ -76,6 +102,10 @@ public class Drone extends SuperSmoothMover
         moveTowardCrystal(c);
     }
     
+    /**
+     * Moves the drone off-screen to the left side. 
+     * Flips the image once and removes the drone from the world when it exits. 
+     */
     public void runAway() 
     {
         int speed = 3;
@@ -102,7 +132,10 @@ public class Drone extends SuperSmoothMover
     }
 
 
-
+    /**
+     * Starts the scanning animation once. 
+     * Creates a scan animation object. 
+     */
     private void startScanAnimation()
     {
         if (isScanning) return;
@@ -113,6 +146,7 @@ public class Drone extends SuperSmoothMover
         getWorld().addObject(scan, getX() + getImage().getWidth()/2 + 10, getY());
     }
 }
+
 
 
 

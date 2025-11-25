@@ -2,6 +2,8 @@
 comment0.target=Buildings
 comment1.params=maxHP\ isHumanSide
 comment1.target=Buildings(int,\ boolean)
+comment10.params=
+comment10.target=void\ completeTask()
 comment2.params=
 comment2.target=boolean\ isHumanSide()
 comment3.params=
@@ -18,4 +20,4 @@ comment8.params=
 comment8.target=void\ removeHealthBar()
 comment9.params=dmg
 comment9.target=void\ takeDamage(int)
-numComments=10
+numComments=11

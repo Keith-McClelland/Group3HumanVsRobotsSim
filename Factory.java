@@ -1,36 +1,38 @@
-import greenfoot.*;  
+import greenfoot.*;
+import java.util.List;
 
 public class Factory extends Buildings
 {
-    private GreenfootImage factory = new GreenfootImage("factory.png");
-    private int repairAmount = 5;
-    private int cooldown = 50;
-    private int timer = 0;
+    private int repairAmount = 5;     // how much to repair robots per tick
+    private int cooldown = 50;        // ticks between repairs
+    private int timer = 0;            // counts up to cooldown
 
     public Factory() 
     {
-        super(400, false);
+        super(400, false);  // max hp 400, belongs to robot side
 
-        // set image
+        // set factory image
         GreenfootImage img = new GreenfootImage("factory.png");
-        img.scale(200,100);
+        img.scale(200, 100);
         setImage(img);
     }
 
-    public void act()
+    // main method controlling factory actions
+    public void completeTask()
     {
         timer++;
 
-        // heal robots every cooldown tick
-        if (timer >= cooldown) {
-            repairRobots();
-            timer = 0;
+        // heal robots periodically
+        if (timer >= cooldown) 
+        {
+            repairRobots();   // restore robot health
+            timer = 0;        // reset timer
         }
     }
 
+    // loop through all robots and repair them
     private void repairRobots() 
     {
-        // loop through robots and heal them
         for (Robot r : getWorld().getObjects(Robot.class)) 
         {
             if (r.getHealth() < r.maxHealth) 
@@ -38,11 +40,6 @@ public class Factory extends Buildings
                 r.setHealth(Math.min(r.getHealth() + repairAmount, r.maxHealth));
             }
         }
-    }
-
-    public void takeDamage(int dmg) 
-    {
-        super.takeDamage(dmg);
     }
 }
 
