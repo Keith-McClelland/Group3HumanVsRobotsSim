@@ -279,7 +279,7 @@ public abstract class Units extends SuperSmoothMover {
     protected void moveBy(double dx, double dy) {
         exactX += dx;
         exactY += dy;
-        setLocation((int)Math.round(exactX), (int)Math.round(exactY));
+        setLocation(exactX, exactY);
     }
 
     /**
