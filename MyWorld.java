@@ -98,9 +98,7 @@ public class MyWorld extends World {
     private int robotTurretTimer = 0;
     private int robotTurretInterval = 1200;
     private int humanHospitalTimer = 0;
-    private int humanHospitalInterval = 1500;
     private int robotFactoryTimer = 0;
-    private int robotFactoryInterval = 1500;
     private int modernMultiplier = 2;
 
     private static int humanEvolutionStage ;
