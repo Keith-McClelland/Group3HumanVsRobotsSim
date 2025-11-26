@@ -19,7 +19,8 @@ import java.util.ArrayList;
  *  visually it doesn't look that appealing. However, the Giant will perfectly lands hit 
  *  touching the building making it look more realistic.
  *  - Background music may occasionally fail to play or behave inconsistently; this issue has 
- *  currently been stopped.
+ *  currently been stopped. (I put in Audicity like you told me to and even tried 
+ *  changing the format too)
  *
  *  Human Progression:
  *  Stage 1: Caveman (melee)
@@ -88,7 +89,7 @@ import java.util.ArrayList;
 public class MyWorld extends World {
 
     GreenfootImage background = new GreenfootImage("images/background.png");
-    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.mp3");
+    public static GreenfootSound backgroundMusic = new GreenfootSound("backgroundMusic.wav");
     public static int frameCount = 0;
 
     private int humanSpawnTimer = 0;

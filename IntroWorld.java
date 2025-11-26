@@ -17,7 +17,7 @@ public class IntroWorld extends World
     // checks if robot is done scanning
     public static boolean doneScanning = false;
     // import background music
-    private static GreenfootSound backgroundMusic = new GreenfootSound("introWorldBackground.mp3");
+    private static GreenfootSound backgroundMusic = new GreenfootSound("introWorldBackground.wav");
     
     /**
      * Constructor for IntroWorld. 
@@ -50,7 +50,7 @@ public class IntroWorld extends World
             Crystal crystal = new Crystal();
             addObject(crystal,954,503);
             
-            Drone drone = new Drone();
+            StoryWorldDrone drone = new StoryWorldDrone();
             addObject(drone,0,560);
         
         }

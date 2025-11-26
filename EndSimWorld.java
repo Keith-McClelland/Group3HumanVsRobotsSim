@@ -32,7 +32,7 @@ public class EndSimWorld extends World {
         this.winner = winner;
         
         humanWinSound.setVolume(70);
-        robotWinSound.setVolume(70);
+        robotWinSound.setVolume(20);
         
         if (winner.equals("Human")) {
             setBackground(humanWin);

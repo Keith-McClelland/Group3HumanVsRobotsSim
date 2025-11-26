@@ -27,7 +27,7 @@ public class StoryWorldHuman extends SuperSmoothMover
     //tracks states to continue to the next stage
     private boolean speechDone = false;
     private boolean chasingDone = false; 
-    private Drone droneTarget;
+    private StoryWorldDrone droneTarget;
     private boolean flipped = false;
     
     /**
@@ -113,7 +113,7 @@ public class StoryWorldHuman extends SuperSmoothMover
         speechDone = true;
 
         //choose drone to chase
-        ArrayList<Drone> drones = new ArrayList<>( getWorld().getObjects(Drone.class) );
+        ArrayList<StoryWorldDrone> drones = new ArrayList<>( getWorld().getObjects(StoryWorldDrone.class) );
         if (!drones.isEmpty()) droneTarget = drones.get(0);
     }
     
