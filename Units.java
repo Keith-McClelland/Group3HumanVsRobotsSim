@@ -45,6 +45,9 @@ public abstract class Units extends SuperSmoothMover {
     protected static int humanCash = 0;
     protected static int robotCash = 0;
 
+    // for precise movement
+    protected double exactX;
+    protected double exactY;
 
     public static final int MIN_PLAYABLE_Y = 175;
     /**
@@ -95,6 +98,10 @@ public abstract class Units extends SuperSmoothMover {
         healthBar = new SuperStatBar(maxHealth, health, this, 40, 6, 30,
                 Color.GREEN, Color.RED, true, Color.BLACK, 1);
         world.addObject(healthBar, getX(), getY() - 20);
+
+        // Initialize precise coordinates for fractional movement
+        exactX = getX();
+        exactY = getY();
     }
     
     /**
@@ -194,8 +201,6 @@ public abstract class Units extends SuperSmoothMover {
         }
     }
 
-
-
     /**
      * Restricts human units to a minimum vertical area. 
      */
@@ -255,19 +260,28 @@ public abstract class Units extends SuperSmoothMover {
      * @param target The Actor to move toward. 
      * @param stopRange Distance to stop at. 
      */
-        protected void moveToward(Actor target, double stopRange) {
-        double dx = target.getX() - getX();
-        double dy = target.getY() - getY();
+    protected void moveToward(Actor target, double stopRange) {
+        double dx = target.getX() - getPreciseX();
+        double dy = target.getY() - getPreciseY();
         double distance = Math.hypot(dx, dy);
 
         if (distance > stopRange) {
-            setLocation(
-                getX() + (int)(dx / distance * getSpeed()),
-                getY() + (int)(dy / distance * getSpeed())
-            );
+            moveBy(dx / distance * speed, dy / distance * speed);
         }
     }
-    
+
+    /**
+     * Moves the unit by fractional amounts (supports speeds < 1). 
+     *
+     * @param dx Change in X
+     * @param dy Change in Y
+     */
+    protected void moveBy(double dx, double dy) {
+        exactX += dx;
+        exactY += dy;
+        setLocation((int)Math.round(exactX), (int)Math.round(exactY));
+    }
+
     /**
      * Returns the distance to another Actor. 
      *
@@ -279,9 +293,9 @@ public abstract class Units extends SuperSmoothMover {
         double dy = getPreciseY() - ((SuperSmoothMover)a).getPreciseY();
         return Math.hypot(dx, dy);
     }
+
     
-    
-      /**
+    /**
      * Setter method for healthbar.
      * @param hp    sets the health to hp.
      */
@@ -362,6 +376,3 @@ public abstract class Units extends SuperSmoothMover {
      */
     public static void setHumansDead(int a) { humansDead = a; }
 }
-
-
-

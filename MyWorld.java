@@ -298,7 +298,7 @@ public class MyWorld extends World {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
         int hp = GameSettings.humanHP;
         double speed = GameSettings.humanSpeed;
-        int cash = GameSettings.humanCashPerKill;
+        int cash = GameSettings.robotCashPerKill;
    
         // Stage 1: Caveman only
         if (humanEvolutionStage == 1) {
@@ -354,7 +354,7 @@ public class MyWorld extends World {
         int y = 175 + Greenfoot.getRandomNumber(getHeight() - 175);
         int hp = GameSettings.robotHP;
         double speed = GameSettings.robotSpeed;
-        int cash = GameSettings.robotCashPerKill;
+        int cash = GameSettings.humanCashPerKill;
         // --------------------------
         // Stage 1: Melee Robot
         // --------------------------

@@ -14,23 +14,17 @@ public class SettingsWorld extends World
 {
     ContinueButton continueButton;
     GreenfootSound backgroundMusic = new GreenfootSound("settingWolrd.mp3");
-    /**
-     * Creates the settings menu world, initializes default settings, 
-     * draws the layout, and places all UI components.
-     */
+
     public SettingsWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1240, 700, 1);
         
-        // Reset all settings
         GameSettings.reset();
         playMusic();
         setBackground("storyworld.png");
         
         Actor panel = new Actor() {};
         
-        // Dark grey background
         GreenfootImage bg = new GreenfootImage(1200, 600);
         bg.setColor(new Color(45, 45, 45));
         bg.fill();
@@ -38,8 +32,6 @@ public class SettingsWorld extends World
 
         addObject(panel, getWidth()/2, 350);
         
-        
-        // Settings menu components all combined
         setupLabels();
         setupHumanColumn();
         setupRobotColumn();
@@ -47,29 +39,18 @@ public class SettingsWorld extends World
         continueButton = new ContinueButton();
         addObject(continueButton, getWidth() / 2, 550);
     }
-    /**
-     * The act method is called repeatedly by Greenfoot. 
-     * Handles UI interaction such as clicking the Continue button. 
-     */
+
     public void act() {
         handleContinueButton();
     }
     
-    /**
-     * Checks if the Continue button is clicked.
-     * If clicked, transitions into the main gameplay world.
-     */
     private void handleContinueButton() {
         if (Greenfoot.mouseClicked(continueButton)) {
-            // Enter the next world
             stopMusic();
-            Greenfoot.setWorld(new MyWorld()); // <-- change to desired world
+            Greenfoot.setWorld(new MyWorld());
         }
     }
     
-    /**
-     * Plays background music
-     */
     public void playMusic()
     {
         if (!backgroundMusic.isPlaying()) {
@@ -77,27 +58,18 @@ public class SettingsWorld extends World
             backgroundMusic.playLoop();
         }
     }
-    
-    /**
-     * Starts playing the music
-     */
+
     @Override
     public void started() {
-        playMusic(); // resumes loop if not already playing
+        playMusic();
     }
 
-    /**
-     * Stops the music
-     */
     @Override
     public void stopped()
     {
         backgroundMusic.stop();
     }
     
-    /**
-     * Stops the music
-     */
     public void stopMusic()
     {
         backgroundMusic.stop();
@@ -105,63 +77,48 @@ public class SettingsWorld extends World
     
     /**
      * Creates and positions the right column of settings for Robot units.
-     * <p>
-     * Settings included:
-     *     SpawnRate
-     *     Starting HP
-     *     Speed
-     *     Cash
      */
     private void setupRobotColumn() {
         int y = 200;
         String[] properties = {"robotSpawnRate", "robotHP", "robotSpeed", "robotCash"};
         for (int i = 0; i < 4; i++) {
-            ValueBox box = new ValueBox(properties[i]); // use new constructor
-            addObject(new ArrowButton(false, box), 770, y);
-            addObject(box, 860, y);
-            addObject(new ArrowButton(true, box), 950, y);
+
+            ValueBox box = new ValueBox(properties[i]);  // ONE value box
+
+            addObject(new ArrowButton(false, box), 330, y);  // left arrow
+            addObject(box, 420, y);                         // value box
+            addObject(new ArrowButton(true, box), 510, y);  // right arrow
+
             y += 80;
         }
     }
     
     /**
      * Creates and positions the left column of settings for Human units.
-     * <p>
-     * Settings included:
-     *     SpawnRate
-     *     Starting HP
-     *     Speed
-     *     Cash
      */
     private void setupHumanColumn() {
         int y = 200;
         String[] properties = {"humanSpawnRate", "humanHP", "humanSpeed", "humanCash"};
         for (int i = 0; i < 4; i++) {
-            ValueBox box = new ValueBox(properties[i]); // use new constructor
-            addObject(new ArrowButton(false, box), 330, y);
-            addObject(box, 420, y);
-            addObject(new ArrowButton(true, box), 510, y);
+
+            ValueBox box = new ValueBox(properties[i]);  // ONE value box
+
+            addObject(new ArrowButton(false, box), 770, y);  // left arrow
+            addObject(box, 860, y);                          // value box
+            addObject(new ArrowButton(true, box), 950, y);   // right arrow
+
             y += 80;
         }
     }
     
     /**
      * Draws all title labels and row labels for both Human and Robot columns. 
-     * <p>
-     * Title labels include:
-     *     Humans, Robots
-     * Small row labels include:
-     *     SpawnRate
-     *     Starting HP
-     *     Speed
-     *     Cash gained per kill
      */
     private void setupLabels() {
         // Titles
-        addObject(new TitleLabel("Humans", 48), 350, 80);
-        addObject(new TitleLabel("Robots", 48), 890, 80);
+        addObject(new TitleLabel("Humans", 48), 890, 80);
+        addObject(new TitleLabel("Robots", 48), 350, 80);
 
-        // Row labels
         String[] labels = {
             "Spawn rate",
             "Starting HP",
@@ -172,11 +129,8 @@ public class SettingsWorld extends World
         int y = 200;
         
         for (String s : labels) {
-            // Human side settings
-            addObject(new SmallLabel(s), 150, y);
-            
-            // Robot side settings
-            addObject(new SmallLabel(s), 750 + 370, y);
+            addObject(new SmallLabel(s), 150, y);           // human side
+            addObject(new SmallLabel(s), 750 + 370, y);     // robot side
             y += 80;
         }
     }
